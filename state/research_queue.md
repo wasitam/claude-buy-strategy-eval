@@ -72,7 +72,31 @@ combined bar). Only the grid's most aggressive tilt_strength=2.0 arm
 (2/16 configs) passed both bars -- can't be promoted per sec 4.4's own
 rule. DSR effectively zero.
 
-**Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):** the
+Idea #14 (drawdown-from-high reserve deployment) has been taken from the
+queue and used for family `014-drawdown-reserve`; see
+`families/014-drawdown-reserve/` (REJECTED). Assessed as a **single-asset
+family** (sec 4.1 Single-asset line) across all 5 core assets, category
+Sizing/valuation. Included the rigorous SmartDCA-distinction argument
+required by sec 7.2 (all-time-high ratchet vs. SmartDCA's trailing moving
+average -- see prereg.md). Sec 4.1: primary config (`near_high_mult=1.0`)
+beats DCA on 0/5 core assets -- its results are numerically identical to
+plain DCA on every asset, because `near_high_mult=1.0` means no cash
+reserve is ever banked near the high, so the engine's own no-leverage cash
+cap silently clips every in-drawdown "buy more" request back down to that
+week's own deposit. Two independent implementation-check reference points
+(an `enabled=False` bypass flag, and the real `ladder=flat,
+near_high_mult=1.0` grid arm run through the actual signal computation)
+both confirmed the strategy code itself is correct -- the DCA-identical
+result is a genuine finding about the primary parameter choice, not a bug.
+Grid: 0/32 configs (0.0%) reach the majority bar; DSR exactly 0.
+
+This was the **last idea from the original sec 7.3 seed queue** (#1-14,
+minus #9/#12 skipped by owner decision). The queue below (#15-18, added
+last iteration) now carries the loop forward; per sec 8 step 2, the next
+iteration checks whether >=5 ideas remain and researches more if not (4
+remain, one below the threshold -- the next iteration's first task).
+
+**Queue replenishment (2026-09-25, prior iteration, plan sec 8 step 2):** the
 queue was down to 2 remaining ideas (#13, #14) after #11 was taken, below
 the sec 8 step-2 threshold of 5. 4 new ideas were added below after a
 literature search (SSRN/arXiv q-fin/practitioner sources), each chosen to

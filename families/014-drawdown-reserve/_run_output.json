@@ -1,0 +1,53 @@
+{
+  "impl_checks": {
+    "degenerate_bypass_equals_dca": true,
+    "flat_zero_effect_grid_arm_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 32,
+  "n_total_raw": 483,
+  "n_eff": 56,
+  "dsr_neff": {
+    "dsr": 0.0,
+    "sr": 0.0,
+    "sr_annualized": 0.0,
+    "sr0": 0.14985482884227258,
+    "n": 4800,
+    "n_eff": 56,
+    "skew": NaN,
+    "kurtosis": NaN
+  },
+  "dsr_rawn": {
+    "dsr": 0.0,
+    "sr": 0.0,
+    "sr_annualized": 0.0,
+    "sr0": 0.1718373702069285,
+    "n": 4800,
+    "n_eff": 483,
+    "skew": NaN,
+    "kurtosis": NaN
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg07_alunb_ladmoderate_nhm1.0_mlc3.0",
+  "primary_trial_id": "new_014_cfg07_alunb_ladmoderate_nhm1.0_mlc3.0"
+}
