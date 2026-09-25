@@ -155,7 +155,7 @@ parameters, at the sec 3.4 ceiling).
 ## Primary configuration
 
 `illiq_lookback=252, elevated_pct=95, decay_days=5, buy_multiplier=2.0,
-calm_fraction=0.90` (`max_buy_multiple=4.0` fixed).
+calm_fraction=0.95` (`max_buy_multiple=4.0` fixed).
 
 ## Expected sign of the effect
 

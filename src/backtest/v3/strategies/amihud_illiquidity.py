@@ -171,7 +171,7 @@ GRID = {
 }
 PRIMARY_CONFIG = {
     "illiq_lookback": 252, "elevated_pct": 95.0, "decay_days": 5,
-    "buy_multiplier": 2.0, "calm_fraction": 0.90,
+    "buy_multiplier": 2.0, "calm_fraction": 0.95,
 }
 
 

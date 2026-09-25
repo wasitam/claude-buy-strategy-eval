@@ -53,3 +53,24 @@ decider -- the check re-verifies that invariant empirically instead of
 approximating it with a flat percentage. No backtest results were computed
 or discarded before this fix; it was caught by the implementation-check
 gate itself, before the grid ran, per its intended purpose.
+
+## 2026-09-25 — family 021, primary config not a member of its own grid
+
+`scripts/v3/run_021_amihud_illiquidity.py`'s first run completed the full
+32-config grid successfully (trial series correctly written to
+`state/trials/new_021_*.csv`, `state/trial_counter.json` correctly
+incremented by 32 new trials + 1 new family, N_eff computed at 69 across
+all 651 trials), then crashed in `configs.index(ami.PRIMARY_CONFIG)`: the
+strategy module's `PRIMARY_CONFIG["calm_fraction"]` was `0.90`, but
+`GRID["calm_fraction"]` only listed `[0.85, 0.95]` -- the same class of
+mistake already caught and fixed pre-backtest for `buy_multiplier`
+(`state/bugfix_log.md`'s prior entry this iteration), missed here because
+`calm_fraction` was checked only by eye, not re-verified programmatically
+before the grid ran. Fixed by changing `PRIMARY_CONFIG["calm_fraction"]` to
+`0.95` (an existing grid point) and the matching text in prereg.md, then
+rerunning the SAME script. The idempotency marker
+(`families/021-amihud-illiquidity/_grid_counted.marker`) correctly
+prevented a second trial-count increment on the rerun -- the 32-config
+grid and its 651-trial N_eff computation were re-executed (results
+identical, since no grid config or engine logic changed, only which
+already-computed config is looked up as "primary"), not double-counted.
