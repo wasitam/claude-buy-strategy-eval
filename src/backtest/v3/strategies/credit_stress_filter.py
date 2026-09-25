@@ -54,56 +54,54 @@ def fetch_raw_signal(signal_choice: str) -> pd.Series:
         raise ValueError(f"unknown signal_choice {signal_choice!r}")
 
 
-def build_pointintime_daily_signal(index: pd.DatetimeIndex, signal_choice: str,
-                                    lag_override_days: int | None = None) -> pd.Series:
-    """Point-in-time signal, forward-filled onto `index` (an asset's daily
-    trading-day index). `lag_override_days`, if given, replaces the
-    documented lag -- used ONLY by the lag-sensitivity implementation check
-    (prereg.md), never in a real backtest."""
+def _stressed_at_signal_dates(signal_choice: str, lookback_years: int, stress_pctile: float,
+                               lag_override_days: int | None = None) -> pd.Series:
+    """Computes the stressed/not-stressed boolean at the (few hundred) raw
+    signal observation dates only -- O(n^2) in the signal's own low-
+    frequency observation count (~1300 for monthly BAA/AAA since 1919,
+    ~2900 for weekly NFCI since 1971), not in the asset's daily trading-day
+    count, which would make this quadratic in the wrong (large) dimension.
+    Index = the point-in-time 'usable from' date (observation date + lag).
+    Percentile rank is computed over a trailing window of
+    lookback_years*365.25 calendar days of the signal's OWN observation
+    dates, so a monthly series' effective lookback in months is unaffected
+    by how many trading days any given asset happens to have."""
     raw = fetch_raw_signal(signal_choice)
     lag = lag_override_days if lag_override_days is not None else (
         CREDIT_SPREAD_LAG_DAYS if signal_choice == "credit_spread" else NFCI_LAG_DAYS
     )
     lagged = _lagged_pointintime(raw, lag)
-    daily_range = pd.date_range(index.min() - pd.Timedelta(days=400), index.max(), freq="D")
-    daily = lagged.reindex(lagged.index.union(daily_range)).sort_index().ffill().reindex(daily_range)
-    return daily.reindex(index, method="ffill")
+    vals = lagged.to_numpy()
+    dates = lagged.index.values.astype("datetime64[D]")
+    window_days = int(lookback_years * 365.25)
+    n = len(vals)
+    stressed = np.zeros(n, dtype=bool)
+    for i in range(n):
+        window_start = dates[i] - np.timedelta64(window_days, "D")
+        lo = np.searchsorted(dates, window_start, side="left")
+        window_vals = vals[lo:i + 1]
+        if len(window_vals) < 2:
+            continue
+        pct = 100.0 * (window_vals <= vals[i]).mean()
+        stressed[i] = pct >= stress_pctile
+    return pd.Series(stressed, index=lagged.index)
 
 
 def compute_stressed(daily: pd.DataFrame, signal_choice: str, lookback_years: int,
                       stress_pctile: float, lag_override_days: int | None = None) -> np.ndarray:
     """Boolean array, True = stressed regime, aligned to daily.index. Uses
-    ONLY the point-in-time signal (no asset price). Percentile rank is
-    computed over a trailing, expanding-until-full window of length
-    lookback_years*365.25 calendar days worth of the *signal's own*
-    observation dates (not trading days), so a monthly series' effective
-    lookback in months is unaffected by how many trading days the asset
-    happens to have.
-    Before the window has >=2 observations, defaults to NOT stressed
-    (behaves like plain DCA during signal warm-up, per prereg.md)."""
-    sig_daily = build_pointintime_daily_signal(daily.index, signal_choice, lag_override_days)
-    vals = sig_daily.to_numpy()
-    idx = sig_daily.index
-    window_days = int(lookback_years * 365.25)
-    stressed = np.zeros(len(vals), dtype=bool)
-    # Use searchsorted over the signal's own change-points for speed: since
-    # vals is forward-filled (constant between signal updates), we only need
-    # to recompute the percentile when vals[t] != vals[t-1], but a plain
-    # rolling loop keyed on dates is simplest and clear -- guard with a
-    # reasonably large default of NaN-safe handling.
-    dates = idx.values.astype("datetime64[D]")
-    vals_valid = ~pd.isna(vals)
-    for t in range(len(vals)):
-        if not vals_valid[t]:
-            continue
-        window_start = dates[t] - np.timedelta64(window_days, "D")
-        mask = (dates >= window_start) & (dates <= dates[t]) & vals_valid
-        window_vals = vals[mask]
-        if len(window_vals) < 2:
-            continue
-        pct = 100.0 * (window_vals <= vals[t]).mean()
-        stressed[t] = pct >= stress_pctile
-    return stressed
+    ONLY the point-in-time signal (no asset price). Before the signal's
+    first usable ('point-in-time') date, defaults to NOT stressed (behaves
+    like plain DCA during signal warm-up, per prereg.md)."""
+    stressed_at_signal_dates = _stressed_at_signal_dates(
+        signal_choice, lookback_years, stress_pctile, lag_override_days
+    )
+    daily_range = pd.date_range(daily.index.min() - pd.Timedelta(days=1), daily.index.max(), freq="D")
+    full = stressed_at_signal_dates.reindex(
+        stressed_at_signal_dates.index.union(daily_range)
+    ).sort_index().ffill().reindex(daily_range).fillna(False)
+    aligned = full.reindex(daily.index, method="ffill").fillna(False)
+    return aligned.to_numpy().astype(bool)
 
 
 def make_credit_stress_decider(
@@ -131,6 +129,30 @@ def make_credit_stress_decider(
             if is_week_end[t]:
                 return cash, 0.0, {}
             return 0.0, 0.0, {}
+        if not is_week_end[t]:
+            return 0.0, 0.0, {}
+        if stressed[t]:
+            target_buy_usd = stress_tilt_fraction * weekly_deposit
+        else:
+            target_buy_usd = min(cash, max_lump_multiple * weekly_deposit)
+        return target_buy_usd, 0.0, {"stressed": bool(stressed[t])}
+
+    return decide
+
+
+def make_decider_from_stressed_array(
+    daily: pd.DataFrame, weekly_deposit: float, stressed: np.ndarray,
+    stress_tilt_fraction: float = 0.0, max_lump_multiple: float = 6.0,
+):
+    """Same banking/lump decision rule as make_credit_stress_decider, but
+    driven by an arbitrary pre-computed `stressed` boolean array instead of
+    recomputing it from a FRED signal -- used by the placebo circular-shift
+    robustness test (sec 4.3), which shifts the regime's TIMING while
+    keeping its overall stressed/calm frequency identical."""
+    from .. import engine as eng
+    is_week_end = eng.week_end_flags(daily.index)
+
+    def decide(t, cash):
         if not is_week_end[t]:
             return 0.0, 0.0, {}
         if stressed[t]:

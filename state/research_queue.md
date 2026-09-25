@@ -53,16 +53,32 @@ margin of any family so far), but DSR (computed on this family's own
 2-asset excess series) was effectively zero and the placebo test's wealth
 leg missed its bar -- see results.md.
 
-Remaining queue (3 ideas -- below the plan sec 8 step 2 threshold of 5; the
-*next* iteration should research and add more before or as part of its own
-run, since this iteration's scope was specifically idea #10 end-to-end,
-not a full queue replenishment):
+Idea #11 (credit-stress risk-off filter) has been taken from the queue and
+used for family `011-credit-stress-filter`; see
+`families/011-credit-stress-filter/` for the verdict.
+
+**Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):** the
+queue was down to 2 remaining ideas (#13, #14) after #11 was taken, below
+the sec 8 step-2 threshold of 5. 4 new ideas were added below after a
+literature search (SSRN/arXiv q-fin/practitioner sources), each chosen to
+(a) be testable on a multi-asset subset of the 5 core assets via free data
+already reachable in this environment (yfinance `^VIX`, `DX-Y.NYB`, or the
+assets' own OHLC -- confirmed reachable, see this iteration's session log),
+(b) not re-tread families 001-010's exact mechanisms or the sec 7.2 closed
+list, and (c) avoid the single-asset-only structural trap flagged in
+family 008's results.md (unlike #9/#12, skipped by owner decision) -- each
+signal below is asset-agnostic (like 006/007/011's precedent) or explicitly
+a relative-value pair, never structurally definable for only one core
+asset.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 11 | Credit-stress risk-off filter (BAA−AAA spread, NFCI) | Regime | Gilchrist & Zakrajšek (2012) |
 | 13 | Momentum-tilted rebalancing (rebalance toward trend winners) | Rebalancing | Asness, Moskowitz & Pedersen (2013) |
 | 14 | Drawdown-from-high reserve deployment (a different reference point than SmartDCA's moving average) | Sizing | Practitioner literature; must justify why it isn't a re-test |
+| 15 | US Dollar Index (DXY) regime rotation: tilt deposits away from dollar-sensitive assets (gold, oil, BTC, and to a lesser extent SP500 via multinational earnings) during confirmed broad-dollar-strength trend regimes, deploy normally/with catch-up otherwise. Asset-agnostic macro signal (`DX-Y.NYB`, confirmed reachable via yfinance), applied per-asset like families 006/007/011. Distinct from every prior family: no prior family uses an FX signal. | Cross-asset rotation / regime switch | "Dollar smile" macro-driver literature (Jen, 2001); classic inverse USD-commodity price literature |
+| 16 | VIX-level contrarian fear-gauge sizing: buy size scales up when the CBOE VIX (`^VIX`, confirmed reachable) sits in an elevated trailing percentile (a market-wide fear/overreaction signal), tilts down when VIX is complacent -- a *contrarian*, short-horizon mean-reversion bet, mechanistically distinct from family 003 (inverse-*realized*-variance sizing, no view on direction) and family 005 (trend-following sign of trailing return). Applied identically across all 5 core assets as a market-wide sentiment gauge, same precedent as 006/007/011. | Volatility targeting / Sizing | Whaley (2000), "The Investor Fear Gauge"; practitioner "buy the VIX spike" literature |
+| 17 | Short-horizon RSI2-style mean-reversion sizing: buy larger when an asset's own short-term (2-3 day) RSI reads oversold, smaller when overbought -- each asset's own price-derived signal (no external data dependency, unlike #15/#16), testable identically on all 5 core assets. Distinct mechanism from every prior family: short-horizon (days, not months/quarters) mean reversion, not trend, valuation, calendar or macro-regime. | Sizing / valuation | Connors & Alvarez (2009), *Short Term Trading Strategies That Work*; Lehmann (1990) and Jegadeesh (1990) short-term reversal literature |
+| 18 | "Halloween effect" / Sell-in-May seasonal deposit timing: bank a larger share of May-October deposits, deploy a catch-up lump-sum tilt into November-April, on a fixed annual calendar window (distinct time horizon and window shape from families 006's turn-of-month weekly window and 007's day-of-week window -- an annual seasonal cycle, not a monthly or weekly one). Calendar-only signal, testable identically on all 5 core assets per the 006/007 scoping precedent. | Seasonality / execution timing | Bouman & Jacobsen (2002), *The Halloween Indicator, "Sell in May and Go Away": Another Puzzle*, American Economic Review |
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
