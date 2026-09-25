@@ -7,11 +7,12 @@ family `002-dual-momentum`; see `families/002-dual-momentum/` (NEAR-MISS).
 Idea #3 (volatility-managed sizing) has been taken from the queue and used
 for family `003-vol-managed-sizing`; see `families/003-vol-managed-sizing/`
 (REJECTED).
+Idea #4 (value averaging) has been taken from the queue and used for family
+`004-value-averaging`; see `families/004-value-averaging/` (NEAR-MISS).
 Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 4 | Value averaging (target-path contributions), scored on wealth, not IRR | Sizing | Edleson (1991); Hayley's critique |
 | 5 | Time-series momentum sizing: scale buys by the sign of the 12-month return | Trend | Moskowitz, Ooi & Pedersen (2012) |
 | 6 | Turn-of-month deposit timing (S&P 500) | Seasonality | Ariel (1987); Lakonishok & Smidt (1988) |
 | 7 | Day-of-week deposit timing (BTC weekend effect) | Seasonality | Crypto calendar-effect literature |
