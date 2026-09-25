@@ -82,6 +82,51 @@ def summarize(daily_result_df: pd.DataFrame, daily_rf: pd.Series, final_close: f
     }
 
 
+def summarize_portfolio(daily_result_df: pd.DataFrame, daily_rf: pd.Series, final_wealth: float) -> dict:
+    """Same as summarize(), but for a portfolio-engine frame that has no
+    single `units`/asset close to derive final wealth from -- the caller
+    (which already has per-asset units and closes) passes final_wealth
+    directly (cash[-1] + sum(units_a[-1]*close_a[-1]) across all assets)."""
+    wk = weekly_from_daily(daily_result_df, None)
+    V = wk["V"].to_numpy()
+    deposit = wk["deposit"].to_numpy()
+    nav = v2met.nav_series(V, deposit)
+    total_invested = float(wk["invested"].iloc[-1])
+    max_dd, longest_uw = v2met.max_drawdown(nav)
+    rfw = weekly_rf(daily_rf, wk.index).reindex(wk.index).fillna(0.0).to_numpy()
+
+    avg_cash_share = float((wk["cash"] / wk["V"].clip(lower=1e-9)).clip(0, 1).mean())
+    n_buys = int((wk["buy_usd"] > 0).sum())
+    n_sells = int((wk["sell_usd"] > 0).sum())
+    total_fees = float(wk["fees_paid"].sum())
+    turnover = float((wk["buy_usd"].sum() + wk["sell_usd"].sum()) / max(total_invested, 1e-9))
+
+    weekly_returns = pd.Series(nav).pct_change().dropna()
+    excess = (weekly_returns.to_numpy() - rfw[1:]) if len(rfw) == len(nav) else weekly_returns.to_numpy()
+
+    return {
+        "total_invested": total_invested,
+        "final_wealth": final_wealth,
+        "wealth_over_invested": final_wealth / total_invested if total_invested else float("nan"),
+        "nav": nav,
+        "week_index": wk.index,
+        "max_drawdown": max_dd,
+        "longest_weeks_underwater": longest_uw,
+        "cagr": v2met.cagr(nav),
+        "annualized_vol": v2met.annualized_vol(nav),
+        "sharpe": v2met.sharpe(nav, rfw),
+        "sortino": v2met.sortino(nav, rfw),
+        "calmar": v2met.calmar(nav),
+        "n_buys": n_buys,
+        "n_sells": n_sells,
+        "total_fees": total_fees,
+        "avg_cash_share": avg_cash_share,
+        "turnover": turnover,
+        "weekly_returns": weekly_returns,
+        "weekly_rf": rfw,
+    }
+
+
 def pooled_excess_series(per_asset_weekly_returns: dict, per_asset_dca_weekly_returns: dict) -> pd.Series:
     """Equal-weight average of each asset's (strategy - DCA) weekly return series
     (plan sec 3.3), aligned on the union of week-end dates."""

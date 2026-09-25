@@ -1,0 +1,24 @@
+{
+  "rolling_3y": {
+    "n_windows": 29,
+    "beats_wealth_frac": 0.7241379310344828,
+    "beats_sharpe_frac": 0.7241379310344828
+  },
+  "bootstrap_raw": {
+    "n_sims": 60,
+    "beats_wealth_frac": 0.45,
+    "beats_sharpe_frac": 0.18333333333333332
+  },
+  "bootstrap_detrended": {
+    "n_sims": 60,
+    "beats_wealth_frac": 0.31666666666666665,
+    "beats_sharpe_frac": 0.31666666666666665
+  },
+  "placebo": {
+    "n_sims": 60,
+    "real_wealth_over_invested": 4.3726942588858835,
+    "real_sharpe": 0.9564050324730032,
+    "percentile_wealth": 56.666666666666664,
+    "percentile_sharpe": 56.666666666666664
+  }
+}

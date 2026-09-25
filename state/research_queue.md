@@ -1,11 +1,13 @@
 # Research queue (research-loop-plan-v3.md sec 7.3)
 
 Idea #1 (10-month/200-day trend exit) has been taken from the queue and used
-for family `001-trend-exit`; see `families/001-trend-exit/`. Remaining queue:
+for family `001-trend-exit`; see `families/001-trend-exit/` (REJECTED).
+Idea #2 (dual momentum rotation) has been taken from the queue and used for
+family `002-dual-momentum`; see `families/002-dual-momentum/` (NEAR-MISS).
+Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 2 | Dual momentum rotation across the 5 assets + T-bills | Rotation | Antonacci (2014) |
 | 3 | Volatility-managed sizing (buy size ∝ 1/realized variance) | Vol targeting | Moreira & Muir (2017); Harvey et al. (2018) |
 | 4 | Value averaging (target-path contributions), scored on wealth, not IRR | Sizing | Edleson (1991); Hayley's critique |
 | 5 | Time-series momentum sizing: scale buys by the sign of the 12-month return | Trend | Moskowitz, Ooi & Pedersen (2012) |
