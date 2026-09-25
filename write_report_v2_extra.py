@@ -53,15 +53,17 @@ def adca_table_md(df: pd.DataFrame) -> str:
 
 def write_report_v2_extra(smartdca_df, adca_df, deep_dive, heatmap_figs, weekly):
     md = []
-    md.append("# SmartDCA / ADCA on Oil and an Energy Stock Index\n\n")
+    md.append("# SmartDCA / ADCA on Oil, an Energy Stock Index, and the S&P 500\n\n")
     md.append(
         "Extends [`report.md`](report.md)'s Strategy A (SmartDCA) and Strategy B (ADCA) tests — unchanged "
-        "code, same parameter grids and robustness methodology — to two assets that, unlike BTC, did NOT rise "
+        "code, same parameter grids and robustness methodology — to three assets that, unlike BTC, did NOT rise "
         "~100x in a decade: **`CL=F`** (WTI crude oil continuous futures — same `=F` convention the spec "
-        "already uses for gold/silver) and **`XLE`** (Energy Select Sector SPDR ETF, a basket of energy "
-        "equities rather than one stock, so results aren't dominated by a single company's idiosyncratic risk). "
-        "Strategy C (the rebalanced BTC/gold/silver portfolio) is a fixed 3-asset construct in the spec and is "
-        "not extended here.\n\n"
+        "already uses for gold/silver), **`XLE`** (Energy Select Sector SPDR ETF, a basket of energy "
+        "equities rather than one stock, so results aren't dominated by a single company's idiosyncratic risk), "
+        "and **`^GSPC`** (the S&P 500 index — a strong long-run uptrend, but nothing like BTC's). "
+        "Strategy C (the rebalanced portfolio) is covered separately in "
+        "[`report_five_asset_rebalance.md`](report_five_asset_rebalance.md), which extends it to 5 assets "
+        "(stocks, gold, silver, BTC, oil) and studies rebalancing frequency directly.\n\n"
     )
     for name, w in weekly.items():
         md.append(f"- **{name}**: {len(w)} weekly candles, {w.index.min().date()} → {w.index.max().date()}\n")

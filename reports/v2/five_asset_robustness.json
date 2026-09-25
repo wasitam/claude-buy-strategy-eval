@@ -1,0 +1,192 @@
+{
+  "C1": {
+    "bands_5_25": {
+      "headline": {
+        "wealth_over_invested": 4.8103036485345525,
+        "sharpe": 1.17608559864191,
+        "max_drawdown": -0.3338096521566096,
+        "n_rebalances": 46.0,
+        "total_fees": 7420.5248487073795,
+        "fees_pct_of_invested": 0.008588570426744652
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.4594594594594595,
+          "win_rate_sharpe": 0.8108108108108109,
+          "fig": "figures/five_asset_C1_bands_5_25_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 33,
+          "win_rate_wealth": 0.5151515151515151,
+          "win_rate_sharpe": 0.8181818181818182,
+          "fig": "figures/five_asset_C1_bands_5_25_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.13333333333333333,
+        "sharpe\n(raw)": 0.8,
+        "wealth\n(detrended)": 0.6833333333333333,
+        "sharpe\n(detrended)": 0.7
+      },
+      "fig_bootstrap": "figures/five_asset_C1_bands_5_25_bootstrap.png"
+    },
+    "calendar_3": {
+      "headline": {
+        "wealth_over_invested": 5.153638618173979,
+        "sharpe": 1.1935633361603049,
+        "max_drawdown": -0.33302157305060587,
+        "n_rebalances": 45.0,
+        "total_fees": 8167.987195442823,
+        "fees_pct_of_invested": 0.009453688883614378
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.6216216216216216,
+          "win_rate_sharpe": 0.7837837837837838,
+          "fig": "figures/five_asset_C1_calendar_3_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 33,
+          "win_rate_wealth": 0.6363636363636364,
+          "win_rate_sharpe": 0.8484848484848485,
+          "fig": "figures/five_asset_C1_calendar_3_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.13333333333333333,
+        "sharpe\n(raw)": 0.7666666666666667,
+        "wealth\n(detrended)": 0.6666666666666666,
+        "sharpe\n(detrended)": 0.6833333333333333
+      },
+      "fig_bootstrap": "figures/five_asset_C1_calendar_3_bootstrap.png"
+    },
+    "calendar_12": {
+      "headline": {
+        "wealth_over_invested": 5.199289918138071,
+        "sharpe": 1.0787700315416984,
+        "max_drawdown": -0.412487096482278,
+        "n_rebalances": 12.0,
+        "total_fees": 4591.084537459465,
+        "fees_pct_of_invested": 0.005313755251689195
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.5675675675675675,
+          "win_rate_sharpe": 0.7567567567567568,
+          "fig": "figures/five_asset_C1_calendar_12_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 33,
+          "win_rate_wealth": 0.696969696969697,
+          "win_rate_sharpe": 0.7878787878787878,
+          "fig": "figures/five_asset_C1_calendar_12_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.11666666666666667,
+        "sharpe\n(raw)": 0.7666666666666667,
+        "wealth\n(detrended)": 0.6833333333333333,
+        "sharpe\n(detrended)": 0.6333333333333333
+      },
+      "fig_bootstrap": "figures/five_asset_C1_calendar_12_bootstrap.png"
+    }
+  },
+  "C2": {
+    "bands_5_25": {
+      "headline": {
+        "wealth_over_invested": 3.5697094827958344,
+        "sharpe": 1.1755742730107221,
+        "max_drawdown": -0.28352750955088135,
+        "n_rebalances": 79.0,
+        "total_fees": 7091.768480811792,
+        "fees_pct_of_invested": 0.008208065371309945
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.4594594594594595,
+          "win_rate_sharpe": 0.6486486486486487,
+          "fig": "figures/five_asset_C2_bands_5_25_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 33,
+          "win_rate_wealth": 0.3333333333333333,
+          "win_rate_sharpe": 0.7272727272727273,
+          "fig": "figures/five_asset_C2_bands_5_25_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.11666666666666667,
+        "sharpe\n(raw)": 0.6166666666666667,
+        "wealth\n(detrended)": 0.48333333333333334,
+        "sharpe\n(detrended)": 0.45
+      },
+      "fig_bootstrap": "figures/five_asset_C2_bands_5_25_bootstrap.png"
+    },
+    "calendar_3": {
+      "headline": {
+        "wealth_over_invested": 3.7192849442708704,
+        "sharpe": 1.216733873747468,
+        "max_drawdown": -0.2763369276318357,
+        "n_rebalances": 45.0,
+        "total_fees": 6405.236182654674,
+        "fees_pct_of_invested": 0.007413467803998465
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.4864864864864865,
+          "win_rate_sharpe": 0.7297297297297297,
+          "fig": "figures/five_asset_C2_calendar_3_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 33,
+          "win_rate_wealth": 0.3939393939393939,
+          "win_rate_sharpe": 0.7878787878787878,
+          "fig": "figures/five_asset_C2_calendar_3_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.11666666666666667,
+        "sharpe\n(raw)": 0.6333333333333333,
+        "wealth\n(detrended)": 0.5666666666666667,
+        "sharpe\n(detrended)": 0.43333333333333335
+      },
+      "fig_bootstrap": "figures/five_asset_C2_calendar_3_bootstrap.png"
+    },
+    "calendar_12": {
+      "headline": {
+        "wealth_over_invested": 4.171408438599668,
+        "sharpe": 1.2311419873374772,
+        "max_drawdown": -0.26361185460056324,
+        "n_rebalances": 12.0,
+        "total_fees": 4956.5132307797985,
+        "fees_pct_of_invested": 0.005736705128217359
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.5405405405405406,
+          "win_rate_sharpe": 0.7837837837837838,
+          "fig": "figures/five_asset_C2_calendar_12_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 33,
+          "win_rate_wealth": 0.5151515151515151,
+          "win_rate_sharpe": 0.7878787878787878,
+          "fig": "figures/five_asset_C2_calendar_12_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.08333333333333333,
+        "sharpe\n(raw)": 0.6333333333333333,
+        "wealth\n(detrended)": 0.5333333333333333,
+        "sharpe\n(detrended)": 0.45
+      },
+      "fig_bootstrap": "figures/five_asset_C2_calendar_12_bootstrap.png"
+    }
+  }
+}

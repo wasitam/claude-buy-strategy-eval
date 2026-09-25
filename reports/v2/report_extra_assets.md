@@ -1,9 +1,10 @@
-# SmartDCA / ADCA on Oil and an Energy Stock Index
+# SmartDCA / ADCA on Oil, an Energy Stock Index, and the S&P 500
 
-Extends [`report.md`](report.md)'s Strategy A (SmartDCA) and Strategy B (ADCA) tests — unchanged code, same parameter grids and robustness methodology — to two assets that, unlike BTC, did NOT rise ~100x in a decade: **`CL=F`** (WTI crude oil continuous futures — same `=F` convention the spec already uses for gold/silver) and **`XLE`** (Energy Select Sector SPDR ETF, a basket of energy equities rather than one stock, so results aren't dominated by a single company's idiosyncratic risk). Strategy C (the rebalanced BTC/gold/silver portfolio) is a fixed 3-asset construct in the spec and is not extended here.
+Extends [`report.md`](report.md)'s Strategy A (SmartDCA) and Strategy B (ADCA) tests — unchanged code, same parameter grids and robustness methodology — to three assets that, unlike BTC, did NOT rise ~100x in a decade: **`CL=F`** (WTI crude oil continuous futures — same `=F` convention the spec already uses for gold/silver), **`XLE`** (Energy Select Sector SPDR ETF, a basket of energy equities rather than one stock, so results aren't dominated by a single company's idiosyncratic risk), and **`^GSPC`** (the S&P 500 index — a strong long-run uptrend, but nothing like BTC's). Strategy C (the rebalanced portfolio) is covered separately in [`report_five_asset_rebalance.md`](report_five_asset_rebalance.md), which extends it to 5 assets (stocks, gold, silver, BTC, oil) and studies rebalancing frequency directly.
 
 - **OIL**: 1362 weekly candles, 2000-08-25 → 2026-09-25
 - **ENERGY**: 1449 weekly candles, 1998-12-25 → 2026-09-25
+- **SP500**: 5152 weekly candles, 1927-12-30 → 2026-09-25
 
 ## Strategy A — SmartDCA
 
@@ -33,6 +34,18 @@ Extends [`report.md`](report.md)'s Strategy A (SmartDCA) and Strategy B (ADCA) t
 | ENERGY | 3 | 2 | on | 1449 | 2.47 | 2.50 | 25.23 | 25.03 | -74.2% | -74.4% | 0.28 | 0.28 |
 | ENERGY | 3 | 3 | off | 1449 | 2.50 | 2.50 | 24.61 | 25.03 | -73.8% | -74.4% | 0.28 | 0.28 |
 | ENERGY | 3 | 3 | on | 1449 | 2.47 | 2.50 | 25.24 | 25.03 | -74.2% | -74.4% | 0.28 | 0.28 |
+| SP500 | 1 | 2 | off | 5152 | 187.98 | 189.61 | 39.92 | 40.62 | -85.6% | -86.0% | 0.19 | 0.19 |
+| SP500 | 1 | 2 | on | 5152 | 190.33 | 189.61 | 41.01 | 40.62 | -85.6% | -86.0% | 0.19 | 0.19 |
+| SP500 | 1 | 3 | off | 5152 | 187.98 | 189.61 | 39.92 | 40.62 | -85.6% | -86.0% | 0.19 | 0.19 |
+| SP500 | 1 | 3 | on | 5152 | 190.33 | 189.61 | 41.01 | 40.62 | -85.6% | -86.0% | 0.19 | 0.19 |
+| SP500 | 2 | 2 | off | 5152 | 186.57 | 189.61 | 39.43 | 40.62 | -85.3% | -86.0% | 0.19 | 0.19 |
+| SP500 | 2 | 2 | on | 5152 | 190.03 | 189.61 | 41.02 | 40.62 | -85.3% | -86.0% | 0.19 | 0.19 |
+| SP500 | 2 | 3 | off | 5152 | 186.54 | 189.61 | 39.46 | 40.62 | -85.3% | -86.0% | 0.19 | 0.19 |
+| SP500 | 2 | 3 | on | 5152 | 190.03 | 189.61 | 41.02 | 40.62 | -85.3% | -86.0% | 0.19 | 0.19 |
+| SP500 | 3 | 2 | off | 5152 | 185.64 | 189.61 | 38.94 | 40.62 | -85.0% | -86.0% | 0.19 | 0.19 |
+| SP500 | 3 | 2 | on | 5152 | 190.11 | 189.61 | 40.99 | 40.62 | -85.0% | -86.0% | 0.19 | 0.19 |
+| SP500 | 3 | 3 | off | 5152 | 185.41 | 189.61 | 39.18 | 40.62 | -85.0% | -86.0% | 0.19 | 0.19 |
+| SP500 | 3 | 3 | on | 5152 | 190.12 | 189.61 | 40.99 | 40.62 | -85.0% | -86.0% | 0.19 | 0.19 |
 
 Full grid: [`smartdca_grid_extra.csv`](smartdca_grid_extra.csv)
 
@@ -43,6 +56,10 @@ Full grid: [`smartdca_grid_extra.csv`](smartdca_grid_extra.csv)
 ![smartdca_ENERGY_wealth](figures/heatmap_smartdca_ENERGY_wealth.png)
 
 ![smartdca_ENERGY_cost](figures/heatmap_smartdca_ENERGY_cost.png)
+
+![smartdca_SP500_wealth](figures/heatmap_smartdca_SP500_wealth.png)
+
+![smartdca_SP500_cost](figures/heatmap_smartdca_SP500_cost.png)
 
 ### OIL — SmartDCA deep dive (rho=2, m_max=3, sweep=on)
 
@@ -110,6 +127,39 @@ Full grid: [`smartdca_grid_extra.csv`](smartdca_grid_extra.csv)
 
 ---
 
+### SP500 — SmartDCA deep dive (rho=2, m_max=3, sweep=on)
+
+- Wealth/invested: **190.03×** vs DCA **189.61×**
+- Avg cost per unit: **41.02** vs DCA **40.62** (HIGHER)
+- MaxDD: -85.3% vs DCA -86.0%; Sharpe: 0.19 vs DCA 0.19
+
+![SP500_value](figures/smartdca_SP500_value.png)
+
+![SP500_buys](figures/smartdca_SP500_buys.png)
+
+![SP500_dd](figures/smartdca_SP500_dd.png)
+
+**Rolling windows vs DCA:**
+
+- 3y: 385 windows, wins on wealth 48.8%, on Sharpe 65.2%
+
+![SP500_rolling3](figures/smartdca_SP500_rolling3y.png)
+
+- 5y: 377 windows, wins on wealth 46.4%, on Sharpe 63.4%
+
+![SP500_rolling5](figures/smartdca_SP500_rolling5y.png)
+
+**Block bootstrap win rate vs DCA:**
+
+- wealth (raw): 45.5%
+- sharpe (raw): 56.0%
+- wealth (detrended): 94.5%
+- sharpe (detrended): 59.0%
+
+![SP500_bootstrap](figures/smartdca_SP500_bootstrap.png)
+
+---
+
 ## Strategy B — ADCA
 
 | Asset | Variant | #Buy | Wealth/Inv | DCA W/I | MaxDD | DCA MaxDD | Sharpe | DCA Sharpe | Avg cash share |
@@ -118,6 +168,8 @@ Full grid: [`smartdca_grid_extra.csv`](smartdca_grid_extra.csv)
 | OIL | B2 | 1362 | 1.64 | 1.69 | -88.3% | -88.3% | 0.25 | 0.25 | 1.9% |
 | ENERGY | B1 | 1449 | 2.51 | 2.50 | -74.1% | -74.4% | 0.29 | 0.28 | 3.8% |
 | ENERGY | B2 | 1449 | 2.49 | 2.50 | -73.4% | -74.4% | 0.28 | 0.28 | 2.1% |
+| SP500 | B1 | 5152 | 189.58 | 189.61 | -86.0% | -86.0% | 0.19 | 0.19 | 0.2% |
+| SP500 | B2 | 5152 | 189.61 | 189.61 | -86.0% | -86.0% | 0.19 | 0.19 | 0.2% |
 
 Full grid: [`adca_grid_extra.csv`](adca_grid_extra.csv)
 
@@ -230,6 +282,62 @@ Full grid: [`adca_grid_extra.csv`](adca_grid_extra.csv)
 - sharpe (detrended): 26.0%
 
 ![ENERGY_B2_bootstrap](figures/adca_B2_ENERGY_bootstrap.png)
+
+---
+
+### SP500 — ADCA B1
+
+- Wealth/invested: **189.58×** vs DCA **189.61×**
+- MaxDD: -86.0% vs DCA -86.0%; Sharpe: 0.19 vs DCA 0.19
+- **Placebo test** (shuffled regime score, 200 sims): real result sits at the **47.0th percentile** on wealth, **48.0th percentile** on Sharpe
+
+![SP500_B1_value](figures/adca_B1_SP500_value.png)
+
+![SP500_B1_dd](figures/adca_B1_SP500_dd.png)
+
+![SP500_B1_placebo](figures/adca_B1_SP500_placebo.png)
+
+**Rolling windows vs DCA:**
+
+- 3y: 385 windows, wins on wealth 5.7%, on Sharpe 10.4%
+- 5y: 377 windows, wins on wealth 5.8%, on Sharpe 7.2%
+
+**Block bootstrap win rate vs DCA:**
+
+- wealth (raw): 29.0%
+- sharpe (raw): 28.5%
+- wealth (detrended): 68.0%
+- sharpe (detrended): 30.0%
+
+![SP500_B1_bootstrap](figures/adca_B1_SP500_bootstrap.png)
+
+---
+
+### SP500 — ADCA B2
+
+- Wealth/invested: **189.61×** vs DCA **189.61×**
+- MaxDD: -86.0% vs DCA -86.0%; Sharpe: 0.19 vs DCA 0.19
+- **Placebo test** (shuffled regime score, 200 sims): real result sits at the **51.0th percentile** on wealth, **49.0th percentile** on Sharpe
+
+![SP500_B2_value](figures/adca_B2_SP500_value.png)
+
+![SP500_B2_dd](figures/adca_B2_SP500_dd.png)
+
+![SP500_B2_placebo](figures/adca_B2_SP500_placebo.png)
+
+**Rolling windows vs DCA:**
+
+- 3y: 385 windows, wins on wealth 7.5%, on Sharpe 11.4%
+- 5y: 377 windows, wins on wealth 8.8%, on Sharpe 13.3%
+
+**Block bootstrap win rate vs DCA:**
+
+- wealth (raw): 22.5%
+- sharpe (raw): 21.5%
+- wealth (detrended): 70.5%
+- sharpe (detrended): 17.0%
+
+![SP500_B2_bootstrap](figures/adca_B2_SP500_bootstrap.png)
 
 ---
 

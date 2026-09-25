@@ -90,7 +90,9 @@ def run_portfolio(
     trigger_mode: str = "bands_5_25",
     fee: float = 0.001,
 ) -> pd.DataFrame:
-    """trigger_mode in {'bands_5_25', 'bands_10_50', 'calendar_quarterly', 'never'}.
+    """trigger_mode in {'bands_X_Y' (X=abs pp, Y=rel %, e.g. 'bands_5_25'),
+    'calendar_<months>' (rebalance every N months, e.g. 'calendar_1' monthly,
+    'calendar_3' quarterly, 'calendar_12' annual), or 'never'.
     'never' is used for the fixed-weight-DCA-never-rebalanced benchmark: deposits
     still route to the most-underweight sleeve each week, but no full rebalance
     (sell) ever fires."""
@@ -101,19 +103,30 @@ def run_portfolio(
     closes = {a: weekly[a]["Close"].reindex(index).to_numpy() for a in assets}
     rf = weekly_rf.reindex(index).fillna(0.0).to_numpy()
 
-    if trigger_mode == "bands_5_25":
-        abs_band, rel_band = 0.05, 0.25
-    elif trigger_mode == "bands_10_50":
-        abs_band, rel_band = 0.10, 0.50
-    elif trigger_mode in ("calendar_quarterly", "never"):
-        abs_band = rel_band = None
+    abs_band = rel_band = None
+    calendar_months = None
+    if trigger_mode == "never":
+        pass
+    elif trigger_mode.startswith("bands_"):
+        _, abs_pp, rel_pct = trigger_mode.split("_")
+        abs_band, rel_band = float(abs_pp) / 100.0, float(rel_pct) / 100.0
+    elif trigger_mode == "calendar_quarterly":  # back-compat alias
+        calendar_months = 3
+    elif trigger_mode.startswith("calendar_"):
+        calendar_months = int(trigger_mode.split("_")[1])
     else:
         raise ValueError(trigger_mode)
 
-    month_arr = pd.Series(index.month, index=index)
-    quarter_start = (month_arr.isin([1, 4, 7, 10])) & (month_arr != month_arr.shift(1).fillna(-1))
-    quarter_start.iloc[0] = True
-    quarter_start = quarter_start.to_numpy()
+    calendar_trigger = np.zeros(n, dtype=bool)
+    if calendar_months is not None:
+        # fire on the first week whose (year*12+month) has advanced by >= calendar_months
+        # since the last fire, starting with a mandatory first-week fire.
+        ym = np.array([d.year * 12 + d.month for d in index])
+        next_fire = ym[0]
+        for t in range(n):
+            if ym[t] >= next_fire:
+                calendar_trigger[t] = True
+                next_fire = ym[t] + calendar_months
 
     units = {a: 0.0 for a in assets}
     cash = 0.0
@@ -186,8 +199,8 @@ def run_portfolio(
         breach = False
         if trigger_mode == "never":
             breach = False
-        elif trigger_mode == "calendar_quarterly":
-            breach = bool(quarter_start[t])
+        elif calendar_months is not None:
+            breach = bool(calendar_trigger[t])
         else:
             breach = any(abs(abs_dev[s]) > abs_band or abs(rel_dev[s]) > rel_band for s in sleeves)
 

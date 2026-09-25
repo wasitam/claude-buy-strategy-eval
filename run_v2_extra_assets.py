@@ -4,11 +4,12 @@ on a third kind of asset. Strategy C (rebalanced portfolio) is intentionally
 NOT extended here -- it's a fixed BTC/gold/silver construct in the spec.
 
 Assets added:
-  - CL=F  : WTI crude oil continuous futures ("oil index"), same =F
-            convention the spec already uses for gold/silver.
-  - XLE   : Energy Select Sector SPDR ETF ("energy stock" -- a basket of
-            energy equities, since a single stock's idiosyncratic risk
-            makes it a poor stand-in for "energy" generally).
+  - CL=F   : WTI crude oil continuous futures ("oil index"), same =F
+             convention the spec already uses for gold/silver.
+  - XLE    : Energy Select Sector SPDR ETF ("energy stock" -- a basket of
+             energy equities, since a single stock's idiosyncratic risk
+             makes it a poor stand-in for "energy" generally).
+  - ^GSPC  : S&P 500 index ("stocks").
 
 Run with:  .venv/bin/python run_v2_extra_assets.py
 """
@@ -42,7 +43,7 @@ N_ROLLING_STEP = 13
 N_BOOTSTRAP_SINGLE = 200
 N_PLACEBO = 200
 
-EXTRA_TICKERS = {"OIL": "CL=F", "ENERGY": "XLE"}
+EXTRA_TICKERS = {"OIL": "CL=F", "ENERGY": "XLE", "SP500": "^GSPC"}
 
 
 def log(msg):

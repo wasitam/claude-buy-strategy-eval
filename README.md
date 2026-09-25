@@ -37,13 +37,27 @@ the markdown report.
 **Extra-asset check:** BTC's ~100x decade-long rise makes it an outlier for
 SmartDCA/ADCA (a strategy that trims buys above trend loses out when the
 trend basically never stops). [`reports/v2/report_extra_assets.md`](reports/v2/report_extra_assets.md)
-reruns the identical SmartDCA/ADCA code on WTI crude oil (`CL=F`) and an
-energy-sector ETF (`XLE`) — both range-bound, non-100x assets — via
-`python run_v2_extra_assets.py`. There, unlike on BTC/gold/silver, SmartDCA
-*does* beat plain DCA in most of the grid (~92% of combos on oil, ~67% on
-the energy ETF), supporting the idea that the strategy's failure on v2's
-three original assets was driven by their persistent uptrends, not a flaw
-in the method itself.
+reruns the identical SmartDCA/ADCA code on WTI crude oil (`CL=F`), an
+energy-sector ETF (`XLE`), and the S&P 500 (`^GSPC`) — via
+`python run_v2_extra_assets.py`. There's a clean gradient: SmartDCA beats
+plain DCA in ~92% of the grid on oil (no persistent trend), ~67% on the
+energy ETF, exactly 50% on the S&P 500 (a real but much milder uptrend than
+BTC), and 0% on BTC/gold/silver — supporting the idea that the strategy's
+failure on v2's three original assets tracks how strong/persistent each
+asset's trend is, not a flaw in the method itself.
+
+**How often to rebalance:** [`reports/v2/report_five_asset_rebalance.md`](reports/v2/report_five_asset_rebalance.md)
+extends Strategy C's portfolio engine from 3 to 5 assets (S&P 500, gold,
+silver, BTC, oil) and sweeps 9 rebalancing schedules — from tight 2pp/10%
+drift bands to a full year between rebalances — via
+`python run_v2_five_asset_rebalance.py`. Headline: rebalancing at all beats
+never rebalancing by a wide margin on Sharpe (~1.2 vs ~0.86) and drawdown
+(~-33% vs ~-60%), but frequency barely matters *within* a sensible range —
+**quarterly-to-semiannual (or, equivalently, medium-width 10/50 bands) sits
+at the sweet spot**: monthly rebalancing or tight bands roughly double the
+number of trades and triple the fee drag for no better (sometimes worse)
+risk-adjusted return, while annual rebalancing starts to let drawdowns creep
+back up as weights drift too far between corrections.
 
 ## v1 — buy-the-dip / trim-the-spike (superseded)
 
