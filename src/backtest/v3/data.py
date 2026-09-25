@@ -72,7 +72,16 @@ def _fetch_yf_raw(name: str, ticker: str, force: bool = False) -> pd.DataFrame:
     for col in ["Open", "High", "Low", "Close"]:
         if col in df.columns:
             df = df[df[col] > 0]
-    return df[["Open", "High", "Low", "Close"]].sort_index()
+    # Volume (added for family 021's Amihud illiquidity signal; see
+    # families/021-amihud-illiquidity/prereg.md's data-feasibility section).
+    # Deliberately NOT filtered to >0 here (unlike OHLC above): a zero- or
+    # missing-volume day is a valid data point whose Amihud ratio is
+    # undefined, and callers must handle that explicitly (see
+    # src/backtest/v3/strategies/amihud_illiquidity.py) rather than have
+    # rows silently dropped from the cached OHLCV series.
+    if "Volume" not in df.columns:
+        df["Volume"] = float("nan")
+    return df[["Open", "High", "Low", "Close", "Volume"]].sort_index()
 
 
 def _fetch_irx_raw(force: bool = False) -> pd.DataFrame:
