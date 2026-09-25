@@ -1,0 +1,1 @@
+family_id,idea,category,verdict,date,n_at_assessment,n_eff_at_assessment,dsr_at_assessment,beats_dca_assets_count,beats_dca_at_both_fees,rolling_window_pass_rate,bootstrap_pass_rate,placebo_percentile,grid_frac_beats_dca,cscv_pbo,holdout_opened,holdout_result,notes
