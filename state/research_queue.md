@@ -119,5 +119,24 @@ asset.
 | 17 | Short-horizon RSI2-style mean-reversion sizing: buy larger when an asset's own short-term (2-3 day) RSI reads oversold, smaller when overbought -- each asset's own price-derived signal (no external data dependency, unlike #15/#16), testable identically on all 5 core assets. Distinct mechanism from every prior family: short-horizon (days, not months/quarters) mean reversion, not trend, valuation, calendar or macro-regime. | Sizing / valuation | Connors & Alvarez (2009), *Short Term Trading Strategies That Work*; Lehmann (1990) and Jegadeesh (1990) short-term reversal literature |
 | 18 | "Halloween effect" / Sell-in-May seasonal deposit timing: bank a larger share of May-October deposits, deploy a catch-up lump-sum tilt into November-April, on a fixed annual calendar window (distinct time horizon and window shape from families 006's turn-of-month weekly window and 007's day-of-week window -- an annual seasonal cycle, not a monthly or weekly one). Calendar-only signal, testable identically on all 5 core assets per the 006/007 scoping precedent. | Seasonality / execution timing | Bouman & Jacobsen (2002), *The Halloween Indicator, "Sell in May and Go Away": Another Puzzle*, American Economic Review |
 
+Idea #15 (DXY / US Dollar Index regime rotation) has been taken from the
+queue and used for family `015-dxy-regime`; see `families/015-dxy-regime/`
+for the verdict.
+
+**Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):**
+after #15 was taken, 3 ideas remained (#16-18), below the sec 8 step-2
+threshold of 5. 3 new ideas were added below after a literature search,
+each chosen to (a) be testable on the 5 core assets (or explicitly flagged
+if a data-availability caveat applies, to be resolved at that family's own
+gate step), (b) not re-tread families 001-015's exact mechanisms or the
+sec 7.2 closed list, and (c) avoid the single-asset-only structural trap
+flagged in family 008's results.md.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 19 | OECD Composite Leading Indicator (CLI) regime switch: bank deposits when the US CLI (FRED `USALOLITONOSTSAM`, monthly, ALFRED-revisable) reads below its own trailing-normalized threshold (signaling below-trend / weakening economic momentum), deploy normally or with catch-up when the CLI is at/above it. Asset-agnostic macro regime signal, applied per-asset like 006/007/011. Distinct from family 011 (a credit/financial-conditions spread, not a composite leading-activity index) and from v2.1 Strategy D (policy-rate stance, not real-economy activity) -- must state this distinction explicitly in prereg.md, same discipline family 011 used for its own v2.1 distinction. | Regime switch (macro) | OECD (2026), Composite Leading Indicators; series construction background in Conference Board/OECD leading-indicator literature |
+| 20 | 52-week-high proximity momentum tilt: buy size scales up as an asset's own trailing close approaches (or sits at/near) its trailing 52-week high, scales down the further below it the price sits -- a price-anchoring momentum signal, price-only (no external data dependency), testable identically on all 5 core assets. Mechanistically distinct from family 001 (binary moving-average trend exit) and family 005 (sign-only 12-month time-series momentum): this is a continuous, anchor-based signal on distance-from-52-week-high itself, which George & Hwang (2004) show has separate, additive forecasting power beyond a plain trailing-return momentum signal. | Trend / time-series momentum exit | George, T.J. and Hwang, C.-Y. (2004), "The 52-Week High and Momentum Investing," *Journal of Finance* 59(5), 2145-2176 |
+| 21 | Amihud illiquidity-shock sizing: buy larger on/after days where an asset's own Amihud illiquidity ratio (|daily return| / dollar volume) spikes into an elevated trailing percentile (a proxy for a forced-selling / liquidity-shock episode where price impact is unusually large per dollar traded), on the hypothesis that such shocks are disproportionately compensated and tend to mean-revert. Price-and-volume-only signal, no macro dependency, testable per-asset. **Data caveat, to be resolved at this idea's own sec 8 step-3 gate:** `src/backtest/v3/data.py`'s cached OHLC currently drops the `Volume` column (Open/High/Low/Close only) -- adding it back for all 5 core assets (yfinance provides Volume for all of them, including futures/BTC) is expected to be a small, contained change to `_fetch_yf_raw`, but must be verified (and, if BTC/futures volume proves unreliable pre-a certain date, flagged) before this family's implementation step, not assumed. | Sizing / valuation | Amihud, Y. (2002), "Illiquidity and Stock Returns: Cross-Section and Time-Series Effects," *Journal of Financial Markets* 5(1), 31-56 |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).

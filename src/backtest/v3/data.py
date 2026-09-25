@@ -105,6 +105,29 @@ def fetch_fred_macro(series_id: str, force: bool = False) -> pd.Series:
     return s.dropna().sort_index()
 
 
+def fetch_yf_macro(ticker: str) -> pd.Series:
+    """Public yfinance macro-series fetch for a NON-core ticker (e.g. the
+    US Dollar Index `DX-Y.NYB` for family 015's DXY regime signal).
+    Deliberately routed through data.py (not called directly from a
+    strategy module) so the yfinance-direct-call leak check still catches
+    any OTHER module that bypasses this gate, mirroring fetch_fred_macro's
+    role for FRED series. Refuses any ticker already in CORE_TICKERS or
+    UNSEEN_TICKERS -- those must go through load_dev()/open_holdout() only,
+    so this function can never become a side-channel around the dev/holdout
+    date gate. Returns the raw Close series exactly as published (the
+    caller is responsible for any point-in-time/lag handling, though for a
+    market-price index like DXY -- unlike a survey-based macro release --
+    there is no publication lag: the close is observable same-day)."""
+    if ticker in CORE_TICKERS.values() or ticker in UNSEEN_TICKERS.values():
+        raise PermissionError(
+            f"fetch_yf_macro({ticker!r}): refusing a core/unseen asset ticker -- "
+            "use load_dev()/open_holdout() for asset OHLC, never this function."
+        )
+    name = "MACRO_" + ticker.replace("=", "_").replace("^", "").replace(".", "_")
+    raw = _fetch_yf_raw(name, ticker)
+    return raw["Close"].dropna().sort_index()
+
+
 def _daily_rf(index: pd.DatetimeIndex) -> pd.Series:
     irx = _fetch_irx_raw()
     s = irx["Close"].reindex(irx.index.union(index)).sort_index().ffill().reindex(index).ffill().bfill()
