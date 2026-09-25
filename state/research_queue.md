@@ -253,8 +253,18 @@ section, per that same owner decision's precedent.
 
 Idea #21 (Amihud illiquidity-shock sizing) has been taken from the queue
 and used for family `021-amihud-illiquidity`; see
-`families/021-amihud-illiquidity/` for the verdict (see results.md for the
-Volume-data feasibility finding and full assessment).
+`families/021-amihud-illiquidity/` (REJECTED). Volume-data feasibility was
+confirmed for all 5 core assets (see prereg.md/results.md -- SILVER is the
+noisiest but still workable; no asset required exclusion). Assessed as a
+single-asset family across all 5 core assets, category **Sizing /
+valuation**. Sec 4.1: primary config beats DCA on wealth AND Sharpe on
+**0/5** core assets -- underperforms DCA on wealth on every asset (most
+assets show a small Sharpe improvement alongside a small wealth loss, the
+same "Sharpe wins, wealth lags" pattern several mechanism-agnostic sizing
+families in this loop have shown). Grid: 0/32 configs (0.0%) reach the
+majority bar, tied with family 019 for the weakest grid result so far. DSR
+effectively zero (negative raw pooled excess Sharpe). Sec 4.3 not run
+(only run when sec 4.1 passes).
 
 3 ideas remain (#22-24) plus the 3 just added (#25-27) = 6 ideas, above the
 sec 8 step-2 threshold of 5 -- no further replenishment needed before the

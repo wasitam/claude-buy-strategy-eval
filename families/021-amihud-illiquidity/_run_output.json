@@ -1,0 +1,85 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_weekend_days": 4801,
+      "frac_weekend_elevated": 0.1320558217038117,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_weekend_days": 1010,
+      "frac_weekend_elevated": 0.1712871287128713,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_weekend_days": 1010,
+      "frac_weekend_elevated": 0.1801980198019802,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_weekend_days": 277,
+      "frac_weekend_elevated": 0.09747292418772563,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "n_weekend_days": 1011,
+      "frac_weekend_elevated": 0.18595450049455983,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 32,
+  "n_total_raw": 651,
+  "n_eff": 69,
+  "dsr_neff": {
+    "dsr": 1.6524154819321916e-33,
+    "sr": -0.025400922544005035,
+    "sr_annualized": -0.1831686573529987,
+    "sr0": 0.14812604954205408,
+    "n": 4800,
+    "n_eff": 69,
+    "skew": -0.05955674827602563,
+    "kurtosis": 25.939857795543578
+  },
+  "dsr_rawn": {
+    "dsr": 2.2407824595029573e-38,
+    "sr": -0.025400922544005035,
+    "sr_annualized": -0.1831686573529987,
+    "sr0": 0.16105230778540788,
+    "n": 4800,
+    "n_eff": 651,
+    "skew": -0.05955674827602563,
+    "kurtosis": 25.939857795543578
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.1,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg27_lb252_ep95_dd5_bm2.0_cf0.95",
+  "primary_trial_id": "new_021_cfg27_lb252_ep95_dd5_bm2.0_cf0.95"
+}
