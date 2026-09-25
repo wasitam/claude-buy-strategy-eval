@@ -1,0 +1,52 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_cape": true,
+    "no_lookahead": true,
+    "no_lookahead_1990": true,
+    "no_lookahead_2018": true,
+    "point_in_time_macro": true,
+    "never_exceeds_cumulative_deposits": true
+  },
+  "n_seed": 196,
+  "n_new": 32,
+  "n_total_raw": 384,
+  "n_eff": 38,
+  "dsr_neff": {
+    "dsr": 6.803406358283364e-31,
+    "sr": -0.014897304828995534,
+    "sr_annualized": -0.10742599285432139,
+    "sr0": 0.15127667390247082,
+    "n": 4800,
+    "n_eff": 38,
+    "skew": 0.013521268270366534,
+    "kurtosis": 42.38019158161574
+  },
+  "dsr_rawn": {
+    "dsr": 7.38891332384305e-42,
+    "sr": -0.014897304828995534,
+    "sr_annualized": -0.10742599285432139,
+    "sr0": 0.18028210076604825,
+    "n": 4800,
+    "n_eff": 384,
+    "skew": 0.013521268270366534,
+    "kurtosis": 42.38019158161574
+  },
+  "check_4_1_diagnostic": {
+    "beats_dca_both_metrics_fee0.1pct": false,
+    "beats_dca_both_metrics_fee0.25pct": false,
+    "note": "single-asset (SP500-only) result; sec 4.1's >=3/5-core-assets rule cannot be satisfied by construction (see prereg.md scoping decision) -- reported as a diagnostic, not scored pass/fail."
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_beat_dca_both_fees": 0.09375,
+    "pass_if_scored": false
+  },
+  "cscv_pbo": {
+    "pbo": 0.24285714285714285,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg23_wy20_lo20_hi80_mx2.0_mn0.5",
+  "primary_trial_id": "new_008_cfg23_wy20_lo20_hi80_mx2.0_mn0.5"
+}

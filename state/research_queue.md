@@ -17,11 +17,20 @@ used for family `006-turn-of-month`; see `families/006-turn-of-month/`
 Idea #7 (day-of-week deposit timing) has been taken from the queue and
 used for family `007-day-of-week`; see `families/007-day-of-week/`
 (REJECTED).
+Idea #8 (CAPE / earnings-yield valuation sizing) has been taken from the
+queue and used for family `008-cape-valuation`; see
+`families/008-cape-valuation/` (REJECTED -- structural: the mechanism is
+only definable for S&P 500 among the 5 core assets, so sec 4.1's
+>=3/5-core-assets rule cannot be satisfied by construction; run as a
+documented SP500-only diagnostic instead, whose own result was also weak.
+See families/008-cape-valuation/results.md "Flag for the owner" -- ideas
+#9 and #12 below have the same structural issue and should be read with
+that in mind when their turn comes).
+
 Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 8 | CAPE / earnings-yield valuation sizing (S&P 500) | Sizing / valuation | Shiller; Asness et al. |
 | 9 | BTC on-chain valuation sizing (MVRV, realized price) | Sizing / valuation | Glassnode / CoinMetrics research |
 | 10 | Gold/silver ratio rotation | Rotation | Relative-value commodity literature |
 | 11 | Credit-stress risk-off filter (BAA−AAA spread, NFCI) | Regime | Gilchrist & Zakrajšek (2012) |
