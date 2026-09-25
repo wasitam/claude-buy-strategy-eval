@@ -1,0 +1,49 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_trend": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 18,
+  "n_total_raw": 214,
+  "n_eff": 30,
+  "dsr_neff": {
+    "dsr": 9.325548908946212e-21,
+    "sr": 0.003354065613879494,
+    "sr_annualized": 0.024186511104226233,
+    "sr0": 0.13786508166923442,
+    "n": 4800,
+    "n_eff": 30,
+    "skew": -2.961141208315622,
+    "kurtosis": 194.9436278376024
+  },
+  "dsr_rawn": {
+    "dsr": 2.3411119614551707e-40,
+    "sr": 0.003354065613879494,
+    "sr_annualized": 0.024186511104226233,
+    "sr0": 0.19558031430922923,
+    "n": 4800,
+    "n_eff": 214,
+    "skew": -2.961141208315622,
+    "kurtosis": 194.9436278376024
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 1,
+    "beats_dca_count_fee0.25pct": 1,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg06_sma210_cd0_sx0",
+  "primary_trial_id": "new_001_cfg06_sma210_cd0_sx0"
+}
