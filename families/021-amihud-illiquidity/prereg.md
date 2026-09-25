@@ -145,7 +145,7 @@ results.md's implementation-checks table).
 | `illiq_lookback` | Trailing window (trading days) for the percentile rank | 126, 252 |
 | `elevated_pct` | Percentile threshold (0-100) marking an illiquidity shock | 90, 95 |
 | `decay_days` | How many trading days an elevated regime persists after its last trigger | 5, 10 |
-| `buy_multiplier` | Multiple of `weekly_deposit` bought on an elevated-regime week-end (cash-capped) | 1.5, 2.5 |
+| `buy_multiplier` | Multiple of `weekly_deposit` bought on an elevated-regime week-end (cash-capped) | 1.5, 2.0 |
 | `calm_fraction` | Fraction of `weekly_deposit` bought on a calm week-end (remainder banked) | 0.85, 0.95 |
 | `max_buy_multiple` (fixed) | Hard ceiling on any single week's buy relative to `weekly_deposit` | 4.0 |
 
@@ -224,7 +224,7 @@ successful non-degeneracy pass).
 1. `enabled=False` bypass reproduces plain DCA bit-for-bit (units, cash).
 2. Cash and positions never negative, for the DCA baseline, the primary
    config, and the grid's most aggressive corner
-   (`elevated_pct=90, buy_multiplier=2.5, calm_fraction=0.85,
+   (`elevated_pct=90, buy_multiplier=2.0, calm_fraction=0.85,
    decay_days=10`).
 3. Capital deployed never exceeds cumulative deposits + interest, for the
    primary config and the aggressive corner.
