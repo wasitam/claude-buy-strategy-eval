@@ -9,11 +9,12 @@ for family `003-vol-managed-sizing`; see `families/003-vol-managed-sizing/`
 (REJECTED).
 Idea #4 (value averaging) has been taken from the queue and used for family
 `004-value-averaging`; see `families/004-value-averaging/` (NEAR-MISS).
+Idea #5 (time-series momentum sizing) has been taken from the queue and used
+for family `005-tsmom-sizing`; see `families/005-tsmom-sizing/` (NEAR-MISS).
 Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 5 | Time-series momentum sizing: scale buys by the sign of the 12-month return | Trend | Moskowitz, Ooi & Pedersen (2012) |
 | 6 | Turn-of-month deposit timing (S&P 500) | Seasonality | Ariel (1987); Lakonishok & Smidt (1988) |
 | 7 | Day-of-week deposit timing (BTC weekend effect) | Seasonality | Crypto calendar-effect literature |
 | 8 | CAPE / earnings-yield valuation sizing (S&P 500) | Sizing / valuation | Shiller; Asness et al. |
