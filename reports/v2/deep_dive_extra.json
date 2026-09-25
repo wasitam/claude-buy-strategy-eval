@@ -1,0 +1,390 @@
+{
+  "smartdca": {
+    "OIL": {
+      "metrics": {
+        "total_invested": 681000.0,
+        "final_wealth": 1167214.952649676,
+        "wealth_over_invested": 1.7139720303225785,
+        "max_drawdown": -0.87679789523458,
+        "longest_weeks_underwater": 951,
+        "cagr": 0.04082065885140773,
+        "annualized_vol": 0.38742290919891614,
+        "sharpe": 0.25081259105838183,
+        "sortino": 0.35333542391872863,
+        "calmar": 0.04655652012085009,
+        "n_buys": 1362,
+        "n_sells": 0,
+        "total_fees": 678.6318345233533,
+        "avg_cash_share": 0.02446077679438257,
+        "avg_cost_per_unit": 53.995111675083855
+      },
+      "dca_metrics": {
+        "total_invested": 681000.0,
+        "final_wealth": 1153735.952326864,
+        "wealth_over_invested": 1.694179078306702,
+        "max_drawdown": -0.8834397847848202,
+        "longest_weeks_underwater": 951,
+        "cagr": 0.04091857526602283,
+        "annualized_vol": 0.3935102627351388,
+        "sharpe": 0.2534698851466516,
+        "sortino": 0.3569163494774248,
+        "calmar": 0.04631733364372919,
+        "n_buys": 1362,
+        "n_sells": 0,
+        "total_fees": 680.5,
+        "avg_cash_share": 0.00605965259812329,
+        "avg_cost_per_unit": 54.53507465412572
+      },
+      "figs": {
+        "value": "figures/smartdca_OIL_value.png",
+        "dd": "figures/smartdca_OIL_dd.png",
+        "buys": "figures/smartdca_OIL_buys.png",
+        "bootstrap": "figures/smartdca_OIL_bootstrap.png"
+      },
+      "rolling": {
+        "3": {
+          "n_windows": 93,
+          "win_rate_wealth": 0.5913978494623656,
+          "win_rate_sharpe": 0.6451612903225806,
+          "fig": "figures/smartdca_OIL_rolling3y.png"
+        },
+        "5": {
+          "n_windows": 85,
+          "win_rate_wealth": 0.5764705882352941,
+          "win_rate_sharpe": 0.5647058823529412,
+          "fig": "figures/smartdca_OIL_rolling5y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.51,
+        "sharpe\n(raw)": 0.515,
+        "wealth\n(detrended)": 0.62,
+        "sharpe\n(detrended)": 0.545
+      }
+    },
+    "ENERGY": {
+      "metrics": {
+        "total_invested": 724500.0,
+        "final_wealth": 1796808.2757305217,
+        "wealth_over_invested": 2.480066633168422,
+        "max_drawdown": -0.741699310007425,
+        "longest_weeks_underwater": 605,
+        "cagr": 0.06069111988077869,
+        "annualized_vol": 0.26389557668139946,
+        "sharpe": 0.28117036657065775,
+        "sortino": 0.368553594670332,
+        "calmar": 0.08182712193728632,
+        "n_buys": 1449,
+        "n_sells": 0,
+        "total_fees": 715.5079695646182,
+        "avg_cash_share": 0.018747437890843058,
+        "avg_cost_per_unit": 25.1168313693734
+      },
+      "dca_metrics": {
+        "total_invested": 724500.0,
+        "final_wealth": 1811173.605355962,
+        "wealth_over_invested": 2.4998945553567453,
+        "max_drawdown": -0.743694639980949,
+        "longest_weeks_underwater": 605,
+        "cagr": 0.061035064917926096,
+        "annualized_vol": 0.2672069131110292,
+        "sharpe": 0.2822976327198191,
+        "sortino": 0.3700438739966136,
+        "calmar": 0.08207006160416809,
+        "n_buys": 1449,
+        "n_sells": 0,
+        "total_fees": 724.0,
+        "avg_cash_share": 0.005598036313144633,
+        "avg_cost_per_unit": 25.030684028971514
+      },
+      "figs": {
+        "value": "figures/smartdca_ENERGY_value.png",
+        "dd": "figures/smartdca_ENERGY_dd.png",
+        "buys": "figures/smartdca_ENERGY_buys.png",
+        "bootstrap": "figures/smartdca_ENERGY_bootstrap.png"
+      },
+      "rolling": {
+        "3": {
+          "n_windows": 100,
+          "win_rate_wealth": 0.55,
+          "win_rate_sharpe": 0.66,
+          "fig": "figures/smartdca_ENERGY_rolling3y.png"
+        },
+        "5": {
+          "n_windows": 92,
+          "win_rate_wealth": 0.5,
+          "win_rate_sharpe": 0.6630434782608695,
+          "fig": "figures/smartdca_ENERGY_rolling5y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.33,
+        "sharpe\n(raw)": 0.545,
+        "wealth\n(detrended)": 0.66,
+        "sharpe\n(detrended)": 0.525
+      }
+    }
+  },
+  "adca": {
+    "OIL": {
+      "B1": {
+        "metrics": {
+          "total_invested": 681000.0,
+          "final_wealth": 1127737.443420145,
+          "wealth_over_invested": 1.6560021195596841,
+          "max_drawdown": -0.8802197467852626,
+          "longest_weeks_underwater": 951,
+          "cagr": 0.03731858185051484,
+          "annualized_vol": 0.3778174904356598,
+          "sharpe": 0.23836147630640325,
+          "sortino": 0.3376386698339429,
+          "calmar": 0.042396892351949295,
+          "n_buys": 1362,
+          "n_sells": 0,
+          "total_fees": 682.4783972412633,
+          "avg_cash_share": 0.03722648236465734,
+          "avg_cost_per_unit": 55.9906939078682
+        },
+        "dca_metrics": {
+          "total_invested": 681000.0,
+          "final_wealth": 1153735.952326864,
+          "wealth_over_invested": 1.694179078306702,
+          "max_drawdown": -0.8834397847848202,
+          "longest_weeks_underwater": 951,
+          "cagr": 0.04091857526602283,
+          "annualized_vol": 0.3935102627351388,
+          "sharpe": 0.2534698851466516,
+          "sortino": 0.3569163494774248,
+          "calmar": 0.04631733364372919,
+          "n_buys": 1362,
+          "n_sells": 0,
+          "total_fees": 680.5,
+          "avg_cash_share": 0.00605965259812329,
+          "avg_cost_per_unit": 54.53507465412572
+        },
+        "figs": {
+          "value": "figures/adca_B1_OIL_value.png",
+          "dd": "figures/adca_B1_OIL_dd.png",
+          "bootstrap": "figures/adca_B1_OIL_bootstrap.png",
+          "placebo": "figures/adca_B1_OIL_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 93,
+            "win_rate_wealth": 0.27956989247311825,
+            "win_rate_sharpe": 0.23655913978494625,
+            "fig": "figures/adca_B1_OIL_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 85,
+            "win_rate_wealth": 0.2235294117647059,
+            "win_rate_sharpe": 0.29411764705882354,
+            "fig": "figures/adca_B1_OIL_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.44,
+          "sharpe\n(raw)": 0.365,
+          "wealth\n(detrended)": 0.545,
+          "sharpe\n(detrended)": 0.38
+        },
+        "placebo_percentile_wealth": 32.0,
+        "placebo_percentile_sharpe": 9.0
+      },
+      "B2": {
+        "metrics": {
+          "total_invested": 681000.0,
+          "final_wealth": 1117862.0964178587,
+          "wealth_over_invested": 1.6415008757971494,
+          "max_drawdown": -0.883375345747248,
+          "longest_weeks_underwater": 951,
+          "cagr": 0.03855083393395309,
+          "annualized_vol": 0.38651711848421566,
+          "sharpe": 0.24513275394532477,
+          "sortino": 0.3447357420167419,
+          "calmar": 0.04364037792037642,
+          "n_buys": 1362,
+          "n_sells": 0,
+          "total_fees": 662.9245194385891,
+          "avg_cash_share": 0.018911469758602775,
+          "avg_cost_per_unit": 55.82581928227373
+        },
+        "dca_metrics": {
+          "total_invested": 681000.0,
+          "final_wealth": 1153735.952326864,
+          "wealth_over_invested": 1.694179078306702,
+          "max_drawdown": -0.8834397847848202,
+          "longest_weeks_underwater": 951,
+          "cagr": 0.04091857526602283,
+          "annualized_vol": 0.3935102627351388,
+          "sharpe": 0.2534698851466516,
+          "sortino": 0.3569163494774248,
+          "calmar": 0.04631733364372919,
+          "n_buys": 1362,
+          "n_sells": 0,
+          "total_fees": 680.5,
+          "avg_cash_share": 0.00605965259812329,
+          "avg_cost_per_unit": 54.53507465412572
+        },
+        "figs": {
+          "value": "figures/adca_B2_OIL_value.png",
+          "dd": "figures/adca_B2_OIL_dd.png",
+          "bootstrap": "figures/adca_B2_OIL_bootstrap.png",
+          "placebo": "figures/adca_B2_OIL_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 93,
+            "win_rate_wealth": 0.25806451612903225,
+            "win_rate_sharpe": 0.21505376344086022,
+            "fig": "figures/adca_B2_OIL_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 85,
+            "win_rate_wealth": 0.21176470588235294,
+            "win_rate_sharpe": 0.15294117647058825,
+            "fig": "figures/adca_B2_OIL_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.3,
+          "sharpe\n(raw)": 0.24,
+          "wealth\n(detrended)": 0.465,
+          "sharpe\n(detrended)": 0.255
+        },
+        "placebo_percentile_wealth": 6.5,
+        "placebo_percentile_sharpe": 20.0
+      }
+    },
+    "ENERGY": {
+      "B1": {
+        "metrics": {
+          "total_invested": 724500.0,
+          "final_wealth": 1817467.075025592,
+          "wealth_over_invested": 2.50858119396217,
+          "max_drawdown": -0.7412812751905185,
+          "longest_weeks_underwater": 605,
+          "cagr": 0.06258380852782741,
+          "annualized_vol": 0.2597241233654336,
+          "sharpe": 0.288261940332592,
+          "sortino": 0.37679649135599064,
+          "calmar": 0.08442653365518048,
+          "n_buys": 1449,
+          "n_sells": 0,
+          "total_fees": 726.5041981243959,
+          "avg_cash_share": 0.037846380928348564,
+          "avg_cost_per_unit": 25.04014529242324
+        },
+        "dca_metrics": {
+          "total_invested": 724500.0,
+          "final_wealth": 1811173.605355962,
+          "wealth_over_invested": 2.4998945553567453,
+          "max_drawdown": -0.743694639980949,
+          "longest_weeks_underwater": 605,
+          "cagr": 0.061035064917926096,
+          "annualized_vol": 0.2672069131110292,
+          "sharpe": 0.2822976327198191,
+          "sortino": 0.3700438739966136,
+          "calmar": 0.08207006160416809,
+          "n_buys": 1449,
+          "n_sells": 0,
+          "total_fees": 724.0,
+          "avg_cash_share": 0.005598036313144633,
+          "avg_cost_per_unit": 25.030684028971514
+        },
+        "figs": {
+          "value": "figures/adca_B1_ENERGY_value.png",
+          "dd": "figures/adca_B1_ENERGY_dd.png",
+          "bootstrap": "figures/adca_B1_ENERGY_bootstrap.png",
+          "placebo": "figures/adca_B1_ENERGY_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 100,
+            "win_rate_wealth": 0.36,
+            "win_rate_sharpe": 0.32,
+            "fig": "figures/adca_B1_ENERGY_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 92,
+            "win_rate_wealth": 0.43478260869565216,
+            "win_rate_sharpe": 0.43478260869565216,
+            "fig": "figures/adca_B1_ENERGY_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.335,
+          "sharpe\n(raw)": 0.385,
+          "wealth\n(detrended)": 0.535,
+          "sharpe\n(detrended)": 0.39
+        },
+        "placebo_percentile_wealth": 72.0,
+        "placebo_percentile_sharpe": 79.5
+      },
+      "B2": {
+        "metrics": {
+          "total_invested": 724500.0,
+          "final_wealth": 1800534.6873954972,
+          "wealth_over_invested": 2.4852100585169046,
+          "max_drawdown": -0.7337787297291609,
+          "longest_weeks_underwater": 605,
+          "cagr": 0.06118154355737482,
+          "annualized_vol": 0.2615991713787572,
+          "sharpe": 0.2830541916888502,
+          "sortino": 0.37148373497012127,
+          "calmar": 0.08337873677526335,
+          "n_buys": 1449,
+          "n_sells": 0,
+          "total_fees": 723.5214598588909,
+          "avg_cash_share": 0.021198366773373473,
+          "avg_cost_per_unit": 25.192193781056798
+        },
+        "dca_metrics": {
+          "total_invested": 724500.0,
+          "final_wealth": 1811173.605355962,
+          "wealth_over_invested": 2.4998945553567453,
+          "max_drawdown": -0.743694639980949,
+          "longest_weeks_underwater": 605,
+          "cagr": 0.061035064917926096,
+          "annualized_vol": 0.2672069131110292,
+          "sharpe": 0.2822976327198191,
+          "sortino": 0.3700438739966136,
+          "calmar": 0.08207006160416809,
+          "n_buys": 1449,
+          "n_sells": 0,
+          "total_fees": 724.0,
+          "avg_cash_share": 0.005598036313144633,
+          "avg_cost_per_unit": 25.030684028971514
+        },
+        "figs": {
+          "value": "figures/adca_B2_ENERGY_value.png",
+          "dd": "figures/adca_B2_ENERGY_dd.png",
+          "bootstrap": "figures/adca_B2_ENERGY_bootstrap.png",
+          "placebo": "figures/adca_B2_ENERGY_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 100,
+            "win_rate_wealth": 0.3,
+            "win_rate_sharpe": 0.29,
+            "fig": "figures/adca_B2_ENERGY_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 92,
+            "win_rate_wealth": 0.34782608695652173,
+            "win_rate_sharpe": 0.45652173913043476,
+            "fig": "figures/adca_B2_ENERGY_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.26,
+          "sharpe\n(raw)": 0.28,
+          "wealth\n(detrended)": 0.51,
+          "sharpe\n(detrended)": 0.26
+        },
+        "placebo_percentile_wealth": 60.0,
+        "placebo_percentile_sharpe": 73.5
+      }
+    }
+  }
+}

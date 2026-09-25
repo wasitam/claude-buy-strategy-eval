@@ -34,6 +34,17 @@ block bootstrap, placebo shuffles), `checks.py` (spec §11 sanity checks),
 `report.py` (charts). `run_v2.py` / `write_report_v2.py` orchestrate + write
 the markdown report.
 
+**Extra-asset check:** BTC's ~100x decade-long rise makes it an outlier for
+SmartDCA/ADCA (a strategy that trims buys above trend loses out when the
+trend basically never stops). [`reports/v2/report_extra_assets.md`](reports/v2/report_extra_assets.md)
+reruns the identical SmartDCA/ADCA code on WTI crude oil (`CL=F`) and an
+energy-sector ETF (`XLE`) — both range-bound, non-100x assets — via
+`python run_v2_extra_assets.py`. There, unlike on BTC/gold/silver, SmartDCA
+*does* beat plain DCA in most of the grid (~92% of combos on oil, ~67% on
+the energy ETF), supporting the idea that the strategy's failure on v2's
+three original assets was driven by their persistent uptrends, not a flaw
+in the method itself.
+
 ## v1 — buy-the-dip / trim-the-spike (superseded)
 
 Tested a percentile-ranked ATR-shock and trend-stretch buy/sell rule against
