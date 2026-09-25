@@ -511,5 +511,57 @@ takes #28, following families 023/024/025/026's precedent (adding exactly
 |---|---|---|---|
 | 32 | M2 money-supply growth regime: bank deposits when trailing year-over-year M2 money-supply growth (FRED series `M2SL`) is depressed/contracting in its own trailing percentile (tight-liquidity conditions), deploy normally or with a capped catch-up lump when M2 growth is elevated (loose-liquidity conditions) -- a monetarist "don't fight the Fed / don't fight the flow of liquidity" mechanism (excess money-supply growth has historically flowed disproportionately into financial and real asset prices, e.g. the 2020-22 M2 surge and subsequent risk-asset rally, followed by 2022's sharp M2 growth deceleration alongside a broad risk-asset drawdown). Genuinely distinct signal source from every prior macro-regime family in this loop (011's credit spread/NFCI, 015's DXY, 019's OECD CLI, 027's T10Y2Y) -- a money-supply AGGREGATE growth rate, not a price, spread, or composite index -- though the eventual prereg.md must argue this carefully against v2.1 Strategy D's rate-level signals (R1: Fed funds target; R2a: DGS2 vs. its own trailing mean) since "loose monetary policy" is part of the economic story for both, even though M2 growth and the policy rate level are not the same thing and have diverged historically (e.g. 2008-09's near-zero rates arrived well after M2 growth had already troughed). | Regime switch (macro / credit / sentiment) | Friedman, M. and Schwartz, A.J. (1963), *A Monetary History of the United States*; more recent practitioner literature on M2 growth and asset-price inflation (e.g. Fed/BIS working papers on the 2020-22 liquidity surge) |
 
+Idea #28 (50/200-day moving-average crossover "golden cross"/"death cross"
+regime tilt) has been taken from the queue and used for family
+`028-ma-crossover-regime`; see `families/028-ma-crossover-regime/`
+(**NEAR-MISS**). Assessed as a single-asset family across all 5 core
+assets, category **Trend / time-series momentum exit**. Signal: SMA_50 vs.
+SMA_200 (or an alternate pair from the 3-pair grid), with a
+persistence-confirmation filter (whipsaw reduction), tilting buy size
+between `bull_mult`/`bear_mult` (never a binary exit, never a sell) with
+the shortfall/surplus banked as cash and cash-capped, the same reserve
+mechanic family 005's TSMOM sizing uses. Rigorously distinguished in
+prereg.md from family 001 (single MA vs. price level, binary in/out) and
+family 005 (sign of trailing total return, no moving average at all) and
+from v1's closed-list Signal B (price-vs-single-MA distance percentile) --
+this family compares two moving averages of price to each other, a
+construction none of those three share. Pre-grid known-episode check
+confirmed the raw 50/200 crossover registers SP500's well-documented
+2003/2009/2016 golden crosses (2020's crossing falls in the sealed
+holdout period and was correctly excluded from the dev-only check, see
+`state/bugfix_log.md`). Sec 4.1: primary config (`fast_days=50,
+slow_days=200, persistence_days=5, bull_mult=1.5, bear_mult=0.5`) beats
+DCA on wealth AND Sharpe on **3/5** core assets (SP500, GOLD, BTC) at
+both fees -- PASS (SP500's win is razor-thin on both metrics over its
+92-year dev history; SILVER and OIL both lose narrowly on Sharpe only,
+winning wealth). Grid: 28/36 (77.8%) configs reach the combined majority
+bar (need >=24/36) -- PASS, the best sec 4.4 grid result of any family in
+this loop so far. CSCV PBO=0.171 (moderate). DSR effectively zero (raw
+pooled excess Sharpe is slightly NEGATIVE, -0.038/yr annualized, despite
+the 3/5-asset sec 4.1 pass -- driven by SILVER/OIL's Sharpe losses
+pulling the pooled series down) -- far below the SR0=0.146 threshold this
+loop's 857-trial/72-cluster count now demands: DSR FAIL. Sec 4.3 (run in
+full since sec 4.1 passed, n_sims=60 time-budget): rolling windows PASS
+(67.6% wealth / 67.8% Sharpe pooled across 9 asset/window combinations,
+>60% required) but block bootstrap and placebo both FAIL -- raw-path
+bootstrap only 46.7%/45.0% (need majority), detrended 73.3%/51.7%
+(borderline), and the placebo circular-shift result lands at only the
+76.7th wealth / 41.7th Sharpe percentile (need >=95th) -- the specific
+temporal alignment of the crossover signal is not doing enough work
+beyond its raw regime frequency. **Verdict: NEAR-MISS** (passes sec 4.1
+and sec 4.4, fails sec 4.2 DSR and sec 4.3 bootstrap/placebo). Verified
+`PRIMARY_CONFIG` membership in `GRID` both programmatically and via an
+explicit module-import-time assertion in the strategy module itself.
+Holdout not opened (not a finalist).
+
+4 ideas remain (#29-32), below the sec 8 step-2 threshold of 5 -- one more
+idea is added now to restore the threshold before the next iteration
+takes #29, following families 023/024/025/026/027's precedent (adding
+exactly 1 replacement idea).
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 33 | Post-earnings-announcement-drift-style volume-confirmed breakout sizing: increase buy size when price closes above its own trailing `N`-day high AND that day's volume exceeds its own trailing volume average by a threshold multiple (a volume-confirmed breakout, distinct from family 020's pure price-level 52-week-high tilt, which uses no volume condition at all), scale down/normal otherwise. A genuinely different signal class from every prior trend/momentum family in this loop because it requires BOTH a price condition and an independent volume-surge condition to jointly hold before tilting -- neither family 001 (single MA vs. price), 005 (sign of trailing return), 020 (52-week-high percentile, no volume) nor the new family 028 (dual-MA crossover) reference trading volume at all. Price+volume signal (daily Close/Volume, both already present in the existing yfinance OHLCV fetch), no new external data dependency, testable identically on all 5 core assets (BTC/gold/silver/oil futures/SP500 all carry a Volume field in the existing cached data). | Trend / time-series momentum exit | Karpoff, J.M. (1987), "The Relation Between Price Changes and Trading Volume: A Survey," *Journal of Financial and Quantitative Economics* 22(1), 109-126; Lee, C.M.C. and Swaminathan, B. (2000), "Price Momentum and Trading Volume," *Journal of Finance* 55(5), 2017-2069 |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
