@@ -11,11 +11,13 @@ Idea #4 (value averaging) has been taken from the queue and used for family
 `004-value-averaging`; see `families/004-value-averaging/` (NEAR-MISS).
 Idea #5 (time-series momentum sizing) has been taken from the queue and used
 for family `005-tsmom-sizing`; see `families/005-tsmom-sizing/` (NEAR-MISS).
+Idea #6 (turn-of-month deposit timing) has been taken from the queue and
+used for family `006-turn-of-month`; see `families/006-turn-of-month/`
+(REJECTED).
 Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 6 | Turn-of-month deposit timing (S&P 500) | Seasonality | Ariel (1987); Lakonishok & Smidt (1988) |
 | 7 | Day-of-week deposit timing (BTC weekend effect) | Seasonality | Crypto calendar-effect literature |
 | 8 | CAPE / earnings-yield valuation sizing (S&P 500) | Sizing / valuation | Shiller; Asness et al. |
 | 9 | BTC on-chain valuation sizing (MVRV, realized price) | Sizing / valuation | Glassnode / CoinMetrics research |

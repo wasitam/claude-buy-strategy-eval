@@ -1,0 +1,50 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_tom": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true,
+    "never_exceeds_cumulative_deposits": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 328,
+  "n_eff": 37,
+  "dsr_neff": {
+    "dsr": 5.829810868532551e-28,
+    "sr": -0.006863638468433029,
+    "sr_annualized": -0.04949440086836482,
+    "sr0": 0.14939674137411202,
+    "n": 4800,
+    "n_eff": 37,
+    "skew": -3.169140644694085,
+    "kurtosis": 698.2119883525448
+  },
+  "dsr_rawn": {
+    "dsr": 9.761446630276869e-42,
+    "sr": -0.006863638468433029,
+    "sr_annualized": -0.04949440086836482,
+    "sr0": 0.18645398335586166,
+    "n": 4800,
+    "n_eff": 328,
+    "skew": -3.169140644694085,
+    "kurtosis": 698.2119883525448
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 1,
+    "beats_dca_count_fee0.25pct": 1,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg01_db1_da3_mt0.0_ml6",
+  "primary_trial_id": "new_006_cfg01_db1_da3_mt0.0_ml6"
+}
