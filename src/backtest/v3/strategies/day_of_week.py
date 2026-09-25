@@ -40,7 +40,7 @@ def compute_target_and_week_counts(daily: pd.DataFrame, target_weekday: int) -> 
     (no price dependence), computed once for the whole trading-day index --
     exactly the same pattern as turn_of_month.compute_is_tom."""
     idx = pd.DatetimeIndex(daily.index)
-    is_target = (idx.dayofweek == target_weekday).to_numpy()
+    is_target = np.asarray(idx.dayofweek == target_weekday)
     iso = idx.isocalendar()[["year", "week"]]
     wk = list(zip(iso["year"].to_numpy(), iso["week"].to_numpy()))
     df = pd.DataFrame({"wk": wk, "is_target": is_target})
