@@ -1,0 +1,84 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "weak_days": 4421,
+      "frac_weak": 0.1913107447314899
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "weak_days": 1214,
+      "frac_weak": 0.25041254125412543
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "weak_days": 1215,
+      "frac_weak": 0.25051546391752577
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "weak_days": 275,
+      "frac_weak": 0.14233954451345757
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "weak_days": 1214,
+      "frac_weak": 0.24994852789787936
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_plus_interest": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "lag_matters_zero_vs_documented_frac_days_differ": 0.048422692457484096,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 587,
+  "n_eff": 61,
+  "dsr_neff": {
+    "dsr": 1.8336961018657165e-34,
+    "sr": -0.02568305273950462,
+    "sr_annualized": -0.18520312712545955,
+    "sr0": 0.15072290823274626,
+    "n": 4800,
+    "n_eff": 61,
+    "skew": -0.4796032529844166,
+    "kurtosis": 109.54796861975417
+  },
+  "dsr_rawn": {
+    "dsr": 3.2842213975992447e-40,
+    "sr": -0.02568305273950462,
+    "sr_annualized": -0.18520312712545955,
+    "sr0": 0.16570887739092696,
+    "n": 4800,
+    "n_eff": 587,
+    "skew": -0.4796032529844166,
+    "kurtosis": 109.54796861975417
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.18571428571428572,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg08_zscore_lb10_tl1_tf0.0",
+  "primary_trial_id": "new_019_cfg08_zscore_lb10_tl1_tf0.0"
+}

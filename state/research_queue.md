@@ -182,5 +182,29 @@ Idea #18 ("Halloween effect" / Sell-in-May seasonal deposit timing) has
 been taken from the queue and used for family `018-halloween-seasonal`;
 see `families/018-halloween-seasonal/` for the verdict.
 
+Idea #19 (OECD Composite Leading Indicator regime switch) has been taken
+from the queue and used for family `019-oecd-cli-regime`; see
+`families/019-oecd-cli-regime/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Regime switch (macro)**.
+Verified live FRED reachability for `USALOLITONOSTSAM` before
+pre-registering (no substitution needed) and documented the required
+triple distinction from family 011 (credit-stress/financial-conditions
+spread) and v2.1 Strategy D (policy-rate/yield-curve stance) in
+prereg.md, plus the ALFRED true-vintage coverage gap (only from
+2018-07) that forced a conservative fixed 60-day publication lag in
+place of full point-in-time vintage reconstruction over most of the
+development period. Sec 4.1: primary config beats DCA on wealth AND
+Sharpe on 0/5 core assets -- the strategy underperforms DCA on BOTH
+metrics on every single asset, unlike most prior timing/banking
+families' "Sharpe wins, wealth lags" pattern. Grid: 0/24 configs (0.0%)
+reach the majority bar, the weakest grid result of any family so far.
+DSR effectively zero, driven by a genuinely negative raw pooled excess
+Sharpe.
+
+**Queue status after this iteration:** ideas #20, #21 (added two
+iterations ago, still untaken) and #22, #23, #24 (added last iteration,
+still untaken) remain -- 5 ideas, at the sec 8 step-2 threshold, so no
+replenishment is required before the next iteration takes #20.
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
