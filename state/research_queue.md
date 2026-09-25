@@ -39,11 +39,27 @@ the win rule.** Removed from the queue below without being tested. This
 does not change sec 4.1 itself -- it's a per-idea scoping call, documented
 here for the final report's "what didn't get tested and why" section.
 
-Remaining queue:
+Idea #10 (gold/silver ratio rotation) has been taken from the queue and
+used for family `010-gold-silver-ratio`; see
+`families/010-gold-silver-ratio/` (NEAR-MISS). Assessed as a **2-asset
+portfolio family** (gold+silver only, vs. fixed-weight 2-asset DCA) rather
+than under either of sec 4.1's literal single-asset or 5-asset-portfolio
+lines -- a real interpretive gap for a mechanism scoped to a strict subset
+of the 5 core assets, distinct from family 008's structurally single-asset
+gap. See `families/010-gold-silver-ratio/prereg.md`'s "2-asset
+assessment-scoping decision" section for the full reasoning. Sec 4.1 passed
+very decisively (27/27 grid configs beat DCA at both fees, the strongest
+margin of any family so far), but DSR (computed on this family's own
+2-asset excess series) was effectively zero and the placebo test's wealth
+leg missed its bar -- see results.md.
+
+Remaining queue (3 ideas -- below the plan sec 8 step 2 threshold of 5; the
+*next* iteration should research and add more before or as part of its own
+run, since this iteration's scope was specifically idea #10 end-to-end,
+not a full queue replenishment):
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 10 | Gold/silver ratio rotation | Rotation | Relative-value commodity literature |
 | 11 | Credit-stress risk-off filter (BAA−AAA spread, NFCI) | Regime | Gilchrist & Zakrajšek (2012) |
 | 13 | Momentum-tilted rebalancing (rebalance toward trend winners) | Rebalancing | Asness, Moskowitz & Pedersen (2013) |
 | 14 | Drawdown-from-high reserve deployment (a different reference point than SmartDCA's moving average) | Sizing | Practitioner literature; must justify why it isn't a re-test |
