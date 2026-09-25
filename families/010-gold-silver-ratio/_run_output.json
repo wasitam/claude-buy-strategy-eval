@@ -1,0 +1,52 @@
+{
+  "impl_checks": {
+    "degenerate_equals_fixed_weight_2asset_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_lookahead_interior": true,
+    "no_lookahead_early_signal_era": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 27,
+  "n_total_raw": 411,
+  "n_eff": 39,
+  "dsr_neff": {
+    "dsr": 7.884181045230122e-06,
+    "sr": 0.021448595693604272,
+    "sr_annualized": 0.1546680231199726,
+    "sr0": 0.15067762529322454,
+    "n": 1009,
+    "n_eff": 39,
+    "skew": 4.919243859853018,
+    "kurtosis": 74.88656418402876
+  },
+  "dsr_rawn": {
+    "dsr": 1.307951956551902e-07,
+    "sr": 0.021448595693604272,
+    "sr_annualized": 0.1546680231199726,
+    "sr0": 0.17556567887064153,
+    "n": 1009,
+    "n_eff": 411,
+    "skew": 4.919243859853018,
+    "kurtosis": 74.88656418402876
+  },
+  "check_4_1": {
+    "beats_dca_fee0.1pct": true,
+    "beats_dca_fee0.25pct": true,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_beat_dca": 1.0,
+    "pass": true
+  },
+  "cscv_pbo": {
+    "pbo": 0.12857142857142856,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg22_w20_b20_t0.7",
+  "shared_calendar_start": "2000-08-30",
+  "shared_calendar_end": "2019-12-31",
+  "n_calendar_days": 4848
+}

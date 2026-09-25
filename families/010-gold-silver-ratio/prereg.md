@@ -189,13 +189,19 @@ between them, never whether to hold cash), which is a direct consequence
 of this being a relative-value rotation between two assets rather than a
 trend-following in/out-of-market signal.
 
-**Degenerate case (`enabled=False` / equivalently `max_tilt=0`,
-implementation check only, not a grid arm beyond `max_tilt=0` itself):**
-bypasses the ratio/percentile computation entirely and, each week, submits
-a buy order for exactly $500 into gold and $500 into silver and nothing
-else (no selling, no reallocation of existing holdings) — this reproduces
-fixed-weight 2-asset DCA exactly, bit-for-bit, the same pattern families
-001/002 used for their degenerate checks.
+**Degenerate case (`enabled=False`, implementation check only, not a grid
+arm):** bypasses the ratio/percentile computation and the weight-based
+rebalancing logic entirely and, each week, submits a buy order for exactly
+$500 into gold and $500 into silver and nothing else (no selling, no
+reallocation of existing holdings) — this reproduces fixed-weight 2-asset
+DCA exactly, bit-for-bit, the same pattern families 001/002 used for their
+degenerate checks. Note `max_tilt=0` (a real grid value, `enabled=True`) is
+**not** equivalent to this degenerate case: it still rebalances toward the
+always-50/50 target weight every week, which sells the relatively
+appreciated metal and buys the relatively cheap one to hold the mix at
+50/50 — a constant-mix strategy, not DCA's never-rebalanced
+accumulate-only path. This distinction was confirmed empirically during
+implementation and is documented here explicitly (see results.md).
 
 ## Data inputs
 
