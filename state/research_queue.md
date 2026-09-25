@@ -4,11 +4,13 @@ Idea #1 (10-month/200-day trend exit) has been taken from the queue and used
 for family `001-trend-exit`; see `families/001-trend-exit/` (REJECTED).
 Idea #2 (dual momentum rotation) has been taken from the queue and used for
 family `002-dual-momentum`; see `families/002-dual-momentum/` (NEAR-MISS).
+Idea #3 (volatility-managed sizing) has been taken from the queue and used
+for family `003-vol-managed-sizing`; see `families/003-vol-managed-sizing/`
+(REJECTED).
 Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 3 | Volatility-managed sizing (buy size ∝ 1/realized variance) | Vol targeting | Moreira & Muir (2017); Harvey et al. (2018) |
 | 4 | Value averaging (target-path contributions), scored on wealth, not IRR | Sizing | Edleson (1991); Hayley's critique |
 | 5 | Time-series momentum sizing: scale buys by the sign of the 12-month return | Trend | Moskowitz, Ooi & Pedersen (2012) |
 | 6 | Turn-of-month deposit timing (S&P 500) | Seasonality | Ariel (1987); Lakonishok & Smidt (1988) |
