@@ -270,5 +270,32 @@ effectively zero (negative raw pooled excess Sharpe). Sec 4.3 not run
 sec 8 step-2 threshold of 5 -- no further replenishment needed before the
 next iteration takes #22.
 
+Idea #22 (Presidential election cycle timing) has been taken from the
+queue and used for family `022-election-cycle`; see
+`families/022-election-cycle/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Seasonality / execution
+timing**, following the 006/007/018 precedent (asset-agnostic calendar
+mechanism, US-equity-specific motivating literature -- not the CAPE/
+family-008 structural-exclusion case, since the signal needs no
+asset-specific fundamentals data). Sec 4.1: primary config beats DCA on
+wealth AND Sharpe on 2/5 core assets (SP500, BTC) -- short of the 3/5
+majority. Grid: 0/24 (0.0%) configs reach the combined majority bar; best
+any config manages is 3/5. CSCV PBO=0.614 (notably high, consistent with
+a genuinely noisy signal given only ~5 complete 4-year cycles in most
+assets' development history). DSR effectively zero. Documented the
+required distinction from families 006 (monthly), 007 (weekly) and 018
+(annual) in prereg.md: this is a QUADRENNIAL cycle keyed to the actual US
+presidential election calendar (year mod 4), not a modular function of
+month/weekday. By-hand cross-checked `cycle_year()` against 16 known
+election/non-election years before any backtest, and verified
+`PRIMARY_CONFIG` membership in `GRID` programmatically per family 021's
+lesson (no mismatch found this time). Flagged the 2008/2000 crisis-year
+confound risk in prereg.md before backtesting.
+
+2 ideas remain (#23-24) plus the 3 from the prior replenishment (#25-27) =
+5 ideas, at the sec 8 step-2 threshold -- no further replenishment needed
+before the next iteration takes #23, though it is worth researching one
+more idea early next iteration to stay comfortably above the threshold.
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
