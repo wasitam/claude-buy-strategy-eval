@@ -122,6 +122,17 @@ Idea #15 (DXY / US Dollar Index regime rotation) has been taken from the
 queue and used for family `015-dxy-regime`; see `families/015-dxy-regime/`
 for the verdict.
 
+Idea #16 (VIX contrarian fear-gauge sizing) has been taken from the queue
+and used for family `016-vix-contrarian`; see
+`families/016-vix-contrarian/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Sizing / valuation** (chosen
+over "Volatility targeting" specifically to keep the family-003 distinction
+unambiguous -- see prereg.md's full mechanism/signal/sign/functional-form
+distinction table). Sec 4.1: primary config beats DCA on wealth AND Sharpe
+on 0/5 core assets (wealth underperforms on every asset; Sharpe alone
+beats DCA on 2/5). Grid: 0/24 configs reach the majority bar. DSR
+effectively zero.
+
 **Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):**
 after #15 was taken, 3 ideas remained (#16-18), below the sec 8 step-2
 threshold of 5. 3 new ideas were added below after a literature search,
