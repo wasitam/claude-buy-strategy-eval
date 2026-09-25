@@ -57,6 +57,21 @@ Idea #11 (credit-stress risk-off filter) has been taken from the queue and
 used for family `011-credit-stress-filter`; see
 `families/011-credit-stress-filter/` for the verdict.
 
+Idea #13 (momentum-tilted rebalancing) has been taken from the queue and
+used for family `013-momentum-rebalance`; see
+`families/013-momentum-rebalance/` (REJECTED). Assessed as a **5-asset
+portfolio family** (sec 4.1 Portfolio line) vs fixed-weight 5-asset DCA,
+directly following families 002's and 010's precedent. Explicitly
+documented in prereg.md as NOT a re-test of sec 7.2's closed C1/C2/C3
+(fixed vs momentum-dependent/time-varying targets) or of family 002 (dual
+momentum's binary in/out rotation vs this family's continuous
+always-fully-invested weight tilt -- different mechanism categories,
+"Cross-asset rotation / relative strength" vs "Rebalancing / allocation").
+Sec 4.1: primary config beats DCA on Sharpe but not wealth (fails the
+combined bar). Only the grid's most aggressive tilt_strength=2.0 arm
+(2/16 configs) passed both bars -- can't be promoted per sec 4.4's own
+rule. DSR effectively zero.
+
 **Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):** the
 queue was down to 2 remaining ideas (#13, #14) after #11 was taken, below
 the sec 8 step-2 threshold of 5. 4 new ideas were added below after a
