@@ -1,0 +1,125 @@
+{
+  "sanity_distinctness_check": [
+    {
+      "asset": "SP500",
+      "n_days": 23109,
+      "elevated_frac": 0.035224371457008095,
+      "compressed_frac": 0.03963823618503613,
+      "non_degenerate": true,
+      "vix_elevated_frac_016": 0.040893158509671554,
+      "both_elevated_days": 405,
+      "vrp_only_elevated_days": 409,
+      "vix_only_elevated_days_016": 540,
+      "neither_elevated_days": 21755,
+      "flag_agreement_frac": 0.958933748755896,
+      "distinct_from_016": true
+    },
+    {
+      "asset": "GOLD",
+      "n_days": 4848,
+      "elevated_frac": 0.128506600660066,
+      "compressed_frac": 0.14397689768976898,
+      "non_degenerate": true,
+      "vix_elevated_frac_016": 0.11056105610561057,
+      "both_elevated_days": 351,
+      "vrp_only_elevated_days": 272,
+      "vix_only_elevated_days_016": 185,
+      "neither_elevated_days": 4040,
+      "flag_agreement_frac": 0.9057343234323433,
+      "distinct_from_016": true
+    },
+    {
+      "asset": "SILVER",
+      "n_days": 4850,
+      "elevated_frac": 0.15402061855670104,
+      "compressed_frac": 0.18371134020618557,
+      "non_degenerate": true,
+      "vix_elevated_frac_016": 0.11051546391752577,
+      "both_elevated_days": 294,
+      "vrp_only_elevated_days": 453,
+      "vix_only_elevated_days_016": 242,
+      "neither_elevated_days": 3861,
+      "flag_agreement_frac": 0.856701030927835,
+      "distinct_from_016": true
+    },
+    {
+      "asset": "BTC",
+      "n_days": 1932,
+      "elevated_frac": 0.14233954451345757,
+      "compressed_frac": 0.16977225672877846,
+      "non_degenerate": true,
+      "vix_elevated_frac_016": 0.09834368530020704,
+      "both_elevated_days": 24,
+      "vrp_only_elevated_days": 251,
+      "vix_only_elevated_days_016": 166,
+      "neither_elevated_days": 1491,
+      "flag_agreement_frac": 0.7841614906832298,
+      "distinct_from_016": true
+    },
+    {
+      "asset": "OIL",
+      "n_days": 4857,
+      "elevated_frac": 0.13053325097796994,
+      "compressed_frac": 0.1529750875025736,
+      "non_degenerate": true,
+      "vix_elevated_frac_016": 0.11056207535515751,
+      "both_elevated_days": 294,
+      "vrp_only_elevated_days": 340,
+      "vix_only_elevated_days_016": 243,
+      "neither_elevated_days": 3980,
+      "flag_agreement_frac": 0.8799670578546428,
+      "distinct_from_016": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 761,
+  "n_eff": 70,
+  "dsr_neff": {
+    "dsr": 1.3313226069078283e-40,
+    "sr": -0.044932178858048503,
+    "sr_annualized": -0.32401054958202574,
+    "sr0": 0.14700210724143095,
+    "n": 4800,
+    "n_eff": 70,
+    "skew": -0.09123323134520753,
+    "kurtosis": 11.11640360947554
+  },
+  "dsr_rawn": {
+    "dsr": 9.731437497343946e-44,
+    "sr": -0.044932178858048503,
+    "sr_annualized": -0.32401054958202574,
+    "sr0": 0.1546551503023636,
+    "n": 4800,
+    "n_eff": 761,
+    "skew": -0.09123323134520753,
+    "kurtosis": 11.11640360947554
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.4714285714285714,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg19_rv60_ep90.0_cp10.0_bm2.0",
+  "primary_trial_id": "new_025_cfg19_rv60_ep90.0_cp10.0_bm2.0"
+}

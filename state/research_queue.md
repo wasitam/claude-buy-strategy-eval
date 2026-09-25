@@ -369,3 +369,47 @@ idea).
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #25 (Variance risk premium (VRP) sizing) has been taken from the
+queue and used for family `025-vrp-sizing`; see `families/025-vrp-sizing/`
+(REJECTED). Assessed as a single-asset family across all 5 core assets,
+category **Volatility targeting**. Signal: `VRP_t = IV_t - RV_t` (VIX
+minus each asset's own trailing realized vol -- the SPREAD, not either
+leg alone), ranked in its own trailing percentile: elevated spread (top
+decile) -> buy more; compressed spread (bottom decile) -> buy less. Sec
+4.1: primary config beats DCA on wealth AND Sharpe on **0/5** core assets
+-- decisive fail (need >=3/5); SP500 and BTC beat DCA on Sharpe alone via
+the banking/smoothing mechanic but lose on WEALTH on all 5/5 assets. Grid:
+0/36 (0.0%) configs reach the combined majority bar, uniform failure
+across the entire 36-point parameter space. CSCV PBO=0.471, notably
+higher than most REJECTED families (a diffuse, noise-dominated grid
+rather than a reliably-wrong one) -- a secondary diagnostic only, does not
+change the decisive 0/36 wealth-failure verdict. DSR effectively zero
+(negative raw pooled excess Sharpe). Rigorous triple distinction from
+family 003 (realized vol alone, inverse sign) and family 016 (VIX level
+alone, no realized-vol comparison) documented in prereg.md with a worked
+numeric contrast, and VERIFIED MECHANICALLY on real development data (not
+just by prereg-text argument): cross-tabulating this family's elevated
+flag against family 016's own primary-config elevated-VIX flag showed
+substantial disagreement on every asset (flag agreement 78.4%-95.9%
+across the 5 assets, well below 100%), confirming the spread logic is
+genuinely implemented, not an accidental collapse onto either
+predecessor's signal. Pre-grid non-degeneracy check confirmed
+elevated/compressed regime frequencies non-trivial on all 5 assets.
+Verified `PRIMARY_CONFIG` membership in `GRID` programmatically at module
+import time, per family 021's lesson. VIX's 1990+ data start handled with
+the same warm-up convention and cross-asset-proxy acknowledgment as
+family 016. Sec 4.3 not run (only run when sec 4.1 passes). Holdout not
+opened (not a finalist).
+
+4 ideas remain (#26-29), below the sec 8 step-2 threshold of 5 -- one more
+idea is added now to restore the threshold before the next iteration
+takes #26, following family 023/024's precedent (adding exactly 1
+replacement idea).
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 30 | Short-term reversal / losing-streak contrarian sizing: increase buy size after a run of `N` or more consecutive DOWN daily closes (a short-term oversold/mean-reversion signal), reduce buy size after a run of consecutive UP closes, normal size otherwise. Price-only signal (daily Close, consecutive-close-direction counting), no external data dependency, testable identically on all 5 core assets. Explicitly distinct from family 001 (a single long-horizon 10-month/200-day trend-following EXIT to cash, opposite sign and horizon), family 005 (sign of the trailing 12-month return, no streak-counting, opposite sign for the momentum leg), family 016 (VIX-based cross-market fear spike, not a price-level streak on the asset's own closes) and family 025 (implied-vs-realized vol spread, not a directional price-streak count at all) -- must state this distinction explicitly in prereg.md, same discipline prior families used. | Sizing / valuation | Jegadeesh, N. (1990), "Evidence of Predictable Behavior of Security Returns," *Journal of Finance* 45(3), 881-898; Lehmann, B.N. (1990), "Fads, Martingales, and Market Efficiency," *Quarterly Journal of Economics* 105(1), 1-28 (short-horizon return reversal literature) |
+
+When fewer than 5 ideas remain, the next iteration researches more and adds
+them here, each with a source, mechanism and category (plan sec 8 step 2).
