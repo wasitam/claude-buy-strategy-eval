@@ -1,0 +1,50 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_value_averaging": true,
+    "never_exceeds_dca_cumulative_deposits_plus_interest": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 18,
+  "n_total_raw": 280,
+  "n_eff": 34,
+  "dsr_neff": {
+    "dsr": 1.1660194907157047e-37,
+    "sr": -0.03510358394841379,
+    "sr_annualized": -0.2531355437571211,
+    "sr0": 0.1468170746444312,
+    "n": 4800,
+    "n_eff": 34,
+    "skew": -1.2116476809047754,
+    "kurtosis": 53.18723053884185
+  },
+  "dsr_rawn": {
+    "dsr": 1.8796628083493394e-58,
+    "sr": -0.03510358394841379,
+    "sr_annualized": -0.2531355437571211,
+    "sr0": 0.19386724313148673,
+    "n": 4800,
+    "n_eff": 280,
+    "skew": -1.2116476809047754,
+    "kurtosis": 53.18723053884185
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 3,
+    "beats_dca_count_fee0.25pct": 3,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.4444444444444444,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.1,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg08_g0.1_k4_sT",
+  "primary_trial_id": "new_004_cfg08_g0.1_k4_sT"
+}
