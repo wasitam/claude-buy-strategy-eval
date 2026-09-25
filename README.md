@@ -4,7 +4,17 @@ Three generations of a research backtest on whether any rule-based variant on
 weekly accumulation beats plain DCA for a long-term BTC/gold/silver investor,
 using live data from Yahoo Finance (`yfinance`) and FRED.
 
-## v2.1 — Strategy D: rate-regime switch (current)
+## v3 — autonomous research loop (planned)
+
+[`research-loop-plan-v3.md`](research-loop-plan-v3.md) is the charter for an
+autonomous loop. It researches, pre-registers and tests new long-term DCA
+strategy families until it finds 2 that beat DCA on both wealth and Sharpe,
+or until it has tested 60 families. It keeps an honest count of every look at
+the data (a Deflated Sharpe penalty over roughly 230 prior configurations,
+plus every new one) and uses a code-enforced sealed holdout: 2020+ data and 5
+assets never used in development.
+
+## v2.1 — Strategy D: rate-regime switch
 
 Tests whether **switching to SmartDCA during monetary tightening, and plain
 DCA otherwise**, beats either strategy alone — motivated directly by v2's
