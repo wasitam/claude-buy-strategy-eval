@@ -1,10 +1,36 @@
 # BTC / Gold / Silver Accumulation Backtests
 
-Two generations of a research backtest on whether any rule-based variant on
+Three generations of a research backtest on whether any rule-based variant on
 weekly accumulation beats plain DCA for a long-term BTC/gold/silver investor,
 using live data from Yahoo Finance (`yfinance`) and FRED.
 
-## v2 — SmartDCA / ADCA / rebalanced portfolio (current)
+## v2.1 — Strategy D: rate-regime switch (current)
+
+Tests whether **switching to SmartDCA during monetary tightening, and plain
+DCA otherwise**, beats either strategy alone — motivated directly by v2's
+finding that SmartDCA only wins on gold/silver once the trend is stripped
+out (detrended bootstrap: 64–70%), and specifically loses through the recent
+gold/silver rally. 8 rate-regime signals (Fed-funds direction, 2-year yield
+trend, yield-curve flattening/inversion, real-yield trend, Fed dot plot) plus
+a combined vote and a price-only control, tested on gold, silver, BTC, oil,
+and the S&P 500.
+
+Spec: [`btc-gold-silver-backtest-spec-v2.1.md`](btc-gold-silver-backtest-spec-v2.1.md).
+**Results: [`reports/v2/report_regime_switch.md`](reports/v2/report_regime_switch.md)**.
+Run with `python run_v2_regime_switch.py`.
+
+**Result: a clean negative.** On the spec's own primary gold+silver
+2001–2023 sample, every single signal lands within rounding of plain DCA —
+none pass the spec's 4-part win condition, none clear the placebo test even
+before the multiple-testing correction, and the regime-timeline chart shows
+why: gold rallied hard right through the whole 2022–2026 "tightening" window,
+exactly the failure mode the spec's own risk section flagged in advance
+(gold's post-2022 link to real rates weakening, widely attributed to central
+bank buying). New: `src/backtest/v2/regimes.py` (point-in-time signal
+construction, including real ALFRED dot-plot vintages) and `strategy_d.py`
+(the switching logic).
+
+## v2 — SmartDCA / ADCA / rebalanced portfolio
 
 Tests three strategies that stay fully invested and change *how much* or
 *where* to buy, instead of *whether* to be in the market:
