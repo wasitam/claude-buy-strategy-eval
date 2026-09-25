@@ -459,5 +459,57 @@ replacement idea).
 |---|---|---|---|
 | 31 | Kelly-fraction-style trailing-Sharpe sizing: scale buy size up when an asset's own trailing mean-return-over-volatility ratio (a rolling realized Sharpe/Kelly-fraction proxy, `mean(daily log return) / variance(daily log return)` over a trailing window) is elevated in its own trailing percentile, scale down when it is depressed or negative -- a signal that combines BOTH the mean and the variance of trailing returns into a single ratio, mechanistically distinct from family 003 (variance alone, no mean/return component at all, direction-agnostic) and family 005 (the sign of the trailing return alone, no variance normalization) since neither predecessor's signal can be recovered from this one (or vice versa) without the missing moment. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Kelly, J.L. (1956), "A New Interpretation of Information Rate," *Bell System Technical Journal*; MacLean, L.C., Thorp, E.O. and Ziemba, W.T., eds. (2011), *The Kelly Capital Growth Investment Criterion: Theory and Practice* |
 
+Idea #27 (Yield-curve slope (2s10s) inversion regime filter) has been
+taken from the queue and used for family `027-yield-curve-regime`; see
+`families/027-yield-curve-regime/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Regime switch (macro /
+credit / sentiment)**. Signal: T10Y2Y (FRED, already cached from v2.1's
+Strategy D usage) with a persistence-confirmation filter and a
+lag-motivated post-inversion banking-window extension (up to 2 years,
+modeling the 12-18-month documented inversion-to-recession lag), banking
+deposits during/after a confirmed inversion, deployed with a capped
+catch-up lump when normal. Rigorously distinguished in prereg.md from
+family 011 (credit-stress: a categorically different, market-priced
+financial-conditions signal, not a Treasury-curve-shape signal) and, in
+particular, from v2.1 Strategy D -- the closest prior family, since
+T10Y2Y is literally one of Strategy D's 8 ensemble-vote signals (R2b-inv)
+-- on both of sec 7.2's disjunctive grounds: mechanism (this family uses
+the signal ALONE as a direct banking/timing decision, vs. Strategy D's
+use of it as one of 8 votes choosing between two other pre-existing
+strategies, SmartDCA vs. plain DCA) and signal construction (persistence
+confirmation + lag-extension window, vs. Strategy D's shared 2-week
+whipsaw filter with no lag-extension feature). Sec 4.1: primary config
+(invert_threshold=0.0, persistence_days=5, banking_window_days=252,
+stress_tilt_fraction=0.0) beats DCA on wealth AND Sharpe on **2/5** core
+assets (need >=3/5) -- SP500 by a razor-thin margin, OIL genuinely; GOLD
+loses both, SILVER loses wealth, BTC is IDENTICAL to DCA because its
+short 2014-2019 dev window contains only one 3-day near-inversion that
+never reaches the persistence threshold (an honest data-limitation
+finding flagged before backtesting, not a bug). Grid: 11/24 (45.8%)
+configs reach the majority bar (need >=16/24) -- a genuinely MIXED
+result, unlike families 025/026's uniform failures: the grid's strongest
+corner (tighter -0.10 threshold, NO lag extension) reaches 4/5 assets,
+but the primary config's honest, literature-faithful parameter choices
+land in a weaker region, which sec 4.4's diagnostic-only rule correctly
+prevents the loop from chasing after the fact. CSCV PBO=0.057 (low, a
+genuinely differentiated grid). DSR effectively zero despite a small
+POSITIVE raw pooled excess Sharpe (+0.0592/yr annualized, unlike
+families 025/026's negative results) -- far below the SR0=0.1466
+threshold this loop's 821-trial/71-cluster count now demands. Pre-grid
+known-episode check confirmed the raw T10Y2Y signal correctly registers
+the 1989/2000/2006-07 inversions before any backtest was trusted.
+Verified PRIMARY_CONFIG membership in GRID both programmatically and via
+an explicit module-import-time assertion. Sec 4.3 not run (only run when
+sec 4.1 passes). Holdout not opened (not a finalist).
+
+4 ideas remain (#28-31), below the sec 8 step-2 threshold of 5 -- one more
+idea is added now to restore the threshold before the next iteration
+takes #28, following families 023/024/025/026's precedent (adding exactly
+1 replacement idea).
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 32 | M2 money-supply growth regime: bank deposits when trailing year-over-year M2 money-supply growth (FRED series `M2SL`) is depressed/contracting in its own trailing percentile (tight-liquidity conditions), deploy normally or with a capped catch-up lump when M2 growth is elevated (loose-liquidity conditions) -- a monetarist "don't fight the Fed / don't fight the flow of liquidity" mechanism (excess money-supply growth has historically flowed disproportionately into financial and real asset prices, e.g. the 2020-22 M2 surge and subsequent risk-asset rally, followed by 2022's sharp M2 growth deceleration alongside a broad risk-asset drawdown). Genuinely distinct signal source from every prior macro-regime family in this loop (011's credit spread/NFCI, 015's DXY, 019's OECD CLI, 027's T10Y2Y) -- a money-supply AGGREGATE growth rate, not a price, spread, or composite index -- though the eventual prereg.md must argue this carefully against v2.1 Strategy D's rate-level signals (R1: Fed funds target; R2a: DGS2 vs. its own trailing mean) since "loose monetary policy" is part of the economic story for both, even though M2 growth and the policy rate level are not the same thing and have diverged historically (e.g. 2008-09's near-zero rates arrived well after M2 growth had already troughed). | Regime switch (macro / credit / sentiment) | Friedman, M. and Schwartz, A.J. (1963), *A Monetary History of the United States*; more recent practitioner literature on M2 growth and asset-price inflation (e.g. Fed/BIS working papers on the 2020-22 liquidity surge) |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).

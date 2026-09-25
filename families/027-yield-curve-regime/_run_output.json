@@ -1,0 +1,120 @@
+{
+  "episode_check": {
+    "rows": [
+      {
+        "year": 1989,
+        "n_obs": 250,
+        "min_spread": -0.45,
+        "frac_negative_days": 0.66
+      },
+      {
+        "year": 2000,
+        "n_obs": 251,
+        "min_spread": -0.52,
+        "frac_negative_days": 0.9043824701195219
+      },
+      {
+        "year": 2006,
+        "n_obs": 250,
+        "min_spread": -0.19,
+        "frac_negative_days": 0.652
+      },
+      {
+        "year": 2007,
+        "n_obs": 251,
+        "min_spread": -0.15,
+        "frac_negative_days": 0.2868525896414343
+      }
+    ],
+    "all_known_episodes_registered": true
+  },
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_days": 23109,
+      "banking_frac": 0.12830498939807003,
+      "confirmed_inverted_frac": 0.06278938941537929,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_days": 4848,
+      "banking_frac": 0.16212871287128713,
+      "confirmed_inverted_frac": 0.06229372937293729,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_days": 4850,
+      "banking_frac": 0.16226804123711341,
+      "confirmed_inverted_frac": 0.0622680412371134,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_days": 1932,
+      "banking_frac": 0.0,
+      "confirmed_inverted_frac": 0.0,
+      "non_degenerate": false
+    },
+    {
+      "asset": "OIL",
+      "n_days": 4857,
+      "banking_frac": 0.16285773110973853,
+      "confirmed_inverted_frac": 0.06320774140415894,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "lag_matters_zero_vs_documented_frac_days_differ": 0.0007356441213380068,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 821,
+  "n_eff": 71,
+  "dsr_neff": {
+    "dsr": 2.689222644678176e-22,
+    "sr": 0.008215690412606213,
+    "sr_annualized": 0.05924418609197919,
+    "sr0": 0.1466405157324537,
+    "n": 4800,
+    "n_eff": 71,
+    "skew": 1.6529434482626342,
+    "kurtosis": 175.39119314766216
+  },
+  "dsr_rawn": {
+    "dsr": 8.522422206562223e-24,
+    "sr": 0.008215690412606213,
+    "sr_annualized": 0.05924418609197919,
+    "sr0": 0.1516392227731538,
+    "n": 4800,
+    "n_eff": 821,
+    "skew": 1.6529434482626342,
+    "kurtosis": 175.39119314766216
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.4583333333333333,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.05714285714285714,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg02_it0.0_pd5_bw252_tf0.0",
+  "primary_trial_id": "new_027_cfg02_it0.0_pd5_bw252_tf0.0"
+}
