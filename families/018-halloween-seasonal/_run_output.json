@@ -1,0 +1,91 @@
+{
+  "pre_backtest_sanity_check": {
+    "pass": true,
+    "rows": [
+      {
+        "asset": "SP500",
+        "n_days": 23109,
+        "n_strong": 11336,
+        "frac_strong": 0.4905448093816262,
+        "ok": true
+      },
+      {
+        "asset": "GOLD",
+        "n_days": 4848,
+        "n_strong": 2371,
+        "frac_strong": 0.4890676567656766,
+        "ok": true
+      },
+      {
+        "asset": "SILVER",
+        "n_days": 4850,
+        "n_strong": 2371,
+        "frac_strong": 0.48886597938144327,
+        "ok": true
+      },
+      {
+        "asset": "BTC",
+        "n_days": 1932,
+        "n_strong": 967,
+        "frac_strong": 0.5005175983436853,
+        "ok": true
+      },
+      {
+        "asset": "OIL",
+        "n_days": 4857,
+        "n_strong": 2374,
+        "frac_strong": 0.4887790817376982,
+        "ok": true
+      }
+    ]
+  },
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_halloween": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true,
+    "never_exceeds_cumulative_deposits": true
+  },
+  "n_seed": 196,
+  "n_new": 16,
+  "n_total_raw": 563,
+  "n_eff": 60,
+  "dsr_neff": {
+    "dsr": 1.3306596039632677e-24,
+    "sr": 0.002547616363739095,
+    "sr_annualized": 0.01837112285934485,
+    "sr0": 0.15056601708979656,
+    "n": 4800,
+    "n_eff": 60,
+    "skew": -5.948080966941434,
+    "kurtosis": 709.250121913791
+  },
+  "dsr_rawn": {
+    "dsr": 5.4997357145267804e-30,
+    "sr": 0.002547616363739095,
+    "sr_annualized": 0.01837112285934485,
+    "sr0": 0.16721563124818434,
+    "n": 4800,
+    "n_eff": 563,
+    "skew": -5.948080966941434,
+    "kurtosis": 709.250121913791
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.375,
+    "pass": 0.0
+  },
+  "cscv_pbo_sp500": {
+    "pbo": 0.02857142857142857,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg00_ss11_ws5_mt0.0_ml6",
+  "primary_trial_id": "new_018_cfg00_ss11_ws5_mt0.0_ml6",
+  "sec_4_1_pass": false
+}
