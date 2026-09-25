@@ -1,0 +1,55 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_negative_cash_units_aggressive_corner": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "capital_never_exceeds_deposits_aggressive_corner": true,
+    "primary_regime_nondegenerate": true,
+    "primary_regime_frac_confirmed_strong": 0.25976892119953265
+  },
+  "n_seed": 196,
+  "n_new": 16,
+  "n_total_raw": 499,
+  "n_eff": 58,
+  "dsr_neff": {
+    "dsr": 1.388137238658052e-44,
+    "sr": -0.044477838031466446,
+    "sr_annualized": -0.32073425128846916,
+    "sr0": 0.15094512351973918,
+    "n": 4800,
+    "n_eff": 58,
+    "skew": -2.942362458753029,
+    "kurtosis": 145.48141212275868
+  },
+  "dsr_rawn": {
+    "dsr": 9.690555498573916e-54,
+    "sr": -0.044477838031466446,
+    "sr_annualized": -0.32073425128846916,
+    "sr0": 0.170967038428248,
+    "n": 4800,
+    "n_eff": 499,
+    "skew": -2.942362458753029,
+    "kurtosis": 145.48141212275868
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.5571428571428572,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg12_lb200_cd10_th0.0_bf0.0",
+  "primary_trial_id": "new_015_cfg12_lb200_cd10_th0.0_bf0.0"
+}
