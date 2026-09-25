@@ -74,3 +74,21 @@ prevented a second trial-count increment on the rerun -- the 32-config
 grid and its 651-trial N_eff computation were re-executed (results
 identical, since no grid config or engine logic changed, only which
 already-computed config is looked up as "primary"), not double-counted.
+
+## 2026-09-25 — family 028, known-episode check cited a holdout-period date
+
+`scripts/v3/run_028_ma_crossover_regime.py`'s first run failed the
+pre-grid known-episode sanity check because one of the three cited
+SP500 golden-cross windows (2020-06-15..2020-08-15, for the well-known
+2020-07-24 golden cross) falls inside the sealed 2020+ holdout period.
+`load_dev()` correctly returns data only through 2019-12-31, so the
+signal simply never crosses in that window within development data --
+not a signal-construction bug, but a genuine mistake in which known
+episode was cited as dev-checkable in prereg.md and the run script (both
+written before this was noticed). Caught before the grid ran and before
+any backtest result was computed or trusted -- no trial was counted, no
+`state/trial_counter.json` increment occurred. Fixed by substituting the
+2020 window with 2003-05-14 (the well-documented post-dot-com-bust SP500
+golden cross, confirmed present in dev data), alongside the still-valid
+2009 and 2016 dev-period windows, in both `prereg.md` and the run script.
+No engine, strategy, or grid logic changed.

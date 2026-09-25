@@ -1,0 +1,107 @@
+{
+  "episode_check": {
+    "rows": [
+      {
+        "window": "2003-04-15..2003-06-15",
+        "golden_cross_found": true
+      },
+      {
+        "window": "2009-06-01..2009-08-15",
+        "golden_cross_found": true
+      },
+      {
+        "window": "2016-03-15..2016-05-15",
+        "golden_cross_found": true
+      }
+    ],
+    "n_golden_cross_events_total": 47,
+    "all_known_episodes_registered": true
+  },
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_days": 23109,
+      "bullish_frac": 0.6745856592669522,
+      "n_raw_crossovers": 94,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_days": 4848,
+      "bullish_frac": 0.7291666666666666,
+      "n_raw_crossovers": 20,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_days": 4850,
+      "bullish_frac": 0.5684536082474226,
+      "n_raw_crossovers": 26,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_days": 1932,
+      "bullish_frac": 0.6904761904761905,
+      "n_raw_crossovers": 7,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "n_days": 4857,
+      "bullish_frac": 0.6242536545192505,
+      "n_raw_crossovers": 28,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 857,
+  "n_eff": 72,
+  "dsr_neff": {
+    "dsr": 3.4243335771109814e-27,
+    "sr": -0.005249540045473604,
+    "sr_annualized": -0.03785497161311328,
+    "sr0": 0.14628730192820769,
+    "n": 4800,
+    "n_eff": 72,
+    "skew": -8.826782648575797,
+    "kurtosis": 337.5844606698733
+  },
+  "dsr_rawn": {
+    "dsr": 3.6842894529187083e-28,
+    "sr": -0.005249540045473604,
+    "sr_annualized": -0.03785497161311328,
+    "sr0": 0.1491663185852531,
+    "n": 4800,
+    "n_eff": 857,
+    "skew": -8.826782648575797,
+    "kurtosis": 337.5844606698733
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 3,
+    "beats_dca_count_fee0.25pct": 3,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.7777777777777778,
+    "pass": 1.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.17142857142857143,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg06_f50_s200_pd5_bu1.5_be0.5",
+  "primary_trial_id": "new_028_cfg06_f50_s200_pd5_bu1.5_be0.5"
+}

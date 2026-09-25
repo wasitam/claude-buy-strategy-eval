@@ -216,10 +216,15 @@ unlike family 027's shared macro signal):
    lesson (`state/bugfix_log.md`).
 2. **Known-episode spot-check**: the raw (`persistence_days=0`) 50/200
    crossover on SP500 must register golden crosses at dates consistent
-   with the well-documented 2009, 2016 and 2020 SP500 golden crosses
-   (approximately: 2009-07 post-financial-crisis low, 2016-04 following
-   the early-2016 correction, and 2020-07 following the COVID crash) —
-   checked in the run script before any backtest result is trusted.
+   with well-documented historical SP500 golden crosses. The task names
+   2009, 2016 and 2020 as examples; 2020's crossing (2020-07-24, public
+   record) falls inside the **sealed holdout period** (2020+), so
+   checking it here — before any finalist has been identified or the
+   holdout properly opened per sec 5.2 — would itself be an improper
+   holdout look. The check instead spot-checks the two 2009/2016 dates
+   plus 2003-05-14 (the well-documented post-dot-com-bust golden cross),
+   all within development data — checked in the run script before any
+   backtest result is trusted.
 3. **BTC short-history caveat**: BTC's development window (2014-09 to
    2019-12, the plan's own flagged short-history weakness, sec 12) may
    produce a degenerate or near-zero confirmed-crossover count for the
