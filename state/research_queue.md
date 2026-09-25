@@ -175,7 +175,6 @@ single-asset-only structural trap flagged in family 008's results.md.
 | # | Idea | Category | Key source |
 |---|---|---|---|
 | 22 | Presidential election cycle timing: bank a larger share of deposits during years 1-2 of the US presidential term (historically weaker, per Hirsch's Stock Trader's Almanac and Santa-Clara & Valkanov's "Presidential Puzzle"), deploy a catch-up lump-sum tilt during years 3-4 (historically strongest, especially year 3). A **quadrennial** seasonal cycle -- a full order of magnitude longer period than family 018's annual Nov-Apr/May-Oct window, 006's monthly turn-of-month window, or 007's weekly day-of-week window -- and a different economic story (political business-cycle / policy-manipulation and investor-sentiment literature specific to the US election calendar, vs. institutional flow cycles or crypto liquidity composition). Calendar-only signal (US presidential term year, publicly known in advance), testable identically on all 5 core assets per the 006/007/018 scoping precedent -- though, like 006/007, the anchor literature is US-equity-specific, a caveat to be stated explicitly in that family's own prereg.md. | Seasonality / execution timing | Santa-Clara, P. and Valkanov, R. (2003), "The Presidential Puzzle: Political Cycles and the Stock Market," *Journal of Finance* 58(5), 1841-1872; Hirsch, Y. (1967-), *Stock Trader's Almanac* |
-| 23 | Realized-skewness sizing: buy more when an asset's own trailing realized skewness (computed from daily returns over a lookback window, per Neuberger's high-frequency third-moment estimator) sits in a deeply negative percentile (a proxy for a recent crash-like/left-tail-heavy return distribution the literature associates with a compensating risk premium), buy less when skewness is strongly positive. A **third-moment** (asymmetry) statistic, mechanistically distinct from family 003 (second-moment realized variance, direction-agnostic), family 016 (a shared cross-market VIX level, not each asset's own return-distribution shape), and family 017 (RSI2's gain/loss-ratio oscillator, a bounded relative-strength statistic, not a distributional moment) -- must state this distinction explicitly in prereg.md, same discipline family 017 used for its own triple distinction. Price-only signal (daily Close), no external data dependency, testable per-asset. | Sizing / valuation | Neuberger, A. (2012), "Realized Skewness," *Review of Financial Studies* 25(11), 3423-3455; Amaya, D., Christoffersen, P., Jacobs, K. and Vasquez, A. (2015), "Does Realized Skewness Predict the Cross-Section of Equity Returns?," *Journal of Financial Economics* 118(1), 135-167 |
 | 24 | Seasonal Affective Disorder (SAD) / daylight-length deposit timing: size deposits by a **continuous** function of Northern Hemisphere day length (shortest around the winter solstice, longest around the summer solstice) rather than a discrete calendar window, banking more as daylight shortens through fall (proxying rising risk aversion per the SAD literature's depression-and-risk-aversion channel) and deploying a catch-up tilt as daylight lengthens through winter/spring. Explicitly distinct from family 018 despite the shared "Seasonality" category and both being annual-periodicity: 018's mechanism is a fixed, discrete 6-month institutional-flow window (in or out), while this family's signal is a smooth, continuously-varying function of calendar day peaking/troughing at the solstices, motivated by an investor-psychology/risk-aversion channel rather than institutional payment or rebalancing cycles -- this distinction must be made explicit in that family's own prereg.md when its turn comes, mirroring the discipline 018's own prereg.md uses to distinguish itself from 006/007. Calendar-only signal, testable identically on all 5 core assets. | Seasonality / execution timing | Kamstra, M.J., Kramer, L.A. and Levi, M.D. (2003), "Winter Blues: A SAD Stock Market Cycle," *American Economic Review* 93(1), 324-343 |
 
 Idea #18 ("Halloween effect" / Sell-in-May seasonal deposit timing) has
@@ -296,6 +295,37 @@ confound risk in prereg.md before backtesting.
 5 ideas, at the sec 8 step-2 threshold -- no further replenishment needed
 before the next iteration takes #23, though it is worth researching one
 more idea early next iteration to stay comfortably above the threshold.
+
+Idea #23 (Realized-skewness sizing) has been taken from the queue and used
+for family `023-realized-skewness`; see `families/023-realized-skewness/`
+(REJECTED). Assessed as a single-asset family across all 5 core assets,
+category **Sizing / valuation**. Sec 4.1: primary config beats DCA on
+wealth AND Sharpe on **2/5** core assets (SP500, BTC) -- short of the 3/5
+majority; GOLD/SILVER/OIL all lose on both metrics. Grid: 1/32 (3.1%)
+configs reach the combined majority bar (need >=22/32), and the one that
+does (`skew_window=60`) is not the primary -- every `skew_window=90`
+config manages only 2/5 assets, the longer window uniformly weaker than
+the shorter one across the whole grid. CSCV PBO=0.0, the lowest of any
+family so far (a consistently, stably weak grid rather than a noisy one).
+DSR effectively zero (negative raw pooled excess Sharpe). Pre-grid
+non-degeneracy sanity check confirmed the fixed-threshold `RSkew_t`
+design fires non-trivially (14.9%-32.7%) on every asset for both the
+negative-skew and positive-skew regimes. Verified `PRIMARY_CONFIG`
+membership in `GRID` programmatically (assertion at import time), per
+family 021's lesson -- no mismatch. Documented the required triple
+distinction from families 003 (2nd-moment realized variance, direction-
+agnostic), 016 (shared forward-looking implied-vol level) and 017
+(bounded price-level oscillator, no moment interpretation) in prereg.md,
+per this iteration's explicit task instruction. Sec 4.3 not run (only run
+when sec 4.1 passes). Holdout not opened (not a finalist).
+
+1 idea remains (#24) plus the 3 from the prior replenishment (#25-27) = 4
+ideas, below the sec 8 step-2 threshold of 5 -- one more idea is added now
+to restore the threshold before the next iteration takes #24.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 28 | 50-day/200-day moving-average crossover ("golden cross" / "death cross") regime tilt: scale buy size up while the 50-day SMA sits above the 200-day SMA (a classic bull-regime signal), scale down (banking a reserve) while it sits below. Explicitly distinct from family 001 (price level vs. a SINGLE 10-month/200-day moving average, with a binary invest/park-in-cash exit-to-T-bills rule) and from family 005 (sign of the raw 12-month return, no moving average at all): this family compares TWO moving averages of different lengths to each other, never compares price to a single average, and tilts buy size continuously between two multipliers rather than exiting to cash entirely -- must state this distinction explicitly in prereg.md, same discipline family 020 used to distinguish itself from families 001/005/014. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Trend / time-series momentum exit | Brock, W., Lakonishok, J. and LeBaron, B. (1992), "Simple Technical Trading Rules and the Stochastic Properties of Stock Returns," *Journal of Finance* 47(5), 1731-1764 |
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).

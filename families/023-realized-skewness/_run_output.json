@@ -1,0 +1,90 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_weekend_days": 4801,
+      "frac_weekend_negative": 0.179337637992085,
+      "frac_weekend_positive": 0.18433659654238702,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_weekend_days": 1010,
+      "frac_weekend_negative": 0.22475247524752476,
+      "frac_weekend_positive": 0.24059405940594059,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_weekend_days": 1010,
+      "frac_weekend_negative": 0.32673267326732675,
+      "frac_weekend_positive": 0.1485148514851485,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_weekend_days": 277,
+      "frac_weekend_negative": 0.2924187725631769,
+      "frac_weekend_positive": 0.2996389891696751,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "n_weekend_days": 1011,
+      "frac_weekend_negative": 0.1562809099901088,
+      "frac_weekend_positive": 0.17606330365974282,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 32,
+  "n_total_raw": 707,
+  "n_eff": 70,
+  "dsr_neff": {
+    "dsr": 1.805156898746488e-30,
+    "sr": -0.017165592698948753,
+    "sr_annualized": -0.12378284929958003,
+    "sr0": 0.1470278027116863,
+    "n": 4800,
+    "n_eff": 70,
+    "skew": -0.6353972257304135,
+    "kurtosis": 58.088050392299166
+  },
+  "dsr_rawn": {
+    "dsr": 9.192044981585512e-34,
+    "sr": -0.017165592698948753,
+    "sr_annualized": -0.12378284929958003,
+    "sr0": 0.15625892785089465,
+    "n": 4800,
+    "n_eff": 707,
+    "skew": -0.6353972257304135,
+    "kurtosis": 58.088050392299166
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.03125,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg22_sw90_nt-0.5_pt0.5_bm2.0_rf0.85",
+  "primary_trial_id": "new_023_cfg22_sw90_nt-0.5_pt0.5_bm2.0_rf0.85"
+}
