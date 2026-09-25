@@ -1,0 +1,94 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_negative_cash_units_aggressive_corner": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "capital_never_exceeds_deposits_aggressive_corner": true,
+    "primary_regime_nondegenerate": true,
+    "primary_regime_freq_by_asset": {
+      "SP500": {
+        "n_days": 23109,
+        "n_oversold": 6209,
+        "n_overbought": 7710,
+        "frac_oversold": 0.26868319702280496,
+        "frac_overbought": 0.3336362456185902
+      },
+      "GOLD": {
+        "n_days": 4848,
+        "n_oversold": 1219,
+        "n_overbought": 1497,
+        "frac_oversold": 0.2514438943894389,
+        "frac_overbought": 0.3087871287128713
+      },
+      "SILVER": {
+        "n_days": 4850,
+        "n_oversold": 1196,
+        "n_overbought": 1507,
+        "frac_oversold": 0.2465979381443299,
+        "frac_overbought": 0.31072164948453607
+      },
+      "BTC": {
+        "n_days": 1932,
+        "n_oversold": 457,
+        "n_overbought": 658,
+        "frac_oversold": 0.2365424430641822,
+        "frac_overbought": 0.34057971014492755
+      },
+      "OIL": {
+        "n_days": 4857,
+        "n_oversold": 1269,
+        "n_overbought": 1450,
+        "frac_oversold": 0.26127239036442246,
+        "frac_overbought": 0.2985381922997735
+      }
+    }
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 547,
+  "n_eff": 60,
+  "dsr_neff": {
+    "dsr": 2.832109471393765e-25,
+    "sr": 0.0020802776190243346,
+    "sr_annualized": 0.01500109524518476,
+    "sr0": 0.15056601708979656,
+    "n": 4800,
+    "n_eff": 60,
+    "skew": 3.2627853424162407,
+    "kurtosis": 77.55558123294024
+  },
+  "dsr_rawn": {
+    "dsr": 1.7551725560103322e-31,
+    "sr": 0.0020802776190243346,
+    "sr_annualized": 0.01500109524518476,
+    "sr0": 0.1691642947291375,
+    "n": 4800,
+    "n_eff": 547,
+    "skew": 3.2627853424162407,
+    "kurtosis": 77.55558123294024
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.08333333333333333,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg03_rp2_ot10.0_obt90.0_bmo2.0",
+  "primary_trial_id": "new_017_cfg03_rp2_ot10.0_obt90.0_bmo2.0",
+  "rolling_windows": "not run (sec 4.1 failed)",
+  "block_bootstrap": "not run (sec 4.1 failed)",
+  "placebo": "not run (sec 4.1 failed)"
+}
