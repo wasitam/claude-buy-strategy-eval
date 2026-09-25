@@ -411,5 +411,53 @@ replacement idea).
 |---|---|---|---|
 | 30 | Short-term reversal / losing-streak contrarian sizing: increase buy size after a run of `N` or more consecutive DOWN daily closes (a short-term oversold/mean-reversion signal), reduce buy size after a run of consecutive UP closes, normal size otherwise. Price-only signal (daily Close, consecutive-close-direction counting), no external data dependency, testable identically on all 5 core assets. Explicitly distinct from family 001 (a single long-horizon 10-month/200-day trend-following EXIT to cash, opposite sign and horizon), family 005 (sign of the trailing 12-month return, no streak-counting, opposite sign for the momentum leg), family 016 (VIX-based cross-market fear spike, not a price-level streak on the asset's own closes) and family 025 (implied-vs-realized vol spread, not a directional price-streak count at all) -- must state this distinction explicitly in prereg.md, same discipline prior families used. | Sizing / valuation | Jegadeesh, N. (1990), "Evidence of Predictable Behavior of Security Returns," *Journal of Finance* 45(3), 881-898; Lehmann, B.N. (1990), "Fads, Martingales, and Market Efficiency," *Quarterly Journal of Economics* 105(1), 1-28 (short-horizon return reversal literature) |
 
+Idea #26 (Intraday/overnight return decomposition sizing) has been taken
+from the queue and used for family `026-intraday-overnight`; see
+`families/026-intraday-overnight/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Sizing / valuation**. First
+family in this loop to use the intraday (Open-to-Close) / overnight
+(Close-to-Open) return decomposition as a data dimension, documented
+explicitly in prereg.md as new (no prior v3 family or sec 7.2 closed
+family split a day's own return this way). Signal: `spread_t =` trailing
+LAGGED cumulative overnight return minus trailing LAGGED cumulative
+intraday return (both sums computed on the leg series shifted forward one
+day before rolling, so day t's own O/C split never enters its own signal
+-- a deliberately conservative no-lookahead design per this iteration's
+explicit caution, adapting Lou, Polk & Skouras (2019)'s finding that the
+overnight leg shows continuation while the intraday leg is noisier and
+reversal-prone), ranked in its own trailing percentile: elevated spread
+(overnight dominating) -> buy more; compressed spread (intraday
+dominating) -> buy less. Sec 4.1: primary config beats DCA on wealth AND
+Sharpe on **0/5** core assets -- decisive fail (need >=3/5); SP500 beats
+DCA on Sharpe alone by a hair via the banking/smoothing mechanic but loses
+on wealth, and GOLD/SILVER/BTC/OIL lose on BOTH metrics outright, a
+weaker result than most prior REJECTED sizing families. Grid: 0/36 (0.0%)
+configs reach the combined majority bar, uniform failure across the
+entire 36-point parameter space. CSCV PBO=0.0 (the lowest possible
+reading -- a reliably weak grid, not a noisy one). DSR effectively zero
+(negative raw pooled excess Sharpe, -0.04785/week). Hand-checked the O/C
+decomposition arithmetic on 5 real SP500 days (1928-2007) before trusting
+the grid: the exact multiplicative identity
+`(1+overnight_t)*(1+intraday_t)-1` reproduced the actual Close-to-Close
+return to floating-point precision on all 5 days. Pre-grid non-degeneracy
+check confirmed elevated/compressed regime frequencies non-trivial and
+close to their nominal ~10% decile rate on all 5 assets. Verified
+`PRIMARY_CONFIG` membership in `GRID` programmatically at module import
+time, per family 021's lesson. Flagged explicitly in prereg.md before
+backtesting that LPS's mechanism (equity-market trading-hours structure)
+has no clean analogue for BTC (24/7 trading) and only a partial one for
+the commodity futures, weakening the economic story for 4/5 core assets
+even before results came in. Sec 4.3 not run (only run when sec 4.1
+passes). Holdout not opened (not a finalist).
+
+4 ideas remain (#27-30), below the sec 8 step-2 threshold of 5 -- one more
+idea is added now to restore the threshold before the next iteration
+takes #27, following families 023/024/025's precedent (adding exactly 1
+replacement idea).
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 31 | Kelly-fraction-style trailing-Sharpe sizing: scale buy size up when an asset's own trailing mean-return-over-volatility ratio (a rolling realized Sharpe/Kelly-fraction proxy, `mean(daily log return) / variance(daily log return)` over a trailing window) is elevated in its own trailing percentile, scale down when it is depressed or negative -- a signal that combines BOTH the mean and the variance of trailing returns into a single ratio, mechanistically distinct from family 003 (variance alone, no mean/return component at all, direction-agnostic) and family 005 (the sign of the trailing return alone, no variance normalization) since neither predecessor's signal can be recovered from this one (or vice versa) without the missing moment. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Kelly, J.L. (1956), "A New Interpretation of Information Rate," *Bell System Technical Journal*; MacLean, L.C., Thorp, E.O. and Ziemba, W.T., eds. (2011), *The Kelly Capital Growth Investment Criterion: Theory and Practice* |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).

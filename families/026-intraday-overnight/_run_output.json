@@ -1,0 +1,146 @@
+{
+  "oc_arithmetic_check": {
+    "rows": [
+      {
+        "date": "1928-05-24",
+        "intraday": 0.0,
+        "overnight": 0.006075991859918917,
+        "additive_sum": 0.006075991859918917,
+        "exact_compound_identity": 0.006075991859918917,
+        "actual_total_close_to_close_return": 0.006075991859918917,
+        "exact_identity_matches_total_return": true,
+        "additive_approx_error": 0.0
+      },
+      {
+        "date": "1948-01-09",
+        "intraday": 0.0,
+        "overnight": -0.0052254000775771026,
+        "additive_sum": -0.0052254000775771026,
+        "exact_compound_identity": -0.0052254000775771026,
+        "actual_total_close_to_close_return": -0.0052254000775771026,
+        "exact_identity_matches_total_return": true,
+        "additive_approx_error": 0.0
+      },
+      {
+        "date": "1967-12-01",
+        "intraday": 0.005319148936170137,
+        "overnight": 0.0,
+        "additive_sum": 0.005319148936170137,
+        "exact_compound_identity": 0.005319148936170137,
+        "actual_total_close_to_close_return": 0.005319148936170137,
+        "exact_identity_matches_total_return": true,
+        "additive_approx_error": 0.0
+      },
+      {
+        "date": "1987-10-28",
+        "intraday": 0.00038593566168532156,
+        "overnight": 0.0,
+        "additive_sum": 0.00038593566168532156,
+        "exact_compound_identity": 0.00038593566168532156,
+        "actual_total_close_to_close_return": 0.00038593566168532156,
+        "exact_identity_matches_total_return": true,
+        "additive_approx_error": 0.0
+      },
+      {
+        "date": "2007-08-27",
+        "intraday": -0.008496881363243891,
+        "overnight": -6.76623539619392e-06,
+        "additive_sum": -0.008503647598640085,
+        "exact_compound_identity": -0.008503590106740622,
+        "actual_total_close_to_close_return": -0.008503590106740622,
+        "exact_identity_matches_total_return": true,
+        "additive_approx_error": 5.7491899463357754e-08
+      }
+    ],
+    "exact_identity_pass": true,
+    "additive_approx_reasonable": true
+  },
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_days": 23109,
+      "elevated_frac": 0.11497684884676966,
+      "compressed_frac": 0.10268726470206413,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_days": 4848,
+      "elevated_frac": 0.11221122112211221,
+      "compressed_frac": 0.11035478547854785,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_days": 4850,
+      "elevated_frac": 0.12288659793814433,
+      "compressed_frac": 0.10701030927835052,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_days": 1932,
+      "elevated_frac": 0.10093167701863354,
+      "compressed_frac": 0.11180124223602485,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "n_days": 4857,
+      "elevated_frac": 0.11323862466543133,
+      "compressed_frac": 0.1017088737904056,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 797,
+  "n_eff": 70,
+  "dsr_neff": {
+    "dsr": 1.7101525572038295e-41,
+    "sr": -0.04784885746310076,
+    "sr_annualized": -0.3450430181111551,
+    "sr0": 0.14690470586417037,
+    "n": 4800,
+    "n_eff": 70,
+    "skew": -0.15508405916687754,
+    "kurtosis": 26.802969957495215
+  },
+  "dsr_rawn": {
+    "dsr": 3.677751516890069e-44,
+    "sr": -0.04784885746310076,
+    "sr_annualized": -0.3450430181111551,
+    "sr0": 0.15338206274383934,
+    "n": 4800,
+    "n_eff": 797,
+    "skew": -0.15508405916687754,
+    "kurtosis": 26.802969957495215
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg19_lb20_ep90.0_cp10.0_bm2.0",
+  "primary_trial_id": "new_026_cfg19_lb20_ep90.0_cp10.0_bm2.0"
+}
