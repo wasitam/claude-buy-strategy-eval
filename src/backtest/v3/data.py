@@ -79,6 +79,32 @@ def _fetch_irx_raw(force: bool = False) -> pd.DataFrame:
     return _fetch_yf_raw("IRX", "^IRX", force=force)
 
 
+def fetch_fred_macro(series_id: str, force: bool = False) -> pd.Series:
+    """Public FRED macro-series fetch (e.g. BAA, AAA, NFCI for family 011's
+    credit-stress filter). Deliberately routed through data.py (not called
+    directly from a strategy module) so the fredgraph.csv access is caught
+    by check_no_raw_data_leak()'s allowlist -- the caller is still
+    responsible for its OWN point-in-time / publication-lag handling (see
+    families/011-credit-stress-filter/prereg.md), since this function
+    returns the raw, unlagged FRED series exactly as published today, cached
+    on disk under data/<series_id>.csv. This is not asset OHLC data and is
+    not subject to the dev/holdout date gate -- macro series are reindexed
+    onto an already dev-clipped or holdout-appropriate trading-day index by
+    the caller, so no leakage is possible through this function alone."""
+    path = _cache_path(f"FRED_{series_id}")
+    if not force and os.path.exists(path):
+        df = pd.read_csv(path, index_col=0, parse_dates=True)
+    else:
+        os.makedirs(DATA_DIR, exist_ok=True)
+        url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={series_id}"
+        df = pd.read_csv(url, parse_dates=["observation_date"]).set_index("observation_date")
+        df.columns = [series_id]
+        df.to_csv(path)
+    s = df[series_id].copy()
+    s.index = pd.to_datetime(s.index)
+    return s.dropna().sort_index()
+
+
 def _daily_rf(index: pd.DatetimeIndex) -> pd.Series:
     irx = _fetch_irx_raw()
     s = irx["Close"].reindex(irx.index.union(index)).sort_index().ffill().reindex(index).ffill().bfill()
