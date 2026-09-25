@@ -1,0 +1,150 @@
+{
+  "astro_sanity": [
+    {
+      "year": 2001,
+      "dec21_hours": 9.155446137167443,
+      "jun21_hours": 14.84442997590081,
+      "mar_equinox_hours": 11.89844064621251,
+      "sep_equinox_hours": 11.898440646212512,
+      "dec21_is_shortest": true,
+      "jun21_is_longest": true,
+      "equinoxes_near_12h": true,
+      "dec21_near_known_9h20m": true,
+      "jun21_near_known_14h49m": true
+    },
+    {
+      "year": 2004,
+      "dec21_hours": 9.15594166124331,
+      "jun21_hours": 14.84442997590081,
+      "mar_equinox_hours": 11.943572794571097,
+      "sep_equinox_hours": 11.853324995986327,
+      "dec21_is_shortest": true,
+      "jun21_is_longest": true,
+      "equinoxes_near_12h": true,
+      "dec21_near_known_9h20m": true,
+      "jun21_near_known_14h49m": true
+    },
+    {
+      "year": 2016,
+      "dec21_hours": 9.15594166124331,
+      "jun21_hours": 14.84442997590081,
+      "mar_equinox_hours": 11.943572794571097,
+      "sep_equinox_hours": 11.853324995986327,
+      "dec21_is_shortest": true,
+      "jun21_is_longest": true,
+      "equinoxes_near_12h": true,
+      "dec21_near_known_9h20m": true,
+      "jun21_near_known_14h49m": true
+    },
+    {
+      "year": 2019,
+      "dec21_hours": 9.155446137167443,
+      "jun21_hours": 14.84442997590081,
+      "mar_equinox_hours": 11.89844064621251,
+      "sep_equinox_hours": 11.898440646212512,
+      "dec21_is_shortest": true,
+      "jun21_is_longest": true,
+      "equinoxes_near_12h": true,
+      "dec21_near_known_9h20m": true,
+      "jun21_near_known_14h49m": true
+    }
+  ],
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_days": 23109,
+      "mult_min": 0.5,
+      "mult_max": 1.5,
+      "mult_std": 0.34518309735020725,
+      "n_distinct_values": 183,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_days": 4848,
+      "mult_min": 0.5,
+      "mult_max": 1.5,
+      "mult_std": 0.3440389281318523,
+      "n_distinct_values": 183,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_days": 4850,
+      "mult_min": 0.5,
+      "mult_max": 1.5,
+      "mult_std": 0.3440447275367541,
+      "n_distinct_values": 183,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_days": 1932,
+      "mult_min": 0.5,
+      "mult_max": 1.5,
+      "mult_std": 0.3465828742990046,
+      "n_distinct_values": 183,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "n_days": 4857,
+      "mult_min": 0.5,
+      "mult_max": 1.5,
+      "mult_std": 0.3439215853784758,
+      "n_distinct_values": 183,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 18,
+  "n_total_raw": 725,
+  "n_eff": 70,
+  "dsr_neff": {
+    "dsr": 3.7299068928328086e-26,
+    "sr": -0.010749367028086045,
+    "sr_annualized": -0.07751478799709238,
+    "sr0": 0.1470278027116863,
+    "n": 4800,
+    "n_eff": 70,
+    "skew": 5.770539204190151,
+    "kurtosis": 648.3287643753275
+  },
+  "dsr_rawn": {
+    "dsr": 1.3831457491252818e-28,
+    "sr": -0.010749367028086045,
+    "sr_annualized": -0.07751478799709238,
+    "sr0": 0.15476016536379422,
+    "n": 4800,
+    "n_eff": 725,
+    "skew": 5.770539204190151,
+    "kurtosis": 648.3287643753275
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg07_ts0.5_p1.0_ml8",
+  "primary_trial_id": "new_024_cfg07_ts0.5_p1.0_ml8"
+}

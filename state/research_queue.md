@@ -329,3 +329,43 @@ to restore the threshold before the next iteration takes #24.
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #24 (SAD daylight-length deposit timing) has been taken from the
+queue and used for family `024-sad-daylight`; see
+`families/024-sad-daylight/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Seasonality / execution
+timing**. Sign interpretation (Kamstra, Kramer & Levi 2003, cited and
+explained in prereg.md): buy less/bank as daylight shortens toward the
+winter solstice (realized returns relatively low through fall per KKL),
+buy more as daylight lengthens away from it (returns relatively high in
+winter/spring). Sec 4.1: primary config beats DCA on wealth AND Sharpe on
+**0/5** core assets -- decisive fail (need >=3/5); the strategy beats DCA
+on Sharpe alone on 4/5 assets but loses on WEALTH on all 5/5, so the
+combined requirement is never met. Grid: 0/18 (0.0%) configs reach the
+combined majority bar, and the 0/5-wealth pattern is uniform across the
+ENTIRE grid (every `tilt_strength`/`power`/`max_lump_multiple`
+combination) -- not an unlucky primary-config draw. CSCV PBO=0.0
+(consistently weak, not overfit). DSR effectively zero (negative raw
+pooled excess Sharpe). Astronomical sanity spot-check (solstice/equinox
+daylight values, 4 separate years) and pre-grid non-degeneracy check
+(multiplier spans its full designed range on every asset) both confirmed
+correct before any backtest was trusted. Verified `PRIMARY_CONFIG`
+membership in `GRID` programmatically at module import time, per family
+021's lesson. Rigorous distinction from family 018 (continuous
+solstice-symmetric daylight function vs. discrete binary 6-month window;
+mood/risk-aversion channel vs. institutional-flow/vacation channel)
+documented in prereg.md, per this iteration's explicit task instruction.
+Sec 4.3 not run (only run when sec 4.1 passes). Holdout not opened (not a
+finalist).
+
+4 ideas remain (#25-28), below the sec 8 step-2 threshold of 5 -- one more
+idea is added now to restore the threshold before the next iteration
+takes #25, following family 023's precedent (adding exactly 1 replacement
+idea).
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 29 | Threshold/band-triggered rebalancing for the 5-asset portfolio: rebalance a position back toward its 20% target weight only when it drifts beyond a fixed band (e.g. +/-5 or +/-10 percentage points) from target, rather than on a fixed calendar interval. A **Rebalancing / allocation** family -- the category was previously only tested via v2's closed C1-C3 sweep (sec 7.2), which varied the fixed CALENDAR interval (weekly/monthly/quarterly/annual) a portfolio rebalances on; this family instead varies a drift-BAND trigger, never rebalancing on a schedule at all -- must state this distinction explicitly in prereg.md, same discipline family 020 used for its own distinction from 001/005/014. Portfolio family (uses `src/backtest/v3/portfolio_engine.py`/`portfolio_robustness.py`), assessed vs. fixed-weight 5-asset DCA per sec 4.1's Portfolio line, not the single-asset >=3/5 rule. | Rebalancing / allocation | Donohue, C. and Yip, K. (2003), "Optimal Portfolio Rebalancing with Transaction Costs," *Journal of Portfolio Management* 29(4), 49-63; Masters, S.J. (2003), "Rebalancing," *Journal of Portfolio Management* |
+
+When fewer than 5 ideas remain, the next iteration researches more and adds
+them here, each with a source, mechanism and category (plan sec 8 step 2).
