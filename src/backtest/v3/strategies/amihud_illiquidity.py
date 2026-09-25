@@ -62,17 +62,30 @@ def _trailing_pctile_rank_ignoring_nan(illiq: np.ndarray, lookback: int) -> np.n
     output is NaN on those days, which compute_trigger treats as 'no
     trigger'). Needs >= MIN_VALID_OBS defined values in the trailing window
     before it produces anything (warm-up convention)."""
+    # Vectorized equivalent of the causal trailing-window rank-among-valid-
+    # values loop (same semantics, much faster than a per-day pandas slice):
+    # for each t, out[t] = 100 * (count of valid window values <= illiq[t])
+    # / (count of valid window values), using searchsorted on a running
+    # sorted multiset of the trailing window's valid values.
     n = len(illiq)
     out = np.full(n, np.nan)
-    s = pd.Series(illiq)
-    valid = s.notna()
+    valid = np.isfinite(illiq)
+    import bisect
+    window_sorted: list[float] = []
     for t in range(n):
-        lo = max(0, t - lookback + 1)
-        window = s.iloc[lo:t + 1]
-        window_valid = window[valid.iloc[lo:t + 1]]
-        if len(window_valid) < MIN_VALID_OBS or np.isnan(illiq[t]):
+        lo = t - lookback + 1
+        if valid[t]:
+            bisect.insort(window_sorted, illiq[t])
+        # evict the value at index lo-1 if it just left the window and was valid
+        evict_idx = lo - 1
+        if evict_idx >= 0 and valid[evict_idx]:
+            pos = bisect.bisect_left(window_sorted, illiq[evict_idx])
+            if pos < len(window_sorted) and window_sorted[pos] == illiq[evict_idx]:
+                window_sorted.pop(pos)
+        if not valid[t] or len(window_sorted) < MIN_VALID_OBS:
             continue
-        out[t] = float((window_valid <= illiq[t]).mean() * 100.0)
+        rank = bisect.bisect_right(window_sorted, illiq[t])
+        out[t] = 100.0 * rank / len(window_sorted)
     return out
 
 

@@ -226,5 +226,39 @@ before trusting any backtest, per this iteration's task instruction.
 iteration's first task is to research and add at least one more idea
 before taking #21.
 
+**Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):**
+before taking #21, 4 ideas remained (#21-24), below the sec-8-step-2
+threshold of 5. 3 new ideas were added below after a literature search
+(WebSearch), each chosen to (a) be testable on the 5 core assets with data
+already reachable in this environment (yfinance `^VIX`, the assets' own
+Open/Close, or FRED `T10Y2Y`, all previously confirmed reachable by
+families 003/016/011), (b) not re-tread families 001-021's exact
+mechanisms or the sec 7.2 closed list, and (c) avoid the single-asset-only
+structural trap flagged in family 008's results.md. One candidate found
+during this search -- the pre-FOMC announcement drift (Lucca & Moench
+2013/2015) -- was considered and explicitly **not added**: the source
+literature itself finds the effect is specific to US equities and
+documents its *absence* in Treasuries, currencies and commodities, so it
+would fail the multi-asset-definable-data requirement before any
+backtest, the same structural problem as ideas #9/#12 (which the owner
+decided to skip outright rather than run as single-asset diagnostics) --
+noted here for the final report's "what didn't get tested and why"
+section, per that same owner decision's precedent.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 25 | Variance risk premium (VRP) sizing: buy size scales up when the spread between the CBOE VIX (`^VIX`, option-*implied* forward-looking vol, confirmed reachable per family 016) and an asset's own trailing *realized* volatility is elevated in a trailing percentile (i.e. implied vol is running unusually rich relative to what has actually been realized -- the classic variance-risk-premium signal), scales down when the spread is compressed or negative. Explicitly a **spread of two moments** (implied minus realized), mechanistically distinct from family 003 (realized volatility alone, no implied-vol comparison, direction-agnostic) and family 016 (the raw VIX *level* alone, no realized-vol comparison at all) -- must state this distinction explicitly in prereg.md, same discipline family 021 used for its own triple distinction from 003/016/017. Applied identically across all 5 core assets (VIX as the shared implied-vol input, each asset's own realized vol as the asset-specific input), same cross-asset-signal precedent as 006/007/011/016. | Volatility targeting | Bekaert, G. and Hoerova, M. (2014), "The VIX, the Variance Premium and Stock Market Volatility," *Journal of Econometrics* 183(2), 181-192; Carr, P. and Wu, L. (2009), "Variance Risk Premiums," *Review of Financial Studies* 22(3), 1311-1341 |
+| 26 | Intraday/overnight return decomposition sizing: buy size scales with the recent realized share of an asset's total return that has accrued **overnight** (prior Close to next Open) versus **intraday** (Open to Close) over a trailing window -- a decomposition of the SAME daily return series into two components neither of which any prior family in this loop has isolated (family 001/005/020 use only Close-to-Close trailing returns or levels; no prior family splits a day's return into its open-close and close-open halves). Testable identically on all 5 core assets from the existing cached OHLC (no new data source), price-only. | Sizing / valuation | Lou, D., Polk, C. and Skouras, S. (2019), "A Tug of War: Overnight versus Intraday Expected Returns," *Journal of Financial Economics* 134(1), 192-213 |
+| 27 | Yield-curve slope (2s10s) inversion regime filter: bank deposits when the US Treasury 10-year minus 2-year yield spread (FRED `T10Y2Y`, already cached in `data/T10Y2Y.csv` from a prior iteration's reachability check) is negative or compressed in a trailing percentile (a classic recession-risk signal), deploy normally or with a catch-up tilt when the curve is normally sloped. A **term-structure-of-interest-rates** signal, explicitly distinct from family 011 (a credit-risk spread, BAA-AAA/NFCI, not a Treasury term-structure measure) and from v2.1 Strategy D (the level/stance of the policy rate itself, not the shape of the yield curve) -- must state this distinction explicitly in prereg.md, same discipline family 019 used for its own distinction from 011 and v2.1 D. Asset-agnostic macro regime signal, applied per-asset like 006/007/011/019. | Regime switch (macro / credit / sentiment) | Estrella, A. and Mishkin, F. S. (1998), "Predicting U.S. Recessions: Financial Variables as Leading Indicators," *Review of Economics and Statistics* 80(1), 45-61 |
+
+Idea #21 (Amihud illiquidity-shock sizing) has been taken from the queue
+and used for family `021-amihud-illiquidity`; see
+`families/021-amihud-illiquidity/` for the verdict (see results.md for the
+Volume-data feasibility finding and full assessment).
+
+3 ideas remain (#22-24) plus the 3 just added (#25-27) = 6 ideas, above the
+sec 8 step-2 threshold of 5 -- no further replenishment needed before the
+next iteration takes #22.
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
