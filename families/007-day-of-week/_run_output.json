@@ -1,0 +1,57 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_dow": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true,
+    "no_negative_cash_units_dow_sunday_btc": true,
+    "no_lookahead_sunday_btc": true,
+    "never_exceeds_cumulative_deposits": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 352,
+  "n_eff": 38,
+  "dsr_neff": {
+    "dsr": 1.7121048063231038e-77,
+    "sr": -0.017614994779542047,
+    "sr_annualized": -0.12702353378933867,
+    "sr0": 0.15127667390247082,
+    "n": 4800,
+    "n_eff": 38,
+    "skew": -47.070995338586606,
+    "kurtosis": 2901.247267541159
+  },
+  "dsr_rawn": {
+    "dsr": 5.821524552718467e-110,
+    "sr": -0.017614994779542047,
+    "sr_annualized": -0.12702353378933867,
+    "sr0": 0.1844435321248991,
+    "n": 4800,
+    "n_eff": 352,
+    "skew": -47.070995338586606,
+    "kurtosis": 2901.247267541159
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 1,
+    "beats_dca_count_fee0.25pct": 1,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo_btc": {
+    "pbo": 0.42857142857142855,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "cscv_pbo_sp500": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg03_twMonday_mt0.0_ml6_bw4",
+  "primary_trial_id": "new_007_cfg03_twMonday_mt0.0_ml6_bw4"
+}

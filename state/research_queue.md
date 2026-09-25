@@ -14,11 +14,13 @@ for family `005-tsmom-sizing`; see `families/005-tsmom-sizing/` (NEAR-MISS).
 Idea #6 (turn-of-month deposit timing) has been taken from the queue and
 used for family `006-turn-of-month`; see `families/006-turn-of-month/`
 (REJECTED).
+Idea #7 (day-of-week deposit timing) has been taken from the queue and
+used for family `007-day-of-week`; see `families/007-day-of-week/`
+(REJECTED).
 Remaining queue:
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 7 | Day-of-week deposit timing (BTC weekend effect) | Seasonality | Crypto calendar-effect literature |
 | 8 | CAPE / earnings-yield valuation sizing (S&P 500) | Sizing / valuation | Shiller; Asness et al. |
 | 9 | BTC on-chain valuation sizing (MVRV, realized price) | Sizing / valuation | Glassnode / CoinMetrics research |
 | 10 | Gold/silver ratio rotation | Rotation | Relative-value commodity literature |
