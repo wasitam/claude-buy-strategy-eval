@@ -1,0 +1,772 @@
+{
+  "BTC__Signal A (shock)": {
+    "asset": "BTC",
+    "signal": "Signal A (shock)",
+    "metrics": {
+      "ending_wealth": 34520.409136474234,
+      "total_invested": 12000.0,
+      "wealth_over_invested": 2.876700761372853,
+      "xirr": 0.17944514945059675,
+      "max_drawdown": -0.4689431615045516,
+      "longest_weeks_underwater": 188,
+      "max_underwater_vs_money_in": -8280.363541583087,
+      "annualized_vol": 0.26213190478603243,
+      "sharpe": 0.9157266122510729,
+      "sortino": 1.3467236896132369,
+      "calmar": 0.5428955527886241,
+      "annualized_return": 0.2545871568914586,
+      "avg_cost_basis": 2839.8579824190233,
+      "n_buys": 24,
+      "n_sells": 32
+    },
+    "figs": {
+      "price": "reports/figures/BTC__Signal_A_shock_price.png",
+      "value": "reports/figures/BTC__Signal_A_shock_value.png",
+      "dd": "reports/figures/BTC__Signal_A_shock_drawdown.png",
+      "mc": "reports/figures/BTC__Signal_A_shock_mc.png",
+      "bootstrap": "reports/figures/BTC__Signal_A_shock_bootstrap.png"
+    },
+    "mc_percentiles": {
+      "wealth": 25.0,
+      "sharpe": 84.66666666666667,
+      "drawdown": 30.333333333333332
+    },
+    "bootstrap_win_rates": {
+      "return\n(raw)": 0.02666666666666667,
+      "drawdown\n(raw)": 0.98,
+      "sharpe\n(raw)": 0.3933333333333333,
+      "return\n(detrended)": 0.5733333333333334,
+      "drawdown\n(detrended)": 0.9733333333333334,
+      "sharpe\n(detrended)": 0.3466666666666667
+    },
+    "rolling": {
+      "2": {
+        "n_windows": 40,
+        "n_scored": 38,
+        "win_rate_return": 0.13157894736842105,
+        "win_rate_dd": 0.9473684210526315,
+        "win_rate_sharpe": 0.4473684210526316,
+        "fig": "reports/figures/BTC__Signal_A_shock_rolling2y.png",
+        "last_window": {
+          "window_start": "2024-09-08 00:00:00",
+          "window_end": "2026-08-30 00:00:00",
+          "n_signals": 12,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 0.9081522677841558,
+          "dca_wealth_over_invested": 0.9280497096680367,
+          "strat_max_dd": -0.5207256878956377,
+          "dca_max_dd": -0.5364108680893578,
+          "strat_sharpe": -0.6124966190113577,
+          "dca_sharpe": 0.08817385028437626,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": false
+        }
+      }
+    },
+    "fwd_returns": {
+      "buy_signal": {
+        "1m": {
+          "signal_avg": 0.12657034217213,
+          "unconditional_avg": 0.05601599011193674,
+          "n_signal_obs": 24
+        },
+        "3m": {
+          "signal_avg": 0.2100143491402214,
+          "unconditional_avg": 0.20986599291681282,
+          "n_signal_obs": 24
+        },
+        "6m": {
+          "signal_avg": 0.8086548550792112,
+          "unconditional_avg": 0.5116613050417121,
+          "n_signal_obs": 23
+        },
+        "12m": {
+          "signal_avg": 2.3376421151488267,
+          "unconditional_avg": 1.4257600466978093,
+          "n_signal_obs": 21
+        }
+      },
+      "sell_signal": {
+        "1m": {
+          "signal_avg": 0.12640974322181378,
+          "unconditional_avg": 0.05601599011193674,
+          "n_signal_obs": 37
+        },
+        "3m": {
+          "signal_avg": 0.299624630895426,
+          "unconditional_avg": 0.20986599291681282,
+          "n_signal_obs": 36
+        },
+        "6m": {
+          "signal_avg": 0.49085592963479385,
+          "unconditional_avg": 0.5116613050417121,
+          "n_signal_obs": 36
+        },
+        "12m": {
+          "signal_avg": 1.8130947485314648,
+          "unconditional_avg": 1.4257600466978093,
+          "n_signal_obs": 35
+        }
+      }
+    },
+    "dca_wealth_over_invested": 53.23144414960886
+  },
+  "BTC__Signal B (trend-stretch)": {
+    "asset": "BTC",
+    "signal": "Signal B (trend-stretch)",
+    "metrics": {
+      "ending_wealth": 66000.12273075242,
+      "total_invested": 37500.0,
+      "wealth_over_invested": 1.7600032728200647,
+      "xirr": 0.10572055004334328,
+      "max_drawdown": -0.7521018633684887,
+      "longest_weeks_underwater": 276,
+      "max_underwater_vs_money_in": -8756.891465968702,
+      "annualized_vol": 0.3237272200289213,
+      "sharpe": 0.2745317313560164,
+      "sortino": 0.3839884389645384,
+      "calmar": 0.08206648062667789,
+      "annualized_return": 0.06172235299941842,
+      "avg_cost_basis": 11166.47119267274,
+      "n_buys": 75,
+      "n_sells": 37
+    },
+    "figs": {
+      "price": "reports/figures/BTC__Signal_B_trend-stretch_price.png",
+      "value": "reports/figures/BTC__Signal_B_trend-stretch_value.png",
+      "dd": "reports/figures/BTC__Signal_B_trend-stretch_drawdown.png",
+      "mc": "reports/figures/BTC__Signal_B_trend-stretch_mc.png",
+      "bootstrap": "reports/figures/BTC__Signal_B_trend-stretch_bootstrap.png"
+    },
+    "mc_percentiles": {
+      "wealth": 0.0,
+      "sharpe": 0.0,
+      "drawdown": 99.0
+    },
+    "bootstrap_win_rates": {
+      "return\n(raw)": 0.04,
+      "drawdown\n(raw)": 0.9866666666666667,
+      "sharpe\n(raw)": 0.24666666666666667,
+      "return\n(detrended)": 0.6133333333333333,
+      "drawdown\n(detrended)": 0.9466666666666667,
+      "sharpe\n(detrended)": 0.35333333333333333
+    },
+    "rolling": {
+      "2": {
+        "n_windows": 29,
+        "n_scored": 29,
+        "win_rate_return": 0.20689655172413793,
+        "win_rate_dd": 0.9310344827586207,
+        "win_rate_sharpe": 0.27586206896551724,
+        "fig": "reports/figures/BTC__Signal_B_trend-stretch_rolling2y.png",
+        "last_window": {
+          "window_start": "2024-09-08 00:00:00",
+          "window_end": "2026-08-30 00:00:00",
+          "n_signals": 13,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 0.9829811195609524,
+          "dca_wealth_over_invested": 0.9280497096680363,
+          "strat_max_dd": -0.5831717286934905,
+          "dca_max_dd": -0.5364108680893578,
+          "strat_sharpe": -0.8343005941650878,
+          "dca_sharpe": 0.08817385028437588,
+          "strat_beats_dca_return": true,
+          "strat_beats_dca_dd": false,
+          "strat_beats_dca_sharpe": false
+        }
+      }
+    },
+    "fwd_returns": {
+      "buy_signal": {
+        "1m": {
+          "signal_avg": -0.020945667166950465,
+          "unconditional_avg": 0.05601599011193674,
+          "n_signal_obs": 75
+        },
+        "3m": {
+          "signal_avg": -0.09239983449546471,
+          "unconditional_avg": 0.20986599291681282,
+          "n_signal_obs": 75
+        },
+        "6m": {
+          "signal_avg": -0.031159933438916244,
+          "unconditional_avg": 0.5116613050417121,
+          "n_signal_obs": 74
+        },
+        "12m": {
+          "signal_avg": 0.2322041851799638,
+          "unconditional_avg": 1.4257600466978093,
+          "n_signal_obs": 56
+        }
+      },
+      "sell_signal": {
+        "1m": {
+          "signal_avg": 0.10871329850912234,
+          "unconditional_avg": 0.05601599011193674,
+          "n_signal_obs": 56
+        },
+        "3m": {
+          "signal_avg": 0.3634308108789507,
+          "unconditional_avg": 0.20986599291681282,
+          "n_signal_obs": 56
+        },
+        "6m": {
+          "signal_avg": 0.46615082614995107,
+          "unconditional_avg": 0.5116613050417121,
+          "n_signal_obs": 56
+        },
+        "12m": {
+          "signal_avg": 1.284069082627105,
+          "unconditional_avg": 1.4257600466978093,
+          "n_signal_obs": 56
+        }
+      }
+    },
+    "dca_wealth_over_invested": 53.2314441496088
+  },
+  "Gold__Signal A (shock)": {
+    "asset": "Gold",
+    "signal": "Signal A (shock)",
+    "metrics": {
+      "ending_wealth": 43110.95802863651,
+      "total_invested": 29500.0,
+      "wealth_over_invested": 1.46138840775039,
+      "xirr": 0.02827539942790348,
+      "max_drawdown": -0.0893347812840658,
+      "longest_weeks_underwater": 273,
+      "max_underwater_vs_money_in": -661.1069928231354,
+      "annualized_vol": 0.04119425543758015,
+      "sharpe": 0.44221737674946093,
+      "sortino": 0.4907871396038224,
+      "calmar": 0.40120055993731213,
+      "annualized_return": 0.03584116427304451,
+      "avg_cost_basis": 879.0582853054755,
+      "n_buys": 59,
+      "n_sells": 71
+    },
+    "figs": {
+      "price": "reports/figures/Gold__Signal_A_shock_price.png",
+      "value": "reports/figures/Gold__Signal_A_shock_value.png",
+      "dd": "reports/figures/Gold__Signal_A_shock_drawdown.png",
+      "mc": "reports/figures/Gold__Signal_A_shock_mc.png",
+      "bootstrap": "reports/figures/Gold__Signal_A_shock_bootstrap.png"
+    },
+    "mc_percentiles": {
+      "wealth": 59.0,
+      "sharpe": 82.0,
+      "drawdown": 82.33333333333333
+    },
+    "bootstrap_win_rates": {
+      "return\n(raw)": 0.02666666666666667,
+      "drawdown\n(raw)": 1.0,
+      "sharpe\n(raw)": 0.38666666666666666,
+      "return\n(detrended)": 0.6466666666666666,
+      "drawdown\n(detrended)": 1.0,
+      "sharpe\n(detrended)": 0.38666666666666666
+    },
+    "rolling": {
+      "3": {
+        "n_windows": 93,
+        "n_scored": 93,
+        "win_rate_return": 0.3010752688172043,
+        "win_rate_dd": 1.0,
+        "win_rate_sharpe": 0.7741935483870968,
+        "fig": "reports/figures/Gold__Signal_A_shock_rolling3y.png",
+        "last_window": {
+          "window_start": "2023-08-06 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 12,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.0518633643694355,
+          "dca_wealth_over_invested": 1.4369665432227314,
+          "strat_max_dd": -0.15093162801907645,
+          "dca_max_dd": -0.27495859285614077,
+          "strat_sharpe": 0.6330561703188304,
+          "dca_sharpe": 0.4942265356028114,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": true
+        }
+      },
+      "5": {
+        "n_windows": 85,
+        "n_scored": 85,
+        "win_rate_return": 0.29411764705882354,
+        "win_rate_dd": 1.0,
+        "win_rate_sharpe": 0.8,
+        "fig": "reports/figures/Gold__Signal_A_shock_rolling5y.png",
+        "last_window": {
+          "window_start": "2021-08-08 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 21,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.256711110557732,
+          "dca_wealth_over_invested": 1.7475903533703396,
+          "strat_max_dd": -0.08610686418669522,
+          "dca_max_dd": -0.2643453548623357,
+          "strat_sharpe": 1.054336567488585,
+          "dca_sharpe": 0.5739847426697757,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": true
+        }
+      }
+    },
+    "fwd_returns": {
+      "buy_signal": {
+        "1m": {
+          "signal_avg": 0.021396085711330535,
+          "unconditional_avg": 0.009289014743954011,
+          "n_signal_obs": 59
+        },
+        "3m": {
+          "signal_avg": 0.03926802703258508,
+          "unconditional_avg": 0.030071096172939828,
+          "n_signal_obs": 59
+        },
+        "6m": {
+          "signal_avg": 0.07240705895167783,
+          "unconditional_avg": 0.062372009479803224,
+          "n_signal_obs": 59
+        },
+        "12m": {
+          "signal_avg": 0.15015627669013787,
+          "unconditional_avg": 0.13159315388915357,
+          "n_signal_obs": 56
+        }
+      },
+      "sell_signal": {
+        "1m": {
+          "signal_avg": 0.005705865880762646,
+          "unconditional_avg": 0.009289014743954011,
+          "n_signal_obs": 78
+        },
+        "3m": {
+          "signal_avg": 0.01936802887280285,
+          "unconditional_avg": 0.030071096172939828,
+          "n_signal_obs": 77
+        },
+        "6m": {
+          "signal_avg": 0.06224267189270657,
+          "unconditional_avg": 0.062372009479803224,
+          "n_signal_obs": 77
+        },
+        "12m": {
+          "signal_avg": 0.12079676485548627,
+          "unconditional_avg": 0.13159315388915357,
+          "n_signal_obs": 75
+        }
+      }
+    },
+    "dca_wealth_over_invested": 5.254147331626656
+  },
+  "Gold__Signal B (trend-stretch)": {
+    "asset": "Gold",
+    "signal": "Signal B (trend-stretch)",
+    "metrics": {
+      "ending_wealth": 82464.60356350262,
+      "total_invested": 62500.0,
+      "wealth_over_invested": 1.3194336570160419,
+      "xirr": 0.02405261115747171,
+      "max_drawdown": -0.1630136802791492,
+      "longest_weeks_underwater": 557,
+      "max_underwater_vs_money_in": -6010.944887275444,
+      "annualized_vol": 0.043107686997399586,
+      "sharpe": 0.36193052355874006,
+      "sortino": 0.44704991761616475,
+      "calmar": 0.20289334791138092,
+      "annualized_return": 0.033074391347192034,
+      "avg_cost_basis": 1081.1298123138959,
+      "n_buys": 125,
+      "n_sells": 103
+    },
+    "figs": {
+      "price": "reports/figures/Gold__Signal_B_trend-stretch_price.png",
+      "value": "reports/figures/Gold__Signal_B_trend-stretch_value.png",
+      "dd": "reports/figures/Gold__Signal_B_trend-stretch_drawdown.png",
+      "mc": "reports/figures/Gold__Signal_B_trend-stretch_mc.png",
+      "bootstrap": "reports/figures/Gold__Signal_B_trend-stretch_bootstrap.png"
+    },
+    "mc_percentiles": {
+      "wealth": 0.0,
+      "sharpe": 67.66666666666667,
+      "drawdown": 100.0
+    },
+    "bootstrap_win_rates": {
+      "return\n(raw)": 0.02666666666666667,
+      "drawdown\n(raw)": 0.9933333333333333,
+      "sharpe\n(raw)": 0.2733333333333333,
+      "return\n(detrended)": 0.6333333333333333,
+      "drawdown\n(detrended)": 0.9866666666666667,
+      "sharpe\n(detrended)": 0.29333333333333333
+    },
+    "rolling": {
+      "3": {
+        "n_windows": 82,
+        "n_scored": 82,
+        "win_rate_return": 0.4268292682926829,
+        "win_rate_dd": 0.9512195121951219,
+        "win_rate_sharpe": 0.5975609756097561,
+        "fig": "reports/figures/Gold__Signal_B_trend-stretch_rolling3y.png",
+        "last_window": {
+          "window_start": "2023-08-06 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 31,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.0068848355856561,
+          "dca_wealth_over_invested": 1.4369665432227305,
+          "strat_max_dd": -0.19770519148056542,
+          "dca_max_dd": -0.27495859285614055,
+          "strat_sharpe": 0.617338575143473,
+          "dca_sharpe": 0.49422653560280855,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": true
+        }
+      },
+      "5": {
+        "n_windows": 85,
+        "n_scored": 85,
+        "win_rate_return": 0.17647058823529413,
+        "win_rate_dd": 0.9411764705882353,
+        "win_rate_sharpe": 0.5529411764705883,
+        "fig": "reports/figures/Gold__Signal_B_trend-stretch_rolling5y.png",
+        "last_window": {
+          "window_start": "2021-08-08 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 51,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 0.9645309281888865,
+          "dca_wealth_over_invested": 1.7475903533703374,
+          "strat_max_dd": -0.1437712802046558,
+          "dca_max_dd": -0.2643453548623358,
+          "strat_sharpe": 0.14373847059204453,
+          "dca_sharpe": 0.5739847426697718,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": false
+        }
+      }
+    },
+    "fwd_returns": {
+      "buy_signal": {
+        "1m": {
+          "signal_avg": 0.011011166134921594,
+          "unconditional_avg": 0.009289014743954011,
+          "n_signal_obs": 125
+        },
+        "3m": {
+          "signal_avg": 0.016658428083758895,
+          "unconditional_avg": 0.030071096172939828,
+          "n_signal_obs": 120
+        },
+        "6m": {
+          "signal_avg": 0.06285135199371188,
+          "unconditional_avg": 0.062372009479803224,
+          "n_signal_obs": 108
+        },
+        "12m": {
+          "signal_avg": 0.09342124447866133,
+          "unconditional_avg": 0.13159315388915357,
+          "n_signal_obs": 106
+        }
+      },
+      "sell_signal": {
+        "1m": {
+          "signal_avg": -0.0030623319567488288,
+          "unconditional_avg": 0.009289014743954011,
+          "n_signal_obs": 113
+        },
+        "3m": {
+          "signal_avg": 0.01492239584027294,
+          "unconditional_avg": 0.030071096172939828,
+          "n_signal_obs": 113
+        },
+        "6m": {
+          "signal_avg": 0.0503215535604505,
+          "unconditional_avg": 0.062372009479803224,
+          "n_signal_obs": 113
+        },
+        "12m": {
+          "signal_avg": 0.1495797257387283,
+          "unconditional_avg": 0.13159315388915357,
+          "n_signal_obs": 109
+        }
+      }
+    },
+    "dca_wealth_over_invested": 5.254147331626647
+  },
+  "Silver__Signal A (shock)": {
+    "asset": "Silver",
+    "signal": "Signal A (shock)",
+    "metrics": {
+      "ending_wealth": 39320.207167963614,
+      "total_invested": 26500.0,
+      "wealth_over_invested": 1.4837814025646647,
+      "xirr": 0.029115912564539194,
+      "max_drawdown": -0.1572325130337181,
+      "longest_weeks_underwater": 432,
+      "max_underwater_vs_money_in": -1794.1336815233826,
+      "annualized_vol": 0.06532925033575936,
+      "sharpe": 0.30964651541611227,
+      "sortino": 0.33188497430577313,
+      "calmar": 0.23269505154128114,
+      "annualized_return": 0.036587227724346194,
+      "avg_cost_basis": 12.788089505640814,
+      "n_buys": 53,
+      "n_sells": 71
+    },
+    "figs": {
+      "price": "reports/figures/Silver__Signal_A_shock_price.png",
+      "value": "reports/figures/Silver__Signal_A_shock_value.png",
+      "dd": "reports/figures/Silver__Signal_A_shock_drawdown.png",
+      "mc": "reports/figures/Silver__Signal_A_shock_mc.png",
+      "bootstrap": "reports/figures/Silver__Signal_A_shock_bootstrap.png"
+    },
+    "mc_percentiles": {
+      "wealth": 47.666666666666664,
+      "sharpe": 75.33333333333333,
+      "drawdown": 58.0
+    },
+    "bootstrap_win_rates": {
+      "return\n(raw)": 0.14,
+      "drawdown\n(raw)": 1.0,
+      "sharpe\n(raw)": 0.32666666666666666,
+      "return\n(detrended)": 0.6,
+      "drawdown\n(detrended)": 1.0,
+      "sharpe\n(detrended)": 0.3
+    },
+    "rolling": {
+      "3": {
+        "n_windows": 93,
+        "n_scored": 93,
+        "win_rate_return": 0.3655913978494624,
+        "win_rate_dd": 0.946236559139785,
+        "win_rate_sharpe": 0.6129032258064516,
+        "fig": "reports/figures/Silver__Signal_A_shock_rolling3y.png",
+        "last_window": {
+          "window_start": "2023-08-06 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 13,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.439130990886053,
+          "dca_wealth_over_invested": 1.7304979360509138,
+          "strat_max_dd": -0.20584206386304915,
+          "dca_max_dd": -0.4973719906324364,
+          "strat_sharpe": 0.9196717881445989,
+          "dca_sharpe": 0.5804707224133207,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": true
+        }
+      },
+      "5": {
+        "n_windows": 85,
+        "n_scored": 85,
+        "win_rate_return": 0.35294117647058826,
+        "win_rate_dd": 0.9647058823529412,
+        "win_rate_sharpe": 0.5411764705882353,
+        "fig": "reports/figures/Silver__Signal_A_shock_rolling5y.png",
+        "last_window": {
+          "window_start": "2021-08-08 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 20,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.384107513212408,
+          "dca_wealth_over_invested": 2.083304351006705,
+          "strat_max_dd": -0.15913502360630172,
+          "dca_max_dd": -0.47931680819138145,
+          "strat_sharpe": 0.8707785011961806,
+          "dca_sharpe": 0.520779686228626,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": true
+        }
+      }
+    },
+    "fwd_returns": {
+      "buy_signal": {
+        "1m": {
+          "signal_avg": 0.016484865671278475,
+          "unconditional_avg": 0.011384469899939065,
+          "n_signal_obs": 53
+        },
+        "3m": {
+          "signal_avg": 0.05043183121607957,
+          "unconditional_avg": 0.036576533812254126,
+          "n_signal_obs": 53
+        },
+        "6m": {
+          "signal_avg": 0.11839721279062627,
+          "unconditional_avg": 0.07729942808125592,
+          "n_signal_obs": 53
+        },
+        "12m": {
+          "signal_avg": 0.1962464617965325,
+          "unconditional_avg": 0.16078592904319508,
+          "n_signal_obs": 51
+        }
+      },
+      "sell_signal": {
+        "1m": {
+          "signal_avg": 0.019631577496777953,
+          "unconditional_avg": 0.011384469899939065,
+          "n_signal_obs": 78
+        },
+        "3m": {
+          "signal_avg": 0.04558167624217689,
+          "unconditional_avg": 0.036576533812254126,
+          "n_signal_obs": 78
+        },
+        "6m": {
+          "signal_avg": 0.09634294698689756,
+          "unconditional_avg": 0.07729942808125592,
+          "n_signal_obs": 78
+        },
+        "12m": {
+          "signal_avg": 0.15945439009092374,
+          "unconditional_avg": 0.16078592904319508,
+          "n_signal_obs": 75
+        }
+      }
+    },
+    "dca_wealth_over_invested": 5.2257510592172896
+  },
+  "Silver__Signal B (trend-stretch)": {
+    "asset": "Silver",
+    "signal": "Signal B (trend-stretch)",
+    "metrics": {
+      "ending_wealth": 64825.97051594793,
+      "total_invested": 46000.0,
+      "wealth_over_invested": 1.4092602286075637,
+      "xirr": 0.028123545351728625,
+      "max_drawdown": -0.24466915835406688,
+      "longest_weeks_underwater": 678,
+      "max_underwater_vs_money_in": -9546.745271703927,
+      "annualized_vol": 0.08724193499965417,
+      "sharpe": 0.405881853279351,
+      "sortino": 0.5254269096957762,
+      "calmar": 0.2071614382076035,
+      "annualized_return": 0.05068601472967238,
+      "avg_cost_basis": 17.91156333992681,
+      "n_buys": 92,
+      "n_sells": 103
+    },
+    "figs": {
+      "price": "reports/figures/Silver__Signal_B_trend-stretch_price.png",
+      "value": "reports/figures/Silver__Signal_B_trend-stretch_value.png",
+      "dd": "reports/figures/Silver__Signal_B_trend-stretch_drawdown.png",
+      "mc": "reports/figures/Silver__Signal_B_trend-stretch_mc.png",
+      "bootstrap": "reports/figures/Silver__Signal_B_trend-stretch_bootstrap.png"
+    },
+    "mc_percentiles": {
+      "wealth": 43.333333333333336,
+      "sharpe": 99.33333333333333,
+      "drawdown": 99.33333333333333
+    },
+    "bootstrap_win_rates": {
+      "return\n(raw)": 0.14,
+      "drawdown\n(raw)": 0.9866666666666667,
+      "sharpe\n(raw)": 0.32666666666666666,
+      "return\n(detrended)": 0.6066666666666667,
+      "drawdown\n(detrended)": 0.9866666666666667,
+      "sharpe\n(detrended)": 0.30666666666666664
+    },
+    "rolling": {
+      "3": {
+        "n_windows": 82,
+        "n_scored": 81,
+        "win_rate_return": 0.6049382716049383,
+        "win_rate_dd": 0.9506172839506173,
+        "win_rate_sharpe": 0.5061728395061729,
+        "fig": "reports/figures/Silver__Signal_B_trend-stretch_rolling3y.png",
+        "last_window": {
+          "window_start": "2023-08-06 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 17,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.2027196226564867,
+          "dca_wealth_over_invested": 1.7304979360509158,
+          "strat_max_dd": -0.3405196932515768,
+          "dca_max_dd": -0.4973719906324363,
+          "strat_sharpe": 0.629922041629127,
+          "dca_sharpe": 0.5804707224133213,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": true
+        }
+      },
+      "5": {
+        "n_windows": 84,
+        "n_scored": 84,
+        "win_rate_return": 0.2976190476190476,
+        "win_rate_dd": 0.9523809523809523,
+        "win_rate_sharpe": 0.5,
+        "fig": "reports/figures/Silver__Signal_B_trend-stretch_rolling5y.png",
+        "last_window": {
+          "window_start": "2021-08-08 00:00:00",
+          "window_end": "2026-07-26 00:00:00",
+          "n_signals": 50,
+          "low_signal_count": false,
+          "strat_wealth_over_invested": 1.0144904703080917,
+          "dca_wealth_over_invested": 2.0833043510067037,
+          "strat_max_dd": -0.1604743678552264,
+          "dca_max_dd": -0.47931680819138156,
+          "strat_sharpe": 0.06049604317272664,
+          "dca_sharpe": 0.5207796862286258,
+          "strat_beats_dca_return": false,
+          "strat_beats_dca_dd": true,
+          "strat_beats_dca_sharpe": false
+        }
+      }
+    },
+    "fwd_returns": {
+      "buy_signal": {
+        "1m": {
+          "signal_avg": 0.010580314134222966,
+          "unconditional_avg": 0.011384469899939065,
+          "n_signal_obs": 91
+        },
+        "3m": {
+          "signal_avg": 0.05033358562605429,
+          "unconditional_avg": 0.036576533812254126,
+          "n_signal_obs": 86
+        },
+        "6m": {
+          "signal_avg": 0.1274017773369352,
+          "unconditional_avg": 0.07729942808125592,
+          "n_signal_obs": 82
+        },
+        "12m": {
+          "signal_avg": 0.16424492477710034,
+          "unconditional_avg": 0.16078592904319508,
+          "n_signal_obs": 82
+        }
+      },
+      "sell_signal": {
+        "1m": {
+          "signal_avg": 0.01701838992516532,
+          "unconditional_avg": 0.011384469899939065,
+          "n_signal_obs": 134
+        },
+        "3m": {
+          "signal_avg": 0.050205278442482335,
+          "unconditional_avg": 0.036576533812254126,
+          "n_signal_obs": 134
+        },
+        "6m": {
+          "signal_avg": 0.08399297168478623,
+          "unconditional_avg": 0.07729942808125592,
+          "n_signal_obs": 134
+        },
+        "12m": {
+          "signal_avg": 0.10624162450275683,
+          "unconditional_avg": 0.16078592904319508,
+          "n_signal_obs": 123
+        }
+      }
+    },
+    "dca_wealth_over_invested": 5.225751059217282
+  }
+}
