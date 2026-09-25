@@ -1,0 +1,108 @@
+{
+  "GOLD": {
+    "R1": {
+      "percentile_wealth": 53.666666666666664,
+      "percentile_sharpe": 57.333333333333336
+    },
+    "R2a": {
+      "percentile_wealth": 84.0,
+      "percentile_sharpe": 67.0
+    },
+    "R2b": {
+      "percentile_wealth": 24.0,
+      "percentile_sharpe": 23.333333333333332
+    },
+    "R2b-inv": {
+      "percentile_wealth": 44.0,
+      "percentile_sharpe": 37.0
+    },
+    "R2c": {
+      "percentile_wealth": 38.666666666666664,
+      "percentile_sharpe": 20.666666666666668
+    },
+    "R3": {
+      "percentile_wealth": 79.33333333333333,
+      "percentile_sharpe": 69.0
+    },
+    "R4": {
+      "percentile_wealth": 74.33333333333333,
+      "percentile_sharpe": 60.0
+    },
+    "Combo": {
+      "percentile_wealth": 72.66666666666667,
+      "percentile_sharpe": 74.33333333333333
+    },
+    "Control": {
+      "percentile_wealth": 94.66666666666667,
+      "percentile_sharpe": 50.66666666666667
+    }
+  },
+  "SILVER": {
+    "R1": {
+      "percentile_wealth": 11.666666666666666,
+      "percentile_sharpe": 9.0
+    },
+    "R2a": {
+      "percentile_wealth": 20.0,
+      "percentile_sharpe": 7.000000000000001
+    },
+    "R2b": {
+      "percentile_wealth": 0.33333333333333337,
+      "percentile_sharpe": 0.33333333333333337
+    },
+    "R2b-inv": {
+      "percentile_wealth": 30.333333333333336,
+      "percentile_sharpe": 28.333333333333332
+    },
+    "R2c": {
+      "percentile_wealth": 7.000000000000001,
+      "percentile_sharpe": 1.3333333333333335
+    },
+    "R3": {
+      "percentile_wealth": 32.666666666666664,
+      "percentile_sharpe": 24.333333333333336
+    },
+    "R4": {
+      "percentile_wealth": 79.0,
+      "percentile_sharpe": 75.66666666666667
+    },
+    "Combo": {
+      "percentile_wealth": 24.333333333333336,
+      "percentile_sharpe": 14.333333333333334
+    },
+    "Control": {
+      "percentile_wealth": 61.0,
+      "percentile_sharpe": 45.666666666666664
+    }
+  },
+  "BTC": {
+    "Combo": {
+      "percentile_wealth": 30.0,
+      "percentile_sharpe": 38.333333333333336
+    },
+    "Control": {
+      "percentile_wealth": 88.33333333333333,
+      "percentile_sharpe": 84.66666666666667
+    }
+  },
+  "OIL": {
+    "Combo": {
+      "percentile_wealth": 84.33333333333334,
+      "percentile_sharpe": 46.33333333333333
+    },
+    "Control": {
+      "percentile_wealth": 56.333333333333336,
+      "percentile_sharpe": 74.33333333333333
+    }
+  },
+  "SP500": {
+    "Combo": {
+      "percentile_wealth": 52.0,
+      "percentile_sharpe": 47.333333333333336
+    },
+    "Control": {
+      "percentile_wealth": 46.0,
+      "percentile_sharpe": 33.0
+    }
+  }
+}

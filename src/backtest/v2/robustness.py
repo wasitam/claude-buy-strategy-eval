@@ -222,6 +222,32 @@ def placebo_adca(
     return df, pctile_wealth, pctile_sharpe
 
 
+def placebo_strategy_d(
+    weekly: pd.DataFrame, weekly_rf: pd.Series, weekly_deposit: float,
+    regime_tight: np.ndarray, real_wealth_over_invested: float, real_sharpe: float,
+    n_sims: int = 300, seed: int = 21,
+) -> tuple:
+    """Randomly circular-shift a Strategy D regime series (spec 15.7 placebo):
+    keeps the same number/length of TIGHT stretches, breaks their link to
+    real conditions."""
+    from . import strategy_d as sd
+
+    rng = np.random.default_rng(seed)
+    n = len(regime_tight)
+    rows = []
+    for _ in range(n_sims):
+        shift = rng.integers(1, n - 1)
+        shifted = np.roll(np.asarray(regime_tight, dtype=bool), shift)
+        decide = sd.make_strategy_d_decider(weekly, weekly_deposit, shifted)
+        res = eng.run_single_asset(weekly, weekly_deposit, weekly_rf, decide).to_frame()
+        s = met.summarize(res, weekly_rf, weekly["Close"].iloc[-1])
+        rows.append({"wealth_over_invested": s["wealth_over_invested"], "sharpe": s["sharpe"]})
+    df = pd.DataFrame(rows)
+    pctile_wealth = float(100.0 * (df["wealth_over_invested"] <= real_wealth_over_invested).mean())
+    pctile_sharpe = float(100.0 * (df["sharpe"].dropna() <= real_sharpe).mean())
+    return df, pctile_wealth, pctile_sharpe
+
+
 def placebo_c3_trend(
     weekly: dict, assets: list, weekly_rf: pd.Series, weekly_deposit_total: float,
     real_target_weights: pd.DataFrame, real_wealth_over_invested: float, real_sharpe: float,
