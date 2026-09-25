@@ -1,0 +1,51 @@
+{
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "lag_matters_zero_vs_documented_frac_days_differ": 0.06802544463196157,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 435,
+  "n_eff": 40,
+  "dsr_neff": {
+    "dsr": 5.027951182860414e-39,
+    "sr": -0.03346125497779622,
+    "sr_annualized": -0.24129254112763784,
+    "sr0": 0.15088457738235292,
+    "n": 4800,
+    "n_eff": 40,
+    "skew": -1.665672313115596,
+    "kurtosis": 67.16957259620759
+  },
+  "dsr_rawn": {
+    "dsr": 1.7677256252867003e-48,
+    "sr": -0.03346125497779622,
+    "sr_annualized": -0.24129254112763784,
+    "sr0": 0.17311246714383421,
+    "n": 4800,
+    "n_eff": 435,
+    "skew": -1.665672313115596,
+    "kurtosis": 67.16957259620759
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.7714285714285715,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg08_credit_spread_lb10_pc80_tf0.0",
+  "primary_trial_id": "new_011_cfg08_credit_spread_lb10_pc80_tf0.0"
+}
