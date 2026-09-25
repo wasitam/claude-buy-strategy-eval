@@ -1,0 +1,6 @@
+{
+  "smartdca_rho0_equals_dca": true,
+  "adca_neutral_equals_dca": true,
+  "rebalance_single_asset_equals_dca": true,
+  "no_lookahead_smartdca": true
+}

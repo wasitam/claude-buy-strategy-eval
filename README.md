@@ -1,50 +1,46 @@
-# BTC / Gold / Silver Rule-Based Accumulation Backtest
+# BTC / Gold / Silver Accumulation Backtests
 
-Backtests a percentile-of-own-distribution buy/sell rule (for cost & risk
-management, not trading for profit) against DCA, buy-and-hold, a buy-only
-variant, and a band-rebalancing benchmark — on BTC, Gold, and Silver — using
-live daily data from Yahoo Finance (`yfinance`).
+Two generations of a research backtest on whether any rule-based variant on
+weekly accumulation beats plain DCA for a long-term BTC/gold/silver investor,
+using live data from Yahoo Finance (`yfinance`) and FRED.
 
-Full design spec: [`btc-gold-silver-backtest-spec.md`](btc-gold-silver-backtest-spec.md).
+## v2 — SmartDCA / ADCA / rebalanced portfolio (current)
 
-**Results: [`reports/report.md`](reports/report.md)** (headline metrics grid,
-grid heatmaps, and — for a p=5 deep dive on every asset/signal — buy/sell
-charts, account-value charts, drawdown charts, and all three robustness
-tests: random-timing Monte Carlo, block bootstrap, rolling windows).
+Tests three strategies that stay fully invested and change *how much* or
+*where* to buy, instead of *whether* to be in the market:
 
-## Quickstart
+- **SmartDCA** — buy more when price is below its 52-week trend, less when above.
+- **ADCA** — buy more in "expansion" market/macro regimes, less in "contraction."
+- **Rebalanced BTC/gold/silver portfolio** — direct new money to the most
+  underweight asset; rebalance on drift bands.
+
+Spec: [`btc-gold-silver-backtest-spec-v2.md`](btc-gold-silver-backtest-spec-v2.md).
+**Results: [`reports/v2/report.md`](reports/v2/report.md)** (full parameter
+grids, implementation checks, and — per strategy family — account-value
+charts, drawdown charts, rolling windows, block bootstrap, and placebo tests).
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python run_all.py
+python run_v2.py
 ```
 
-Data is fetched from Yahoo Finance on first run and cached in `data/*.csv`
-(delete those files to refresh). Output lands in `reports/` (`grid_metrics.csv`,
-`report.md`, `deep_dive.json`, `figures/*.png`).
+Layout: `src/backtest/v2/data.py` (Yahoo + FRED fetch/cache, FRED publication-lag
+handling), `engine.py` (single-asset weekly event loop: deposits, interest,
+next-open fills, fees), `strategies.py` (SmartDCA, ADCA), `rebalance.py`
+(multi-asset portfolio engine + C1/C2/C3 target weights), `metrics.py` (NAV
+series, headline + diagnostic metrics), `robustness.py` (rolling windows,
+block bootstrap, placebo shuffles), `checks.py` (spec §11 sanity checks),
+`report.py` (charts). `run_v2.py` / `write_report_v2.py` orchestrate + write
+the markdown report.
 
-## Layout
+## v1 — buy-the-dip / trim-the-spike (superseded)
 
-- `src/backtest/data.py` — fetch/cache daily OHLC from Yahoo Finance.
-- `src/backtest/resample.py` — daily → weekly candles, weekly risk-free rate from `^IRX`.
-- `src/backtest/indicators.py` — generic indicator → percentile-of-trailing-distribution
-  signal engine (Signal A: shock/ATR; Signal B: trend-stretch/Mayer-Multiple-style).
-- `src/backtest/engine.py` — the core weekly backtest (buys, sells, fees, cash-earns-rf,
-  synthetic NAV for drawdown).
-- `src/backtest/benchmarks.py` — DCA, buy-and-hold, buy-only, band-rebalancing.
-- `src/backtest/metrics.py` — wealth/invested, XIRR, drawdown, vol, Sharpe/Sortino/Calmar,
-  cost basis, signal-quality forward returns.
-- `src/backtest/robustness.py` — random-timing Monte Carlo, block bootstrap
-  (raw + de-trended), rolling windows.
-- `src/backtest/report.py` — chart generation.
-- `run_all.py` / `write_report.py` — orchestration + markdown report assembly.
+Tested a percentile-ranked ATR-shock and trend-stretch buy/sell rule against
+DCA, buy-and-hold, a buy-only variant, and a band-rebalancing benchmark.
+Found it **underperformed plain DCA** on raw return (selling into strength
+during a trending asset like BTC cuts off upside), while meaningfully cutting
+drawdown — the diagnosis that motivated v2.
 
-## Headline finding
-
-Selling 30% of holdings into "spike" signals during a strongly trending
-asset (BTC especially) tends to cut off upside faster than it protects
-against drawdown-for-drawdown's-sake — consistent with the time-series
-momentum literature cited in the spec. See `reports/report.md` for the full
-grid, robustness tests, and per-asset nuance (the rule does meaningfully cut
-drawdown, at the cost of raw upside).
+Spec: [`btc-gold-silver-backtest-spec.md`](btc-gold-silver-backtest-spec.md).
+Results: [`reports/report.md`](reports/report.md). Run with `python run_all.py`.

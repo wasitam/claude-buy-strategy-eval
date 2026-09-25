@@ -1,0 +1,828 @@
+{
+  "smartdca": {
+    "BTC": {
+      "metrics": {
+        "total_invested": 314000.0,
+        "final_wealth": 14520341.449521156,
+        "wealth_over_invested": 46.24312563541769,
+        "max_drawdown": -0.8145254525586685,
+        "longest_weeks_underwater": 152,
+        "cagr": 0.5397452795257827,
+        "annualized_vol": 0.6520502859127081,
+        "sharpe": 0.9540439344438513,
+        "sortino": 1.4841665770840313,
+        "calmar": 0.6626499857435775,
+        "n_buys": 628,
+        "n_sells": 0,
+        "total_fees": 315.3529673954022,
+        "avg_cash_share": 0.024379068569918394,
+        "avg_cost_per_unit": 1841.9117733159935
+      },
+      "dca_metrics": {
+        "total_invested": 314000.0,
+        "final_wealth": 16611271.818327896,
+        "wealth_over_invested": 52.90213954881496,
+        "max_drawdown": -0.8168844478078863,
+        "longest_weeks_underwater": 152,
+        "cagr": 0.5604895463730293,
+        "annualized_vol": 0.6601555209046014,
+        "sharpe": 0.9703668228151499,
+        "sortino": 1.516701845532711,
+        "calmar": 0.6861307592243994,
+        "n_buys": 628,
+        "n_sells": 0,
+        "total_fees": 313.5,
+        "avg_cash_share": 0.010591318443865513,
+        "avg_cost_per_unit": 1600.594181030663
+      },
+      "figs": {
+        "value": "figures/smartdca_BTC_value.png",
+        "dd": "figures/smartdca_BTC_dd.png",
+        "buys": "figures/smartdca_BTC_buys.png",
+        "bootstrap": "figures/smartdca_BTC_bootstrap.png"
+      },
+      "rolling": {
+        "2": {
+          "n_windows": 41,
+          "win_rate_wealth": 0.43902439024390244,
+          "win_rate_sharpe": 0.5609756097560976,
+          "fig": "figures/smartdca_BTC_rolling2y.png"
+        },
+        "3": {
+          "n_windows": 37,
+          "win_rate_wealth": 0.35135135135135137,
+          "win_rate_sharpe": 0.40540540540540543,
+          "fig": "figures/smartdca_BTC_rolling3y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.255,
+        "sharpe\n(raw)": 0.475,
+        "wealth\n(detrended)": 0.67,
+        "sharpe\n(detrended)": 0.6
+      }
+    },
+    "GOLD": {
+      "metrics": {
+        "total_invested": 680500.0,
+        "final_wealth": 3457879.0903013125,
+        "wealth_over_invested": 5.081380000442781,
+        "max_drawdown": -0.4329633620276113,
+        "longest_weeks_underwater": 463,
+        "cagr": 0.1082626194523808,
+        "annualized_vol": 0.1693512887000646,
+        "sharpe": 0.5851043343666701,
+        "sortino": 0.847528893385337,
+        "calmar": 0.25005030205183176,
+        "n_buys": 1361,
+        "n_sells": 0,
+        "total_fees": 671.6383178905548,
+        "avg_cash_share": 0.025866816098884658,
+        "avg_cost_per_unit": 846.4572621962834
+      },
+      "dca_metrics": {
+        "total_invested": 680500.0,
+        "final_wealth": 3564455.3111887136,
+        "wealth_over_invested": 5.237994579263356,
+        "max_drawdown": -0.4364350635333053,
+        "longest_weeks_underwater": 463,
+        "cagr": 0.11080584260718718,
+        "annualized_vol": 0.173068873255694,
+        "sharpe": 0.5895015765671615,
+        "sortino": 0.8518443618010114,
+        "calmar": 0.2538884976613052,
+        "n_buys": 1361,
+        "n_sells": 0,
+        "total_fees": 680.0,
+        "avg_cash_share": 0.0056554294976063416,
+        "avg_cost_per_unit": 828.2595437526512
+      },
+      "figs": {
+        "value": "figures/smartdca_GOLD_value.png",
+        "dd": "figures/smartdca_GOLD_dd.png",
+        "buys": "figures/smartdca_GOLD_buys.png",
+        "bootstrap": "figures/smartdca_GOLD_bootstrap.png"
+      },
+      "rolling": {
+        "3": {
+          "n_windows": 93,
+          "win_rate_wealth": 0.3655913978494624,
+          "win_rate_sharpe": 0.6989247311827957,
+          "fig": "figures/smartdca_GOLD_rolling3y.png"
+        },
+        "5": {
+          "n_windows": 85,
+          "win_rate_wealth": 0.29411764705882354,
+          "win_rate_sharpe": 0.7411764705882353,
+          "fig": "figures/smartdca_GOLD_rolling5y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.03,
+        "sharpe\n(raw)": 0.505,
+        "wealth\n(detrended)": 0.7,
+        "sharpe\n(detrended)": 0.64
+      }
+    },
+    "SILVER": {
+      "metrics": {
+        "total_invested": 680500.0,
+        "final_wealth": 3492861.150646035,
+        "wealth_over_invested": 5.132786408002991,
+        "max_drawdown": -0.7433582958372589,
+        "longest_weeks_underwater": 754,
+        "cagr": 0.10183828229320135,
+        "annualized_vol": 0.31161451846692473,
+        "sharpe": 0.41208664701851583,
+        "sortino": 0.5446066724392701,
+        "calmar": 0.1369975728575127,
+        "n_buys": 1361,
+        "n_sells": 0,
+        "total_fees": 670.9588986140631,
+        "avg_cash_share": 0.018616577244026378,
+        "avg_cost_per_unit": 12.588170379127199
+      },
+      "dca_metrics": {
+        "total_invested": 680500.0,
+        "final_wealth": 3546479.6215781868,
+        "wealth_over_invested": 5.21157916469976,
+        "max_drawdown": -0.7459420533221107,
+        "longest_weeks_underwater": 754,
+        "cagr": 0.1031444625346638,
+        "annualized_vol": 0.3158472849594092,
+        "sharpe": 0.4147130459853123,
+        "sortino": 0.5469087172517848,
+        "calmar": 0.1382740952535146,
+        "n_buys": 1361,
+        "n_sells": 0,
+        "total_fees": 680.0,
+        "avg_cash_share": 0.005786865074155343,
+        "avg_cost_per_unit": 12.519474793393295
+      },
+      "figs": {
+        "value": "figures/smartdca_SILVER_value.png",
+        "dd": "figures/smartdca_SILVER_dd.png",
+        "buys": "figures/smartdca_SILVER_buys.png",
+        "bootstrap": "figures/smartdca_SILVER_bootstrap.png"
+      },
+      "rolling": {
+        "3": {
+          "n_windows": 93,
+          "win_rate_wealth": 0.5268817204301075,
+          "win_rate_sharpe": 0.7096774193548387,
+          "fig": "figures/smartdca_SILVER_rolling3y.png"
+        },
+        "5": {
+          "n_windows": 85,
+          "win_rate_wealth": 0.5882352941176471,
+          "win_rate_sharpe": 0.7294117647058823,
+          "fig": "figures/smartdca_SILVER_rolling5y.png"
+        }
+      },
+      "bootstrap_win_rates": {
+        "wealth\n(raw)": 0.245,
+        "sharpe\n(raw)": 0.52,
+        "wealth\n(detrended)": 0.64,
+        "sharpe\n(detrended)": 0.53
+      }
+    }
+  },
+  "adca": {
+    "BTC": {
+      "B1": {
+        "metrics": {
+          "total_invested": 314000.0,
+          "final_wealth": 15126803.248192469,
+          "wealth_over_invested": 48.174532637555636,
+          "max_drawdown": -0.8168847376441419,
+          "longest_weeks_underwater": 152,
+          "cagr": 0.5444096224195298,
+          "annualized_vol": 0.6551886852549536,
+          "sharpe": 0.9570960651220293,
+          "sortino": 1.4898781318345462,
+          "calmar": 0.666446069233197,
+          "n_buys": 628,
+          "n_sells": 0,
+          "total_fees": 314.7660441487121,
+          "avg_cash_share": 0.021195404855998533,
+          "avg_cost_per_unit": 1764.8555510531066
+        },
+        "dca_metrics": {
+          "total_invested": 314000.0,
+          "final_wealth": 16611271.818327896,
+          "wealth_over_invested": 52.90213954881496,
+          "max_drawdown": -0.8168844478078863,
+          "longest_weeks_underwater": 152,
+          "cagr": 0.5604895463730293,
+          "annualized_vol": 0.6601555209046014,
+          "sharpe": 0.9703668228151499,
+          "sortino": 1.516701845532711,
+          "calmar": 0.6861307592243994,
+          "n_buys": 628,
+          "n_sells": 0,
+          "total_fees": 313.5,
+          "avg_cash_share": 0.010591318443865513,
+          "avg_cost_per_unit": 1600.594181030663
+        },
+        "figs": {
+          "value": "figures/adca_B1_BTC_value.png",
+          "dd": "figures/adca_B1_BTC_dd.png",
+          "bootstrap": "figures/adca_B1_BTC_bootstrap.png",
+          "placebo": "figures/adca_B1_BTC_placebo.png"
+        },
+        "rolling": {
+          "2": {
+            "n_windows": 41,
+            "win_rate_wealth": 0.0975609756097561,
+            "win_rate_sharpe": 0.14634146341463414,
+            "fig": "figures/adca_B1_BTC_rolling2y.png"
+          },
+          "3": {
+            "n_windows": 37,
+            "win_rate_wealth": 0.05405405405405406,
+            "win_rate_sharpe": 0.10810810810810811,
+            "fig": "figures/adca_B1_BTC_rolling3y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.125,
+          "sharpe\n(raw)": 0.325,
+          "wealth\n(detrended)": 0.53,
+          "sharpe\n(detrended)": 0.36
+        },
+        "placebo_percentile_wealth": 48.0,
+        "placebo_percentile_sharpe": 31.5
+      },
+      "B2": {
+        "metrics": {
+          "total_invested": 314000.0,
+          "final_wealth": 16448725.314694742,
+          "wealth_over_invested": 52.38447552450555,
+          "max_drawdown": -0.8143292629990021,
+          "longest_weeks_underwater": 152,
+          "cagr": 0.5591666466143383,
+          "annualized_vol": 0.6588168113570797,
+          "sharpe": 0.9697137519817842,
+          "sortino": 1.5155515451659416,
+          "calmar": 0.6866591586737852,
+          "n_buys": 628,
+          "n_sells": 0,
+          "total_fees": 307.6892718994909,
+          "avg_cash_share": 0.012711695054226741,
+          "avg_cost_per_unit": 1587.089844751504
+        },
+        "dca_metrics": {
+          "total_invested": 314000.0,
+          "final_wealth": 16611271.818327896,
+          "wealth_over_invested": 52.90213954881496,
+          "max_drawdown": -0.8168844478078863,
+          "longest_weeks_underwater": 152,
+          "cagr": 0.5604895463730293,
+          "annualized_vol": 0.6601555209046014,
+          "sharpe": 0.9703668228151499,
+          "sortino": 1.516701845532711,
+          "calmar": 0.6861307592243994,
+          "n_buys": 628,
+          "n_sells": 0,
+          "total_fees": 313.5,
+          "avg_cash_share": 0.010591318443865513,
+          "avg_cost_per_unit": 1600.594181030663
+        },
+        "figs": {
+          "value": "figures/adca_B2_BTC_value.png",
+          "dd": "figures/adca_B2_BTC_dd.png",
+          "bootstrap": "figures/adca_B2_BTC_bootstrap.png",
+          "placebo": "figures/adca_B2_BTC_placebo.png"
+        },
+        "rolling": {
+          "2": {
+            "n_windows": 41,
+            "win_rate_wealth": 0.34146341463414637,
+            "win_rate_sharpe": 0.4634146341463415,
+            "fig": "figures/adca_B2_BTC_rolling2y.png"
+          },
+          "3": {
+            "n_windows": 37,
+            "win_rate_wealth": 0.24324324324324326,
+            "win_rate_sharpe": 0.3783783783783784,
+            "fig": "figures/adca_B2_BTC_rolling3y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.035,
+          "sharpe\n(raw)": 0.155,
+          "wealth\n(detrended)": 0.39,
+          "sharpe\n(detrended)": 0.17
+        },
+        "placebo_percentile_wealth": 79.5,
+        "placebo_percentile_sharpe": 50.5
+      }
+    },
+    "GOLD": {
+      "B1": {
+        "metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3430644.651001098,
+          "wealth_over_invested": 5.041358781779718,
+          "max_drawdown": -0.4358657285748141,
+          "longest_weeks_underwater": 463,
+          "cagr": 0.10660692782243686,
+          "annualized_vol": 0.16916507772925077,
+          "sharpe": 0.5767452141810162,
+          "sortino": 0.8302683613172346,
+          "calmar": 0.24458662572764844,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 681.9697621348448,
+          "avg_cash_share": 0.02980925164480908,
+          "avg_cost_per_unit": 863.2434269147931
+        },
+        "dca_metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3564455.3111887136,
+          "wealth_over_invested": 5.237994579263356,
+          "max_drawdown": -0.4364350635333053,
+          "longest_weeks_underwater": 463,
+          "cagr": 0.11080584260718718,
+          "annualized_vol": 0.173068873255694,
+          "sharpe": 0.5895015765671615,
+          "sortino": 0.8518443618010114,
+          "calmar": 0.2538884976613052,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 680.0,
+          "avg_cash_share": 0.0056554294976063416,
+          "avg_cost_per_unit": 828.2595437526512
+        },
+        "figs": {
+          "value": "figures/adca_B1_GOLD_value.png",
+          "dd": "figures/adca_B1_GOLD_dd.png",
+          "bootstrap": "figures/adca_B1_GOLD_bootstrap.png",
+          "placebo": "figures/adca_B1_GOLD_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 93,
+            "win_rate_wealth": 0.26881720430107525,
+            "win_rate_sharpe": 0.3763440860215054,
+            "fig": "figures/adca_B1_GOLD_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 85,
+            "win_rate_wealth": 0.1411764705882353,
+            "win_rate_sharpe": 0.32941176470588235,
+            "fig": "figures/adca_B1_GOLD_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.065,
+          "sharpe\n(raw)": 0.415,
+          "wealth\n(detrended)": 0.6,
+          "sharpe\n(detrended)": 0.435
+        },
+        "placebo_percentile_wealth": 6.0,
+        "placebo_percentile_sharpe": 5.0
+      },
+      "B2": {
+        "metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3509673.543727153,
+          "wealth_over_invested": 5.157492349341886,
+          "max_drawdown": -0.43561887357409035,
+          "longest_weeks_underwater": 463,
+          "cagr": 0.10959561946030894,
+          "annualized_vol": 0.17061392732567388,
+          "sharpe": 0.5891184603360178,
+          "sortino": 0.8533692111587547,
+          "calmar": 0.2515860218844922,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 665.0631283394005,
+          "avg_cash_share": 0.015438211686472294,
+          "avg_cost_per_unit": 826.7235488469817
+        },
+        "dca_metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3564455.3111887136,
+          "wealth_over_invested": 5.237994579263356,
+          "max_drawdown": -0.4364350635333053,
+          "longest_weeks_underwater": 463,
+          "cagr": 0.11080584260718718,
+          "annualized_vol": 0.173068873255694,
+          "sharpe": 0.5895015765671615,
+          "sortino": 0.8518443618010114,
+          "calmar": 0.2538884976613052,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 680.0,
+          "avg_cash_share": 0.0056554294976063416,
+          "avg_cost_per_unit": 828.2595437526512
+        },
+        "figs": {
+          "value": "figures/adca_B2_GOLD_value.png",
+          "dd": "figures/adca_B2_GOLD_dd.png",
+          "bootstrap": "figures/adca_B2_GOLD_bootstrap.png",
+          "placebo": "figures/adca_B2_GOLD_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 93,
+            "win_rate_wealth": 0.21505376344086022,
+            "win_rate_sharpe": 0.3655913978494624,
+            "fig": "figures/adca_B2_GOLD_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 85,
+            "win_rate_wealth": 0.12941176470588237,
+            "win_rate_sharpe": 0.49411764705882355,
+            "fig": "figures/adca_B2_GOLD_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.025,
+          "sharpe\n(raw)": 0.275,
+          "wealth\n(detrended)": 0.52,
+          "sharpe\n(detrended)": 0.285
+        },
+        "placebo_percentile_wealth": 84.5,
+        "placebo_percentile_sharpe": 56.49999999999999
+      }
+    },
+    "SILVER": {
+      "B1": {
+        "metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3403130.1117671523,
+          "wealth_over_invested": 5.0009259541030895,
+          "max_drawdown": -0.7457086494009318,
+          "longest_weeks_underwater": 754,
+          "cagr": 0.09932550824635888,
+          "annualized_vol": 0.310523945436744,
+          "sharpe": 0.4052093464445284,
+          "sortino": 0.5309725252171266,
+          "calmar": 0.13319613273381292,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 681.9697621348448,
+          "avg_cash_share": 0.03224774156230437,
+          "avg_cost_per_unit": 13.087459639306896
+        },
+        "dca_metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3546479.6215781868,
+          "wealth_over_invested": 5.21157916469976,
+          "max_drawdown": -0.7459420533221107,
+          "longest_weeks_underwater": 754,
+          "cagr": 0.1031444625346638,
+          "annualized_vol": 0.3158472849594092,
+          "sharpe": 0.4147130459853123,
+          "sortino": 0.5469087172517848,
+          "calmar": 0.1382740952535146,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 680.0,
+          "avg_cash_share": 0.005786865074155343,
+          "avg_cost_per_unit": 12.519474793393295
+        },
+        "figs": {
+          "value": "figures/adca_B1_SILVER_value.png",
+          "dd": "figures/adca_B1_SILVER_dd.png",
+          "bootstrap": "figures/adca_B1_SILVER_bootstrap.png",
+          "placebo": "figures/adca_B1_SILVER_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 93,
+            "win_rate_wealth": 0.26881720430107525,
+            "win_rate_sharpe": 0.22580645161290322,
+            "fig": "figures/adca_B1_SILVER_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 85,
+            "win_rate_wealth": 0.16470588235294117,
+            "win_rate_sharpe": 0.23529411764705882,
+            "fig": "figures/adca_B1_SILVER_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.265,
+          "sharpe\n(raw)": 0.405,
+          "wealth\n(detrended)": 0.515,
+          "sharpe\n(detrended)": 0.415
+        },
+        "placebo_percentile_wealth": 11.0,
+        "placebo_percentile_sharpe": 13.0
+      },
+      "B2": {
+        "metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3501223.859133402,
+          "wealth_over_invested": 5.145075472642765,
+          "max_drawdown": -0.7457606244474686,
+          "longest_weeks_underwater": 754,
+          "cagr": 0.10220001766729836,
+          "annualized_vol": 0.3127930352578556,
+          "sharpe": 0.41289739997652697,
+          "sortino": 0.5434361983170499,
+          "calmar": 0.13704131636477587,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 673.4084374889142,
+          "avg_cash_share": 0.017906811432228366,
+          "avg_cost_per_unit": 12.59083454673414
+        },
+        "dca_metrics": {
+          "total_invested": 680500.0,
+          "final_wealth": 3546479.6215781868,
+          "wealth_over_invested": 5.21157916469976,
+          "max_drawdown": -0.7459420533221107,
+          "longest_weeks_underwater": 754,
+          "cagr": 0.1031444625346638,
+          "annualized_vol": 0.3158472849594092,
+          "sharpe": 0.4147130459853123,
+          "sortino": 0.5469087172517848,
+          "calmar": 0.1382740952535146,
+          "n_buys": 1361,
+          "n_sells": 0,
+          "total_fees": 680.0,
+          "avg_cash_share": 0.005786865074155343,
+          "avg_cost_per_unit": 12.519474793393295
+        },
+        "figs": {
+          "value": "figures/adca_B2_SILVER_value.png",
+          "dd": "figures/adca_B2_SILVER_dd.png",
+          "bootstrap": "figures/adca_B2_SILVER_bootstrap.png",
+          "placebo": "figures/adca_B2_SILVER_placebo.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 93,
+            "win_rate_wealth": 0.3118279569892473,
+            "win_rate_sharpe": 0.23655913978494625,
+            "fig": "figures/adca_B2_SILVER_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 85,
+            "win_rate_wealth": 0.29411764705882354,
+            "win_rate_sharpe": 0.2823529411764706,
+            "fig": "figures/adca_B2_SILVER_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.09,
+          "sharpe\n(raw)": 0.23,
+          "wealth\n(detrended)": 0.44,
+          "sharpe\n(detrended)": 0.185
+        },
+        "placebo_percentile_wealth": 81.0,
+        "placebo_percentile_sharpe": 39.5
+      }
+    }
+  },
+  "rebalance": {
+    "BTC+Gold+Silver": {
+      "C2": {
+        "metrics": {
+          "total_invested": 864000.0,
+          "final_wealth": 3732482.043327985,
+          "wealth_over_invested": 4.320002364962946,
+          "max_drawdown": -0.2731262168033355,
+          "longest_weeks_underwater": 76,
+          "cagr": 0.2718435535911534,
+          "annualized_vol": 0.20646221102586854,
+          "sharpe": 1.1634456882706246,
+          "sortino": 1.7334575580572689,
+          "calmar": 0.9953037711751207,
+          "n_rebalances": 61,
+          "total_fees": 6354.1104485946325,
+          "avg_cash_share": 0.010005491951810039
+        },
+        "fixed_metrics": {
+          "total_invested": 864000.0,
+          "final_wealth": 7027599.526266876,
+          "wealth_over_invested": 8.13379574799407,
+          "max_drawdown": -0.6891479967635237,
+          "longest_weeks_underwater": 152,
+          "cagr": 0.4067603439201595,
+          "annualized_vol": 0.4627103733801517,
+          "sharpe": 0.919866619196876,
+          "sortino": 1.3678929142494993,
+          "calmar": 0.5902365614214162,
+          "n_rebalances": 0,
+          "total_fees": 862.5,
+          "avg_cash_share": 0.009170577569561113
+        },
+        "figs": {
+          "weights": "figures/rebalance_BTCGoldSilver_C2_weights.png",
+          "dd": "figures/rebalance_BTCGoldSilver_C2_dd.png",
+          "bootstrap": "figures/rebalance_BTCGoldSilver_C2_bootstrap.png"
+        },
+        "rolling": {
+          "2": {
+            "n_windows": 37,
+            "win_rate_wealth": 0.4594594594594595,
+            "win_rate_sharpe": 0.5135135135135135,
+            "fig": "figures/rebalance_BTCGoldSilver_C2_rolling2y.png"
+          },
+          "3": {
+            "n_windows": 33,
+            "win_rate_wealth": 0.3333333333333333,
+            "win_rate_sharpe": 0.696969696969697,
+            "fig": "figures/rebalance_BTCGoldSilver_C2_rolling3y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.08333333333333333,
+          "sharpe\n(raw)": 0.5666666666666667,
+          "wealth\n(detrended)": 0.6333333333333333,
+          "sharpe\n(detrended)": 0.5166666666666667
+        },
+        "placebo": null
+      },
+      "C3": {
+        "metrics": {
+          "total_invested": 864000.0,
+          "final_wealth": 3187939.674689886,
+          "wealth_over_invested": 3.6897449938540348,
+          "max_drawdown": -0.234799138879356,
+          "longest_weeks_underwater": 146,
+          "cagr": 0.24520532539718953,
+          "annualized_vol": 0.18232461133692995,
+          "sharpe": 1.175048220325157,
+          "sortino": 1.7591592330225803,
+          "calmar": 1.0443195259041407,
+          "n_rebalances": 326,
+          "total_fees": 17134.76582276544,
+          "avg_cash_share": 0.15572329614463148
+        },
+        "fixed_metrics": {
+          "total_invested": 864000.0,
+          "final_wealth": 6991037.195674704,
+          "wealth_over_invested": 8.091478235734611,
+          "max_drawdown": -0.6895539673730338,
+          "longest_weeks_underwater": 156,
+          "cagr": 0.40590078464862867,
+          "annualized_vol": 0.46362598288337264,
+          "sharpe": 0.917600666544128,
+          "sortino": 1.3648081795779783,
+          "calmar": 0.5886425194462628,
+          "n_rebalances": 0,
+          "total_fees": 862.5,
+          "avg_cash_share": 0.009173248513292084
+        },
+        "figs": {
+          "weights": "figures/rebalance_BTCGoldSilver_C3_weights.png",
+          "dd": "figures/rebalance_BTCGoldSilver_C3_dd.png",
+          "bootstrap": "figures/rebalance_BTCGoldSilver_C3_bootstrap.png"
+        },
+        "rolling": {
+          "2": {
+            "n_windows": 37,
+            "win_rate_wealth": 0.24324324324324326,
+            "win_rate_sharpe": 0.5675675675675675,
+            "fig": "figures/rebalance_BTCGoldSilver_C3_rolling2y.png"
+          },
+          "3": {
+            "n_windows": 33,
+            "win_rate_wealth": 0.18181818181818182,
+            "win_rate_sharpe": 0.6363636363636364,
+            "fig": "figures/rebalance_BTCGoldSilver_C3_rolling3y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.03333333333333333,
+          "sharpe\n(raw)": 0.48333333333333334,
+          "wealth\n(detrended)": 0.5166666666666667,
+          "sharpe\n(detrended)": 0.38333333333333336
+        },
+        "placebo": {
+          "percentile_wealth": 77.0,
+          "percentile_sharpe": 76.0,
+          "fig": "figures/rebalance_BTCGoldSilver_C3_placebo.png"
+        }
+      }
+    },
+    "Gold+Silver only": {
+      "C2": {
+        "metrics": {
+          "total_invested": 1963500.0,
+          "final_wealth": 10605389.269691011,
+          "wealth_over_invested": 5.401267771678641,
+          "max_drawdown": -0.5243462355872657,
+          "longest_weeks_underwater": 656,
+          "cagr": 0.12355674047938736,
+          "annualized_vol": 0.21291878786060747,
+          "sharpe": 0.5748892133063007,
+          "sortino": 0.794474727567928,
+          "calmar": 0.235639606225082,
+          "n_rebalances": 38,
+          "total_fees": 11480.817943657876,
+          "avg_cash_share": 0.004986040916035635
+        },
+        "fixed_metrics": {
+          "total_invested": 1963500.0,
+          "final_wealth": 9655157.774798162,
+          "wealth_over_invested": 4.917319976978947,
+          "max_drawdown": -0.5450881809081918,
+          "longest_weeks_underwater": 658,
+          "cagr": 0.11855422277960415,
+          "annualized_vol": 0.21928332517727897,
+          "sharpe": 0.5445173075196407,
+          "sortino": 0.7318420760850711,
+          "calmar": 0.21749549326510167,
+          "n_rebalances": 0,
+          "total_fees": 1962.0,
+          "avg_cash_share": 0.00500184134788815
+        },
+        "figs": {
+          "weights": "figures/rebalance_GoldSilveronly_C2_weights.png",
+          "dd": "figures/rebalance_GoldSilveronly_C2_dd.png",
+          "bootstrap": "figures/rebalance_GoldSilveronly_C2_bootstrap.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 89,
+            "win_rate_wealth": 0.7415730337078652,
+            "win_rate_sharpe": 0.6741573033707865,
+            "fig": "figures/rebalance_GoldSilveronly_C2_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 81,
+            "win_rate_wealth": 0.8271604938271605,
+            "win_rate_sharpe": 0.7407407407407407,
+            "fig": "figures/rebalance_GoldSilveronly_C2_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.5333333333333333,
+          "sharpe\n(raw)": 0.7333333333333333,
+          "wealth\n(detrended)": 0.5666666666666667,
+          "sharpe\n(detrended)": 0.45
+        },
+        "placebo": null
+      },
+      "C3": {
+        "metrics": {
+          "total_invested": 1963500.0,
+          "final_wealth": 8338672.702255357,
+          "wealth_over_invested": 4.246841203083961,
+          "max_drawdown": -0.45486578624332386,
+          "longest_weeks_underwater": 675,
+          "cagr": 0.10800497114065855,
+          "annualized_vol": 0.1854702772971824,
+          "sharpe": 0.5552357733668695,
+          "sortino": 0.7243167552864291,
+          "calmar": 0.23744360294199585,
+          "n_rebalances": 802,
+          "total_fees": 76723.81464005739,
+          "avg_cash_share": 0.16189990108068428
+        },
+        "fixed_metrics": {
+          "total_invested": 1963500.0,
+          "final_wealth": 9625290.044108987,
+          "wealth_over_invested": 4.902108502220009,
+          "max_drawdown": -0.544513062560761,
+          "longest_weeks_underwater": 658,
+          "cagr": 0.11851169110196635,
+          "annualized_vol": 0.2196036612021272,
+          "sharpe": 0.5438866665190306,
+          "sortino": 0.7302259488935606,
+          "calmar": 0.2176471038998112,
+          "n_rebalances": 0,
+          "total_fees": 1962.0,
+          "avg_cash_share": 0.0050002097107516635
+        },
+        "figs": {
+          "weights": "figures/rebalance_GoldSilveronly_C3_weights.png",
+          "dd": "figures/rebalance_GoldSilveronly_C3_dd.png",
+          "bootstrap": "figures/rebalance_GoldSilveronly_C3_bootstrap.png"
+        },
+        "rolling": {
+          "3": {
+            "n_windows": 89,
+            "win_rate_wealth": 0.30337078651685395,
+            "win_rate_sharpe": 0.34831460674157305,
+            "fig": "figures/rebalance_GoldSilveronly_C3_rolling3y.png"
+          },
+          "5": {
+            "n_windows": 81,
+            "win_rate_wealth": 0.25925925925925924,
+            "win_rate_sharpe": 0.4074074074074074,
+            "fig": "figures/rebalance_GoldSilveronly_C3_rolling5y.png"
+          }
+        },
+        "bootstrap_win_rates": {
+          "wealth\n(raw)": 0.13333333333333333,
+          "sharpe\n(raw)": 0.36666666666666664,
+          "wealth\n(detrended)": 0.6333333333333333,
+          "sharpe\n(detrended)": 0.3
+        },
+        "placebo": {
+          "percentile_wealth": 44.0,
+          "percentile_sharpe": 53.0,
+          "fig": "figures/rebalance_GoldSilveronly_C3_placebo.png"
+        }
+      }
+    }
+  }
+}
