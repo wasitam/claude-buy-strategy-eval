@@ -13,5 +13,13 @@ incremented by 18 new trials + 1 new family), but crashed afterward in
 `DataFrame.corr().to_numpy()` (`np.fill_diagonal` requires a writable array).
 Fixed by copying the array before mutating it. The grid backtest itself was
 not re-run and did not need to be — only the downstream N_eff/DSR/CSCV
-computation was re-executed against the already-written trial series, so
-`state/trial_counter.json` was not incremented again for this rerun.
+computation was re-executed against the already-written trial series.
+
+Note: the idempotency marker added to guard against double-counting was
+itself only written starting with the second run, so the rerun still
+incremented `state/trial_counter.json["new"]` and `["families_new"]` a
+second time (to 36 and 2). This was caught before any commit and corrected
+by hand back to `new: 18, families_new: 1` (the correct one-time count for
+family 001's 18-config grid) — the 18 trial series files in `state/trials/`
+were never duplicated, only overwritten in place with identical content, so
+no data was lost or double-counted in `N`/`N_eff` itself.

@@ -17,11 +17,11 @@ import sys
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from src.backtest.v3 import data as v3data, engine as v3eng, robustness as v3rob
 from src.backtest.v3.strategies import trend_exit as te
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 FAM_DIR = os.path.join(ROOT, "families", "001-trend-exit")
 WEEKLY_DEPOSIT = 500.0
 FEE = 0.001

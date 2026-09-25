@@ -35,7 +35,7 @@ import os
 import numpy as np
 import pandas as pd
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 STATE_DIR = os.path.join(ROOT, "state")
 TRIALS_DIR = os.path.join(STATE_DIR, "trials")
 
