@@ -162,5 +162,25 @@ long-horizon trend-following signals -- see prereg.md).
 4 ideas remain (#18-21), below the sec 8 step-2 threshold of 5 -- the next
 iteration's first task is to research and add more before taking #18.
 
+**Queue replenishment (2026-09-25, this iteration, plan sec 8 step 2):**
+before taking #18, 4 ideas remained (#18-21) at the sec-8-step-2 threshold
+of 5, below it once #18 is taken. 3 new ideas were added below after a
+literature search (WebSearch), each chosen to (a) be testable on the 5
+core assets, (b) not re-tread families 001-018's exact mechanisms or the
+sec 7.2 closed list -- in particular distinct from family 018 itself
+(taken this same iteration; see below) despite two of the three sharing
+its "Seasonality / execution timing" category -- and (c) avoid the
+single-asset-only structural trap flagged in family 008's results.md.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 22 | Presidential election cycle timing: bank a larger share of deposits during years 1-2 of the US presidential term (historically weaker, per Hirsch's Stock Trader's Almanac and Santa-Clara & Valkanov's "Presidential Puzzle"), deploy a catch-up lump-sum tilt during years 3-4 (historically strongest, especially year 3). A **quadrennial** seasonal cycle -- a full order of magnitude longer period than family 018's annual Nov-Apr/May-Oct window, 006's monthly turn-of-month window, or 007's weekly day-of-week window -- and a different economic story (political business-cycle / policy-manipulation and investor-sentiment literature specific to the US election calendar, vs. institutional flow cycles or crypto liquidity composition). Calendar-only signal (US presidential term year, publicly known in advance), testable identically on all 5 core assets per the 006/007/018 scoping precedent -- though, like 006/007, the anchor literature is US-equity-specific, a caveat to be stated explicitly in that family's own prereg.md. | Seasonality / execution timing | Santa-Clara, P. and Valkanov, R. (2003), "The Presidential Puzzle: Political Cycles and the Stock Market," *Journal of Finance* 58(5), 1841-1872; Hirsch, Y. (1967-), *Stock Trader's Almanac* |
+| 23 | Realized-skewness sizing: buy more when an asset's own trailing realized skewness (computed from daily returns over a lookback window, per Neuberger's high-frequency third-moment estimator) sits in a deeply negative percentile (a proxy for a recent crash-like/left-tail-heavy return distribution the literature associates with a compensating risk premium), buy less when skewness is strongly positive. A **third-moment** (asymmetry) statistic, mechanistically distinct from family 003 (second-moment realized variance, direction-agnostic), family 016 (a shared cross-market VIX level, not each asset's own return-distribution shape), and family 017 (RSI2's gain/loss-ratio oscillator, a bounded relative-strength statistic, not a distributional moment) -- must state this distinction explicitly in prereg.md, same discipline family 017 used for its own triple distinction. Price-only signal (daily Close), no external data dependency, testable per-asset. | Sizing / valuation | Neuberger, A. (2012), "Realized Skewness," *Review of Financial Studies* 25(11), 3423-3455; Amaya, D., Christoffersen, P., Jacobs, K. and Vasquez, A. (2015), "Does Realized Skewness Predict the Cross-Section of Equity Returns?," *Journal of Financial Economics* 118(1), 135-167 |
+| 24 | Seasonal Affective Disorder (SAD) / daylight-length deposit timing: size deposits by a **continuous** function of Northern Hemisphere day length (shortest around the winter solstice, longest around the summer solstice) rather than a discrete calendar window, banking more as daylight shortens through fall (proxying rising risk aversion per the SAD literature's depression-and-risk-aversion channel) and deploying a catch-up tilt as daylight lengthens through winter/spring. Explicitly distinct from family 018 despite the shared "Seasonality" category and both being annual-periodicity: 018's mechanism is a fixed, discrete 6-month institutional-flow window (in or out), while this family's signal is a smooth, continuously-varying function of calendar day peaking/troughing at the solstices, motivated by an investor-psychology/risk-aversion channel rather than institutional payment or rebalancing cycles -- this distinction must be made explicit in that family's own prereg.md when its turn comes, mirroring the discipline 018's own prereg.md uses to distinguish itself from 006/007. Calendar-only signal, testable identically on all 5 core assets. | Seasonality / execution timing | Kamstra, M.J., Kramer, L.A. and Levi, M.D. (2003), "Winter Blues: A SAD Stock Market Cycle," *American Economic Review* 93(1), 324-343 |
+
+Idea #18 ("Halloween effect" / Sell-in-May seasonal deposit timing) has
+been taken from the queue and used for family `018-halloween-seasonal`;
+see `families/018-halloween-seasonal/` for the verdict.
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
