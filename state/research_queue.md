@@ -201,10 +201,30 @@ reach the majority bar, the weakest grid result of any family so far.
 DSR effectively zero, driven by a genuinely negative raw pooled excess
 Sharpe.
 
-**Queue status after this iteration:** ideas #20, #21 (added two
-iterations ago, still untaken) and #22, #23, #24 (added last iteration,
-still untaken) remain -- 5 ideas, at the sec 8 step-2 threshold, so no
-replenishment is required before the next iteration takes #20.
+Idea #20 (52-week-high proximity momentum tilt) has been taken from the
+queue and used for family `020-52wk-high-tilt`; see
+`families/020-52wk-high-tilt/` (NEAR-MISS). Assessed as a single-asset
+family across all 5 core assets, category **Trend / time-series momentum
+exit**. Sec 4.1: primary config beats DCA on wealth AND Sharpe on exactly
+3/5 core assets (GOLD, SILVER, OIL), the minimum passing count, with small
+margins. Grid: 16/32 (50.0%) configs reach the majority bar -- sec 4.4
+FAIL. DSR effectively zero (negative raw pooled excess Sharpe) -- sec 4.2
+FAIL. Sec 4.3 run in full (sec 4.1 passed): rolling windows and bootstrap
+both PASS, but the placebo circular-shift test FAILS decisively (real
+result at the 13th/37th percentile, need >=95th) -- the strongest single
+piece of evidence that the George & Hwang mechanism itself, not just some
+generic time-varying sizing tilt, is not what's producing the narrow sec
+4.1 pass. Also the highest CSCV PBO (0.486) of any family so far.
+Documented the required triple distinction from families 001, 005 and,
+critically, 014 (this family's ladder is the deliberate sign-inverse of
+family 014's: buy MORE near a 52-WEEK high vs family 014's buy MORE far
+below an ALL-TIME high) and explicitly verified the sign was implemented
+correctly (mean multiplier 1.500 near-high vs 0.6233 far-below on SP500)
+before trusting any backtest, per this iteration's task instruction.
+
+4 ideas remain (#21-24), below the sec 8 step-2 threshold of 5 -- the next
+iteration's first task is to research and add at least one more idea
+before taking #21.
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).

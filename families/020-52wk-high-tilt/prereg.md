@@ -308,9 +308,17 @@ sign check
    014's precedent, for the primary config and the most aggressive grid
    corner (`ladder=aggressive, mult_near=2.0, max_lump_cap=3.0`).
 7. **Pre-grid non-degeneracy sanity check** (established convention, task
-   instruction): confirm the primary config's `m_t != 1.0` on a
-   non-trivial share of development days (not near-constant at 1.0x) on
-   each of the 5 core assets, before any grid backtest is trusted.
+   instruction, adapted here for this family's ladder shape): the primary
+   config's 3-tier ladder has no tier equal to exactly 1.0x (mult_far=0.50,
+   mult_mid=0.75, mult_near=1.5), so `m_t != 1.0` trivially on ~100% of
+   days by construction -- not itself a meaningful non-degeneracy signal
+   for this family. The substantive check instead confirms price is not
+   stuck in a single ladder tier for nearly the whole development sample:
+   each of the near-high, middle, and far-below-high tiers must claim
+   between 2% and 98% of development days, on each of the 5 core assets,
+   before any grid backtest is trusted. This is the meaningful analogue,
+   for a 3-tier ladder, of the binary-signal convention used in prior
+   families (e.g. 019's weak/strong regime frequency check).
 8. **Sign-correctness check** (task instruction, required specifically for
    this family given the family-014 sign-inversion point above): on SP500
    development data, using the primary config, confirm the mean buy
