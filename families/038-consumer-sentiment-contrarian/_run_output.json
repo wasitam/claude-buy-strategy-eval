@@ -1,0 +1,92 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "euphoric_days": 4282,
+      "frac_euphoric": 0.1852957722099615
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "euphoric_days": 1211,
+      "frac_euphoric": 0.24979372937293728
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "euphoric_days": 1211,
+      "frac_euphoric": 0.24969072164948453
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "euphoric_days": 1640,
+      "frac_euphoric": 0.8488612836438924
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "euphoric_days": 1217,
+      "frac_euphoric": 0.2505661931233272
+    }
+  ],
+  "known_episode_check": {
+    "window": "1999-06-01..2000-05-31",
+    "n_obs": 12,
+    "frac_euphoric_in_window": 1.0,
+    "stat_at_window_start": 1.4886996269216555,
+    "stat_at_window_end": 1.4346656032539238,
+    "max_stat_in_window": 1.7533334509937553
+  },
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_plus_interest": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "lag_matters_zero_vs_documented_frac_days_differ": 0.042667359037604394,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 1161,
+  "n_eff": 123,
+  "dsr_neff": {
+    "dsr": 9.381912694561929e-26,
+    "sr": -0.02970401668339287,
+    "sr_annualized": -0.21419871047842154,
+    "sr0": 0.13018317099860524,
+    "n": 4800,
+    "n_eff": 123,
+    "skew": 3.086532353133763,
+    "kurtosis": 167.88622641704285
+  },
+  "dsr_rawn": {
+    "dsr": 4.538088658582006e-28,
+    "sr": -0.02970401668339287,
+    "sr_annualized": -0.21419871047842154,
+    "sr0": 0.13777690540259302,
+    "n": 4800,
+    "n_eff": 1161,
+    "skew": 3.086532353133763,
+    "kurtosis": 167.88622641704285
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 1,
+    "beats_dca_count_fee0.25pct": 1,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.3333333333333333,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.21428571428571427,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg08_zscore_lb10_tl1_tf0.0",
+  "primary_trial_id": "new_038_cfg08_zscore_lb10_tl1_tf0.0"
+}
