@@ -1034,10 +1034,52 @@ signal to reach sec 4.3; logged in `state/bugfix_log.md`).
 replacement idea is added now to restore the threshold before the next
 iteration takes #45.
 
+Idea #48 (CBOE SKEW Index tail-risk-pricing regime sizing) has been taken
+from the queue and used for family `047-skew-index-sizing`; see
+`families/047-skew-index-sizing/` (**REJECTED**). Single-asset family
+across all 5 core assets, category **Volatility targeting**. Data
+feasibility confirmed first: `^SKEW` is reachable via yfinance with
+~30.0 years of dev-period history (1990-01-02 on), the longest of any
+volatility-derived signal used in this loop (2.3x `^VVIX`'s history),
+so no substitute idea was needed. Distinction from families 016 (VIX
+level)/025 (VIX-vs-realized spread)/041 (VIX3M/VIX term structure)/046
+(VVIX vol-of-vol) verified concretely on real dev data: raw SKEW-vs-VIX
+level correlation only -0.235 (weak, opposite-signed from a naive "both
+just measure fear" prior), flag-agreement 45.3%/48.7%/52.8%/52.2%
+against those four families' own elevated flags (all strictly between
+0% and 100%), a December 2019 "complacent VIX (12.50, 8.3rd trailing
+percentile), expensive tails (SKEW=150.14, its own all-time-record
+100th trailing percentile)" divergence episode, a January 1991 Gulf War
+inverse-divergence episode (VIX elevated, SKEW depressed), and a 2008
+GFC comovement/contrast episode. Primary config (`skew_lookback=252,
+k=1.0, min_mult=0.5, max_mult=2.0`) beats DCA on wealth AND Sharpe on
+only **1/5** core assets (SILVER only, razor-thin; SP500/GOLD/BTC lose
+both, OIL wins wealth but loses Sharpe) at both fee levels -- **sec 4.1
+FAIL** (need >=3/5), decisively. Grid: **0/36 (0%)** of configs clear
+the majority-of-assets bar -- sec 4.4 FAIL, the weakest grid result of
+any family in this loop so far. CSCV PBO=0.857, the highest (most
+overfitting-prone) of any family so far. Raw pooled excess-return Sharpe
+is strongly negative (-0.0241/week, -17.4%/yr annualized) with extreme
+kurtosis (1299.9) -- DSR effectively zero (1.54e-55), sec 4.2 FAIL. Sec
+4.3 not run (sec 4.1 already fails decisively, per established
+precedent). Holdout not opened (rejected, not a finalist). Unlike
+family 046 (VVIX), whose sign and functional form produced the loop's
+strongest sec 4.1/4.4 result before failing on DSR/rolling-windows,
+SKEW's identically-shaped signal (same risk-off sign, same continuous
+percentile-multiplier form, same grid shape) failed even the basic
+sec 4.1/4.4 win-rate checks -- a useful negative data point that the
+functional-form template that worked well for VVIX's signal does not
+transfer to every volatility-derivative signal with a plausible
+risk-off sign.
+
+4 ideas remain (#49-52), below the sec 8 step-2 threshold of 5 -- 1
+replacement idea is added now to restore the threshold before the next
+iteration takes #49.
+
 | # | Idea | Category | Key source |
 |---|---|---|---|
 | 49 | Tolerance-band ("drift-triggered") rebalancing of the 5-asset portfolio: rebalance back to FIXED equal target weights (the v2 Strategy-C1-equivalent baseline, no momentum/risk-parity tilt) only when any asset's current weight drifts outside a symmetric band around its target (e.g. target 20% +/- `band_pct`), checked at each week-end decision day, rather than on family 013's/029's/002's fixed WEEKLY calendar cadence regardless of drift. Genuinely different mechanism axis from every prior rebalancing/rotation family in this loop: families 002 (dual momentum) and 043 (liquidity rotation) both ask "which asset(s) should the marginal deposit favor"; families 013 (momentum-tilted) and 029 (risk-parity) both ask "what should each asset's TARGET weight be"; this family asks neither -- targets are FIXED equal weights, exactly like v2's already-closed Strategy C1/C2/C3 rebalance-frequency sweep, but this family's trigger is drift-based (a function of realized price divergence since the last rebalance) rather than any of C1/C2/C3's pre-declared FIXED calendar frequencies (weekly/monthly/quarterly) -- must state and verify this distinction (a genuinely path-dependent, non-calendar trigger) concretely in prereg.md, e.g. by confirming rebalance events cluster during high-dispersion periods rather than falling on a fixed schedule. The economic rationale (avoiding unnecessary turnover/fees between rebalances while still controlling drift risk) is a transaction-cost-minimization argument, not a return-forecasting one -- expected sign is on FEES/turnover and Sharpe (lower whipsaw-driven turnover), not necessarily on raw wealth. | Rebalancing / allocation | Donohue, C. and Yip, K. (2003), "Optimal Portfolio Rebalancing with Transaction Costs," *Journal of Portfolio Management* 29(4), 49-63; Masters, S.J. (2003), "Rebalancing," *Journal of Portfolio Management* 29(3), 52-57 |
-| 48 | CBOE SKEW Index (tail-risk pricing) regime sizing: scale buy size using the CBOE SKEW Index (`^SKEW`, a standardized measure of the market-implied probability of a large negative S&P 500 tail move, derived from the slope of the S&P 500 options volatility skew/risk-reversal -- distinct from `^VIX`'s at-the-money implied volatility LEVEL, `^VIX3M/^VIX`'s term-structure SLOPE across tenors already tested in family 041, and `^VVIX`'s vol-of-vol). SKEW measures the shape/asymmetry of the volatility SMILE at a single tenor (how much more expensive out-of-the-money puts are than calls, i.e. how much crash-tail-risk the options market is pricing), which can move independently of the VIX level itself (e.g. SKEW can spike while VIX stays low -- a "complacent VIX, but the tails are getting pricier" regime -- or vice versa during a broad-based vol spike where the smile flattens even as the level rises). Elevated SKEW in its own trailing percentile -> bank a reserve (the options market is pricing an unusually fat left tail); depressed SKEW -> deploy normally/with a capped catch-up lump. Applied as a shared cross-market signal identically across all 5 core assets, same convention as 006/007/011/015/016/019/025/027/032/038/041/047. Must state and verify the distinction from families 016 (VIX level)/025 (VIX-minus-realized spread)/041 (VIX3M/VIX term-structure slope)/047 (VVIX vol-of-vol) concretely (e.g. a real-data episode where SKEW and VIX/VIX3M/VVIX move in different directions) in prereg.md, and confirm `^SKEW`'s reachability and history length via yfinance before any design work (per family 041's data-feasibility-check-first precedent). | Volatility targeting | Bondarenko, O. (2003), "Why Are Put Options So Expensive?" *Quarterly Journal of Finance*; CBOE (2010), "The CBOE Skew Index -- SKEW," CBOE White Paper (SKEW methodology and its use as a tail-risk-pricing indicator distinct from VIX) |
+| 53 | Money-market funding-stress regime sizing (TED-spread-style: 3-month LIBOR/interbank rate minus 3-month T-bill yield, FRED series, e.g. legacy `TEDRATE` for the pre-2022 dev-period portion): bank deposits when interbank funding stress sits high in its own trailing percentile, deploy a capped catch-up lump when low. Genuinely different signal from family 011's credit-stress filter (BAA-AAA corporate bond spread / NFCI, a CORPORATE credit-risk-premium and broad financial-conditions signal) -- this measures short-term INTERBANK FUNDING/LIQUIDITY stress specifically (the classic 2007-2008 "banks won't lend to each other" signal), a distinct point on the stress-signal spectrum from a corporate bond spread, which can stay contained even while interbank funding tightens (and vice versa in a slow-moving corporate-credit deterioration with ample bank liquidity) -- must construct a concrete real dev-period divergence example (a period where the two spreads move in different directions or diverge in magnitude) in prereg.md, plus confirm the series' point-in-time/publication-lag properties and feasible history length via FRED before any design work. | Regime switch (macro / credit / sentiment) | Poole, W. (2008 speeches) and FRBSF Economic Letter (2008), "The TED Spread"; Taylor, J.B. and Williams, J.C. (2009), "A Black Swan in the Money Market," *American Economic Journal: Macroeconomics* 1(1), 58-83 (interbank funding-stress spread as a distinct signal from corporate credit spreads) |
 
 Idea #45 (Hurst-exponent fractal trend-persistence regime sizing) has
 been taken from the queue and used for family `044-hurst-regime-sizing`;
