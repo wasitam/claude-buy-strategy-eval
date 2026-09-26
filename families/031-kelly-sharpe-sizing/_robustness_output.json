@@ -1,0 +1,73 @@
+{
+  "rolling_windows": {
+    "SP500_3y": {
+      "n_windows": 1118,
+      "pct_beats_wealth": 0.5035778175313059,
+      "pct_beats_sharpe": 0.5223613595706619
+    },
+    "SP500_5y": {
+      "n_windows": 1093,
+      "pct_beats_wealth": 0.6093321134492223,
+      "pct_beats_sharpe": 0.6431838975297347
+    },
+    "GOLD_3y": {
+      "n_windows": 205,
+      "pct_beats_wealth": 0.5219512195121951,
+      "pct_beats_sharpe": 0.5317073170731708
+    },
+    "GOLD_5y": {
+      "n_windows": 180,
+      "pct_beats_wealth": 0.55,
+      "pct_beats_sharpe": 0.5777777777777777
+    },
+    "SILVER_3y": {
+      "n_windows": 205,
+      "pct_beats_wealth": 0.5170731707317073,
+      "pct_beats_sharpe": 0.5317073170731708
+    },
+    "SILVER_5y": {
+      "n_windows": 180,
+      "pct_beats_wealth": 0.6055555555555555,
+      "pct_beats_sharpe": 0.5611111111111111
+    },
+    "OIL_3y": {
+      "n_windows": 206,
+      "pct_beats_wealth": 0.6213592233009708,
+      "pct_beats_sharpe": 0.6116504854368932
+    },
+    "OIL_5y": {
+      "n_windows": 180,
+      "pct_beats_wealth": 0.8888888888888888,
+      "pct_beats_sharpe": 0.8611111111111112
+    },
+    "BTC_2y": {
+      "n_windows": 72,
+      "pct_beats_wealth": 0.0,
+      "pct_beats_sharpe": 0.0
+    },
+    "_overall": {
+      "n_windows": 3439,
+      "pct_beats_wealth": 0.56353591160221,
+      "pct_beats_sharpe": 0.5789473684210527
+    }
+  },
+  "bootstrap": {
+    "raw": {
+      "n_sims": 60,
+      "pct_beats_wealth": 0.43333333333333335,
+      "pct_beats_sharpe": 0.43333333333333335
+    },
+    "detrended": {
+      "n_sims": 60,
+      "pct_beats_wealth": 0.7666666666666667,
+      "pct_beats_sharpe": 0.43333333333333335
+    }
+  },
+  "placebo": {
+    "n_sims": 60,
+    "real_wealth_over_invested": 85.28060701962373,
+    "real_sharpe": 0.1531050675504899,
+    "percentile_wealth": 68.33333333333333,
+    "percentile_sharpe": 33.33333333333333
+  }
+}

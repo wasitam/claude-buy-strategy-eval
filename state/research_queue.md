@@ -630,5 +630,30 @@ threshold before the next iteration takes #31.
 | 34 | 52-week-low contrarian value tilt: increase buy size the closer an asset's current close sits to its own trailing 52-week LOW (a long-horizon value/contrarian anchor), reduce or hold normal size otherwise. The mirror-image reference point of family 020's 52-week-HIGH tilt, but an opposite economic bet: family 020 is trend-following (buy more near a fresh high, betting the trend continues); this family is long-horizon mean-reversion (buy more near a trailing-year low, betting the price has overshot to the downside and will partially recover over a multi-month-to-year horizon, not the few-day horizon family 030's streak signal targets). Must state this distinction explicitly in prereg.md, plus the distinction from family 014 (drawdown-from-ALL-TIME-high reserve deployment, a different and typically much longer reference window than a rolling 52-week low, and family 014's reference point never resets to a new low the way a rolling 52-week low continuously does). Price-only signal (daily Close, trailing rolling minimum), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | De Bondt, W.F.M. and Thaler, R. (1985), "Does the Stock Market Overreact?," *Journal of Finance* 40(3), 793-808 (long-horizon overreaction/reversal); George, T.J. and Hwang, C.-Y. (2004), "The 52-Week High and Momentum Investing," *Journal of Finance* 59(5), 2145-2176 (documents the 52-week-high anchor's role in trend continuation, the reference point this family mirrors from the low side) |
 | 35 | Drawdown-DURATION (time-underwater) sizing: increase buy size the longer an asset has gone, in trading days, since its last all-time (or trailing-N-year) high close -- a signal built on the LENGTH of time spent below a prior peak, not the MAGNITUDE of the shortfall from that peak. Explicitly distinct from family 014 (drawdown-from-high reserve deployment, whose signal is the percentage-magnitude shortfall from the reference high, reacting identically to a deep-but-brief drawdown and a shallow-but-long one) since a duration-only signal and a magnitude-only signal are mechanically independent statistics of the same underlying price path (a V-shaped crash-and-instant-recovery has near-zero duration despite large magnitude; a slow multi-year grind sideways below a peak has large duration despite modest magnitude) -- neither can be recovered from the other. Price-only signal (daily Close, running peak and days-since-peak counter), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Practitioner "time-to-recovery" / underwater-duration literature underlying the Calmar and Sterling ratio families (which use max-drawdown MAGNITUDE, not duration); Ibbotson Associates and related work on the psychological and portfolio-rebalancing effects of extended underwater periods distinct from drawdown depth alone |
 
+Idea #31 (Kelly-fraction-style trailing-Sharpe sizing) has been taken from
+the queue and used for family `031-kelly-sharpe-sizing`; see
+`families/031-kelly-sharpe-sizing/` (NEAR-MISS). Assessed as a
+single-asset family across all 5 core assets, category **Sizing /
+valuation** (a judgment call over "Volatility targeting," justified in
+prereg.md: the return/edge numerator drives the reading as much as the
+risk denominator, unlike family 003's pure risk-targeting design).
+Signal: a trailing Sharpe ratio (mean/vol of daily log returns), turned
+into a continuous (not discrete-threshold) buy multiplier via a causal
+percentile rank -- rigorously distinguished in prereg.md, with a concrete
+real-data numeric contrast (BTC 2018-01-22 vs SP500 1993-12-20, Sharpe
+~1.068 on both despite ~17x different return/vol magnitudes), from family
+003 (volatility alone), family 005 (sign of return alone), family 025 (a
+volatility-vs-volatility spread) and family 020 (price-level proximity).
+Passed sec 4.1 (4/5 assets) and sec 4.4 (83.3% of grid, this loop's best
+sec 4.4 result so far) but failed sec 4.2 (DSR ~2e-22) and sec 4.3
+(rolling windows 56-58%, bootstrap fails both legs, placebo lands at only
+the 33rd Sharpe percentile). 4 ideas (#32-35) remained after taking #31,
+below the sec 8 step-2 threshold of 5 -- 1 replacement idea is added now
+to restore the threshold before the next iteration takes #32.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 36 | Return-autocorrelation regime sizing: increase buy size when an asset's own trailing daily-return autocorrelation (lag-1, over a rolling window) is positive and elevated in its own trailing percentile (a "trending/persistent" regime, where price changes are serially reinforcing), decrease buy size when that autocorrelation is negative (a "choppy/mean-reverting" regime, where price changes tend to reverse day-to-day). A genuinely new statistic for this loop: unlike family 005's sign-of-trailing-RETURN, family 003's realized VARIANCE, family 030's discrete consecutive-day STREAK COUNT, or family 031's return-to-vol SHARPE RATIO, the lag-1 autocorrelation coefficient measures neither the level nor the dispersion of returns but their **serial dependence structure** -- two assets with identical trailing mean and variance of returns can have wildly different autocorrelation (e.g. a smoothly trending path vs. a choppy zig-zag path of the same net return and volatility), and none of families 003/005/020/030/031's signals can distinguish those two cases at all. Price-only signal (daily Close, trailing lag-1 sample autocorrelation of log returns), no external data dependency, testable identically on all 5 core assets. | Trend / time-series momentum exit | Lo, A.W. and MacKinlay, A.C. (1988), "Stock Market Prices Do Not Follow Random Walks: Evidence from a Simple Specification Test," *Review of Financial Studies* 1(1), 41-66 (documents significant positive short-horizon return autocorrelation, i.e. rejection of the random walk, in broad equity indices) |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
