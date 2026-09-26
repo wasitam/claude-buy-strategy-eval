@@ -1,0 +1,193 @@
+{
+  "vix3m_availability": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "vix3m_available_days": 3389,
+      "frac_available": 0.14665281924791207,
+      "dev_start": "1927-12-30",
+      "dev_end": "2019-12-31"
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "vix3m_available_days": 3387,
+      "frac_available": 0.6986386138613861,
+      "dev_start": "2000-08-30",
+      "dev_end": "2019-12-31"
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "vix3m_available_days": 3387,
+      "frac_available": 0.6983505154639176,
+      "dev_start": "2000-08-30",
+      "dev_end": "2019-12-31"
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "vix3m_available_days": 1932,
+      "frac_available": 1.0,
+      "dev_start": "2014-09-17",
+      "dev_end": "2019-12-31"
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "vix3m_available_days": 3388,
+      "frac_available": 0.697549927939057,
+      "dev_start": "2000-08-23",
+      "dev_end": "2019-12-31"
+    }
+  ],
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.8649443939590635,
+      "std_multiplier": 0.19742462372765143,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.35622937293729373,
+      "std_multiplier": 0.42657702781292517,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.35649484536082476,
+      "std_multiplier": 0.42650076363461387,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.13250517598343686,
+      "std_multiplier": 0.4839082733782169,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.3572163887173152,
+      "std_multiplier": 0.42625358052128254,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "vix3m_availability": [
+      {
+        "asset": "SP500",
+        "dev_days": 23109,
+        "vix3m_available_days": 3389,
+        "frac_available": 0.14665281924791207,
+        "dev_start": "1927-12-30",
+        "dev_end": "2019-12-31"
+      },
+      {
+        "asset": "GOLD",
+        "dev_days": 4848,
+        "vix3m_available_days": 3387,
+        "frac_available": 0.6986386138613861,
+        "dev_start": "2000-08-30",
+        "dev_end": "2019-12-31"
+      },
+      {
+        "asset": "SILVER",
+        "dev_days": 4850,
+        "vix3m_available_days": 3387,
+        "frac_available": 0.6983505154639176,
+        "dev_start": "2000-08-30",
+        "dev_end": "2019-12-31"
+      },
+      {
+        "asset": "BTC",
+        "dev_days": 1932,
+        "vix3m_available_days": 1932,
+        "frac_available": 1.0,
+        "dev_start": "2014-09-17",
+        "dev_end": "2019-12-31"
+      },
+      {
+        "asset": "OIL",
+        "dev_days": 4857,
+        "vix3m_available_days": 3388,
+        "frac_available": 0.697549927939057,
+        "dev_start": "2000-08-23",
+        "dev_end": "2019-12-31"
+      }
+    ],
+    "distinction_from_016": {
+      "n_overlap_days": 3389,
+      "frac_flag_agreement_backwardation_vs_016_elevated": 0.923576276187666,
+      "genuinely_different": true,
+      "corr_ratio_vs_raw_vix_level": -0.6673959177705134,
+      "ratio_not_a_relabeling_of_vix_level": true
+    },
+    "distinction_confirmed": true,
+    "cash_reserve_check": {
+      "avg_cash_strategy": 106.22789282558314,
+      "avg_cash_dca_baseline": 103.87727725128738,
+      "reserve_builds_up_vs_dca": true,
+      "avg_cash_low_multiplier_weeks": 132.7986456748769,
+      "avg_cash_high_multiplier_weeks": 110.91091899263475,
+      "reserve_drawn_down_on_high_mult_weeks": true
+    },
+    "reserve_builds_up_vs_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_k_zero_grid_arm_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 1257,
+  "n_eff": 128,
+  "dsr_neff": {
+    "dsr": 1.0892371003019627e-20,
+    "sr": 0.009093692782280971,
+    "sr_annualized": 0.06557555121966166,
+    "sr0": 0.12842522334563788,
+    "n": 4800,
+    "n_eff": 128,
+    "skew": 25.064529039127056,
+    "kurtosis": 1261.7196610514725
+  },
+  "dsr_rawn": {
+    "dsr": 1.7890934773803242e-22,
+    "sr": 0.009093692782280971,
+    "sr_annualized": 0.06557555121966166,
+    "sr0": 0.13396156863765046,
+    "n": 4800,
+    "n_eff": 1257,
+    "skew": 25.064529039127056,
+    "kurtosis": 1261.7196610514725
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 4,
+    "beats_dca_count_fee0.25pct": 4,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.5555555555555556,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.3142857142857143,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg19_tl252_k1.0_mn0.5_mx2.0",
+  "primary_trial_id": "new_041_cfg19_tl252_k1.0_mn0.5_mx2.0"
+}
