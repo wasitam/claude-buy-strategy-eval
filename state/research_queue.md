@@ -933,3 +933,40 @@ iteration takes #43.
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #43 (realized-volatility term-structure, short-vs-long ratio sizing)
+was taken from the queue and used for family `042-realvol-term-structure`;
+see `families/042-realvol-term-structure/` (**REJECTED**). **Important
+correction, documented in prereg.md/results.md**: this queue entry's own
+characterization of family 003 as "a single absolute realized-variance
+level, no ratio-of-two-windows component" does not match family 003's
+actual implemented rule (`m_t=clip(sigma_ref/sigma_recent,min_mult,
+max_mult)`), which already computes a short-vs-long realized-vol ratio --
+stated plainly rather than silently asserted around. The family's real,
+verified distinction from family 003 is instead in the functional form (a
+further percentile-normalization of the ratio within its own trailing
+history, vs. family 003's direct clip of the raw ratio against fixed
+absolute bounds) plus a shorter short-window grid (10-20d vs. 003's
+20-60d), confirmed via a concrete rank-reversal example on real GOLD dev
+data (2001-12-11: ratio=1.974, this family's own percentile=0.500 ->
+multiplier=1.0; 2003-12-23: ratio=1.534 (lower), percentile=1.000 ->
+multiplier=2.0 -- a full rank reversal vs. the family-003-style raw-ratio
+multiplier ordering). Assessed as a single-asset family across all 5 core
+assets, category **Volatility targeting**. Sec 4.1: primary config beats
+DCA on wealth AND Sharpe on only **2/5** core assets (GOLD, OIL) at both
+fees -- FAIL (need >=3/5; SP500 and BTC lose both, SILVER wins wealth but
+loses Sharpe). Grid: 5/36 (13.9%) configs reach the majority bar -- sec
+4.4 FAIL, decisively (second-weakest grid result in this loop). CSCV
+PBO=0.571, the highest (most overfitting-prone) of any family so far.
+Raw pooled excess-return Sharpe is negative (-0.01101/week) -- DSR
+effectively zero, sec 4.2 FAIL. Sec 4.3 not run (sec 4.1 already fails
+decisively, per established precedent). Holdout not opened (rejected, not
+a finalist).
+
+4 ideas remain (#44-47), below the sec 8 step-2 threshold of 5 -- 1
+replacement idea is added now to restore the threshold before the next
+iteration takes #44.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 48 | CBOE SKEW Index (tail-risk pricing) regime sizing: scale buy size using the CBOE SKEW Index (`^SKEW`, a standardized measure of the market-implied probability of a large negative S&P 500 tail move, derived from the slope of the S&P 500 options volatility skew/risk-reversal -- distinct from `^VIX`'s at-the-money implied volatility LEVEL, `^VIX3M/^VIX`'s term-structure SLOPE across tenors already tested in family 041, and `^VVIX`'s vol-of-vol). SKEW measures the shape/asymmetry of the volatility SMILE at a single tenor (how much more expensive out-of-the-money puts are than calls, i.e. how much crash-tail-risk the options market is pricing), which can move independently of the VIX level itself (e.g. SKEW can spike while VIX stays low -- a "complacent VIX, but the tails are getting pricier" regime -- or vice versa during a broad-based vol spike where the smile flattens even as the level rises). Elevated SKEW in its own trailing percentile -> bank a reserve (the options market is pricing an unusually fat left tail); depressed SKEW -> deploy normally/with a capped catch-up lump. Applied as a shared cross-market signal identically across all 5 core assets, same convention as 006/007/011/015/016/019/025/027/032/038/041/047. Must state and verify the distinction from families 016 (VIX level)/025 (VIX-minus-realized spread)/041 (VIX3M/VIX term-structure slope)/047 (VVIX vol-of-vol) concretely (e.g. a real-data episode where SKEW and VIX/VIX3M/VVIX move in different directions) in prereg.md, and confirm `^SKEW`'s reachability and history length via yfinance before any design work (per family 041's data-feasibility-check-first precedent). | Volatility targeting | Bondarenko, O. (2003), "Why Are Put Options So Expensive?" *Quarterly Journal of Finance*; CBOE (2010), "The CBOE Skew Index -- SKEW," CBOE White Paper (SKEW methodology and its use as a tail-risk-pricing indicator distinct from VIX) |
