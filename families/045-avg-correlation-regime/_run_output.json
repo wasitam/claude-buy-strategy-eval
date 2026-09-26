@@ -1,0 +1,175 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.8064823229044961,
+      "std_multiplier": 0.26368133584905856,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.08023927392739275,
+      "std_multiplier": 0.5460146459923413,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.07938144329896907,
+      "std_multiplier": 0.56251720784351,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.19927536231884058,
+      "std_multiplier": 0.514546842898272,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.08235536339304098,
+      "std_multiplier": 0.5392253424407183,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "crisis_window_check": {
+      "crisis_window": [
+        "2008-12-01",
+        "2009-06-30"
+      ],
+      "calm_reference_window": [
+        "2005-01-01",
+        "2005-12-31"
+      ],
+      "crisis_mean_avg_corr": 0.15696837849168085,
+      "calm_mean_avg_corr": -0.042845193608693675,
+      "crisis_mean_percentile": 0.8855729506414439,
+      "calm_mean_percentile": 0.458128621819098,
+      "crisis_avg_corr_higher": true,
+      "crisis_percentile_elevated": true,
+      "spike_confirmed": true,
+      "dates_checked": [
+        "2008-12-01",
+        "2009-06-30",
+        "2005-01-01",
+        "2005-12-31"
+      ],
+      "dates_all_pre_holdout": true
+    },
+    "crisis_spike_confirmed": true,
+    "crisis_dates_all_pre_holdout": true,
+    "hybrid_design_check": {
+      "cross_asset_dependence_confirmed": true,
+      "decide_signature_params": [
+        "t",
+        "cash"
+      ],
+      "single_asset_output_confirmed": true
+    },
+    "hybrid_design_confirmed": true,
+    "era_by_era_check": {
+      "four_asset_era_start": "2000-08-30",
+      "btc_era_start": "2014-09-17",
+      "pre_era_sp500_only": {
+        "n": 18245,
+        "frac_at_1.0": 1.0,
+        "std": 0.0
+      },
+      "mid_era_4asset_no_btc": {
+        "n": 3532,
+        "frac_at_1.0": 0.11041902604756512,
+        "std": 0.5575269297005938
+      },
+      "full_era_5asset": {
+        "n": 1332,
+        "frac_at_1.0": 0.0015015015015015015,
+        "std": 0.5629692023797691
+      },
+      "pre_era_is_bitforbit_dca": true,
+      "mid_era_non_degenerate": true,
+      "full_era_non_degenerate": true
+    },
+    "era_by_era_confirmed": true,
+    "sign_inversion_check": {
+      "low_pctile_day": "2003-03-05",
+      "low_pctile_value": 0.003968253968253968,
+      "low_pctile_multiplier": 1.992063492063492,
+      "high_pctile_day": "2004-03-01",
+      "high_pctile_value": 1.0,
+      "high_pctile_multiplier": 0.5,
+      "low_pctile_gives_m_above_1": true,
+      "high_pctile_gives_m_below_1": true,
+      "sign_confirmed": true
+    },
+    "sign_confirmed": true,
+    "cache_matches_uncached": true,
+    "cash_reserve_check": {
+      "era_start": "2000-08-30",
+      "avg_cash_strategy": 122.03047588843936,
+      "avg_cash_dca_baseline": 103.82401315789474,
+      "cash_meaningfully_differs_from_dca": true,
+      "avg_cash_low_multiplier_weeks": 147.49957204148532,
+      "avg_cash_high_multiplier_weeks": 103.93016603696401,
+      "reserve_drawn_down_on_high_mult_weeks": true
+    },
+    "cash_meaningfully_differs_from_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_k_zero_grid_arm_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "no_lookahead_cross_asset": true,
+    "no_lookahead_cross_asset_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 1377,
+  "n_eff": 133,
+  "dsr_neff": {
+    "dsr": 1.7672881532566013e-42,
+    "sr": -0.025876921881761227,
+    "sr_annualized": -0.1866011373917324,
+    "sr0": 0.13226672842879572,
+    "n": 4800,
+    "n_eff": 133,
+    "skew": -19.037934188057577,
+    "kurtosis": 841.3121287200108
+  },
+  "dsr_rawn": {
+    "dsr": 1.5166864122880587e-42,
+    "sr": -0.025876921881761227,
+    "sr_annualized": -0.1866011373917324,
+    "sr0": 0.13239655407062945,
+    "n": 4800,
+    "n_eff": 1377,
+    "skew": -19.037934188057577,
+    "kurtosis": 841.3121287200108
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.1111111111111111,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.38571428571428573,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg27_cw126_pl252_k1.0_mn0.5",
+  "primary_trial_id": "new_045_cfg27_cw126_pl252_k1.0_mn0.5"
+}

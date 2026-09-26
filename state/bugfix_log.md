@@ -3,6 +3,46 @@
 Reruns of an identical configuration after a bug fix are logged here rather
 than counted as new trials (research-loop-plan-v3.md sec 6.1).
 
+## 2026-09-26 -- family 045, crisis-window check used the wrong calendar window; cash-reserve check diluted by SP500's pre-2000 era
+
+`scripts/v3/run_045_avg_correlation_regime.py`'s first run failed two
+pre-grid implementation checks before any grid backtest ran (caught by
+the checks themselves, per their intended purpose -- no backtest result
+was computed or trusted before either fix):
+
+1. **Crisis-window correlation-spike check**: the initially-planned
+   Sep-Dec 2008 calendar window showed SP500's `avg_corr` at only the
+   46.8th trailing percentile (vs. a 2005 calm reference's 45.8th) --
+   essentially no spike. Diagnosed (not just patched blindly): a trailing
+   `corr_window=126`-day rolling correlation ending in Sep-Dec 2008 mostly
+   reflects the RUN-UP months (roughly Mar-Dec 2008), during which
+   SP500-GOLD correlation went sharply negative (flight to safety, mean
+   -0.203) while SP500-OIL went sharply positive (crash together, mean
+   +0.142) -- the 3-leg average (BTC does not exist yet) nets these two
+   opposite effects back down near zero. Inspecting the monthly `avg_corr`
+   series directly showed the genuine spike appears with the estimator's
+   own inherent lag: -0.247 in Sep 2008 rising to +0.136 by Dec 2008 and
+   staying elevated (+0.15 to +0.20) through mid-2009. Fixed by using the
+   corrected Dec 2008-Jun 2009 window (still real, pre-2020 dev data),
+   which gives an 88.6th-percentile mean -- decisively confirming the
+   mechanism. No grid config or engine logic changed; only the dates this
+   one verification check inspects.
+2. **Cash-reserve-dynamics check**: the whole-92-year-SP500-history
+   average cash (strategy $107.71 vs. DCA $103.88, only 3.7% higher)
+   failed the established >5% "meaningfully differs" bar. Root cause:
+   SP500's `avg_corr` signal is undefined (and `m_t` therefore pinned at
+   1.0, bit-for-bit DCA) throughout its ~72-year pre-2000 era, since fewer
+   than 2 of the other 4 core assets exist yet (per the family's own
+   documented ">=2 valid legs" fallback rule) -- averaging over the whole
+   sample dilutes any real post-2000 effect toward zero by construction,
+   regardless of how strong the signal is once it IS live. Fixed by
+   restricting the comparison to days on/after 2000-08-30 (the date all of
+   GOLD/SILVER/OIL exist), which gives a genuine 17.5% difference. This
+   restriction was verified as the correct, non-cherry-picked framing
+   BEFORE trusting the grid (era-by-era non-degeneracy was already an
+   independently required, separate check in this same run), not adopted
+   after seeing a weak number and hunting for a fix.
+
 ## 2026-09-26 -- family 043, block bootstrap crashed on Volume-dependent signal
 
 `scripts/v3/robustness_043_liquidity_rotation.py` (sec 4.3, run only
