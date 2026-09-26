@@ -688,3 +688,41 @@ restore the threshold before the next iteration takes #33.
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #33 (volume-confirmed breakout sizing) has been taken from the queue
+and used for family `033-volume-breakout`; see
+`families/033-volume-breakout/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Trend / time-series momentum
+exit**. Signal: a joint AND of (a) a new trailing-N-day price high
+(20-60 trading days, materially shorter than family 020's ~1-year 52-week-
+high window) and (b) that day's own volume exceeding a multiple of its own
+trailing average volume -- the first family in this loop to use trading
+volume as a trend-confirmation input, rigorously distinguished in
+prereg.md from families 001/005/020/028 (none of which reference volume
+at all). Reused family 021's existing Volume-data feasibility finding
+rather than re-deriving it; no new Volume quirk found. Failed sec 4.1 as
+decisively as a strategy can fail: the primary configuration's
+`normal_buy_mult=1.0` meant the engine's own cash cap starved the rare
+joint trigger of any funding, making the primary's realized trading
+literally bit-for-bit identical to plain DCA on all 5 assets at both fee
+levels (0/5, DSR exactly 0) -- confirmed a genuine cash-cap mechanics
+effect, not a code bug, via the implementation checks and by contrast with
+the grid's `normal_buy_mult=0.75` arm (which behaves differently, though
+still fails sec 4.1/4.4). Grid: 0/36 configs cleared the majority bar --
+sec 4.4 FAIL; the grid's win pattern tracked `normal_buy_mult` alone,
+with `window`/`volume_surge_multiple`/`breakout_buy_mult` showing no
+visible effect, suggesting an interest-banking/timing effect (echoing
+family 021) rather than the volume-price signal itself is whatever weak
+differentiator exists. Design lesson recorded for future queue ideas: a
+primary configuration's "otherwise" multiplier for a rare/joint signal
+should be set below 1.0, not exactly 1.0, so a cash reserve actually
+exists to fund the signal. 4 ideas (#34-37) remained after taking #33,
+below the sec 8 step-2 threshold of 5 -- 1 replacement idea is added now
+to restore the threshold before the next iteration takes #34.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 38 | Range-based (Parkinson) realized-volatility sizing: increase buy size when an asset's own trailing Parkinson range-based volatility estimator (built from daily High/Low, `sqrt((1/(4*ln(2))) * mean((ln(High/Low))^2))` over a trailing window) is LOW relative to its own trailing percentile, decrease when elevated -- the same inverse-vol-sizing economic logic as family 003, but built from an entirely different statistic: family 003's realized variance uses only daily CLOSE-to-close returns (a single number per day), while Parkinson's estimator uses each day's intraday High/Low RANGE, a materially more efficient volatility estimator under continuous-price assumptions (Parkinson 1980) and one that can diverge sharply from close-to-close variance on days with large intraday swings that closed flat (a pattern close-to-close variance cannot see at all, and vice versa for a gap-driven day with a narrow intraday range). Price-only signal (daily High/Low/Close, already in the existing cached OHLC data, no Volume dependency), no external data dependency, testable identically on all 5 core assets. | Volatility targeting | Parkinson, M. (1980), "The Extreme Value Method for Estimating the Variance of the Rate of Return," *Journal of Business* 53(1), 61-65; Garman, M.B. and Klass, M.J. (1980), "On the Estimation of Security Price Volatilities from Historical Data," *Journal of Business* 53(1), 67-78 (the broader range-based-volatility-estimator literature Parkinson's estimator belongs to) |
+
+When fewer than 5 ideas remain, the next iteration researches more and adds
+them here, each with a source, mechanism and category (plan sec 8 step 2).

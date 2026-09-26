@@ -1,0 +1,96 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "n_days": 23109,
+      "price_only_frac": 0.14219568133627591,
+      "joint_frac": 0.0060149725215284085,
+      "joint_rarer_than_price_only": true,
+      "joint_non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "n_days": 4848,
+      "price_only_frac": 0.11551155115511551,
+      "joint_frac": 0.005363036303630363,
+      "joint_rarer_than_price_only": true,
+      "joint_non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "n_days": 4850,
+      "price_only_frac": 0.10371134020618557,
+      "joint_frac": 0.0070103092783505155,
+      "joint_rarer_than_price_only": true,
+      "joint_non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "n_days": 1932,
+      "price_only_frac": 0.11180124223602485,
+      "joint_frac": 0.055900621118012424,
+      "joint_rarer_than_price_only": true,
+      "joint_non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "n_days": 4857,
+      "price_only_frac": 0.10623841877702285,
+      "joint_frac": 0.004529544986617253,
+      "joint_rarer_than_price_only": true,
+      "joint_non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_plus_interest": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "no_lookahead_with_volume": true,
+    "no_lookahead_with_volume_late": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 1001,
+  "n_eff": 97,
+  "dsr_neff": {
+    "dsr": 0.0,
+    "sr": 0.0,
+    "sr_annualized": 0.0,
+    "sr0": 0.13902344409454612,
+    "n": 4800,
+    "n_eff": 97,
+    "skew": NaN,
+    "kurtosis": NaN
+  },
+  "dsr_rawn": {
+    "dsr": 0.0,
+    "sr": 0.0,
+    "sr_annualized": 0.0,
+    "sr0": 0.1457004016186174,
+    "n": 4800,
+    "n_eff": 1001,
+    "skew": NaN,
+    "kurtosis": NaN
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg15_w40_vsm1.5_bbm2.0_nbm1.0",
+  "primary_trial_id": "new_033_cfg15_w40_vsm1.5_bbm2.0_nbm1.0"
+}
