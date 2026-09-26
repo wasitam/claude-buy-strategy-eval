@@ -773,5 +773,32 @@ before the next iteration takes #35.
 |---|---|---|---|
 | 39 | Consumer-sentiment contrarian regime: bank deposits when the University of Michigan Consumer Sentiment Index (FRED `UMCSENT`, monthly, ALFRED-revisable, confirmed reachable via the same fredgraph.csv path families 011/019/027/032 already use) reads elevated/euphoric in its own trailing percentile (a classic "excess optimism precedes weak forward returns" contrarian-sentiment signal), deploy normally or with a capped catch-up lump when sentiment is depressed/pessimistic. A genuinely different signal source from every prior sentiment/regime family in this loop: family 016's VIX is a market-*priced*, option-implied fear gauge (a forward-looking risk-neutral measure), while UMCSENT is a *survey-based* measure of household sentiment about the real economy and personal finances, constructed from consumer interviews with no direct link to option prices or realized market volatility at all -- the two can and do diverge (e.g. consumer sentiment can stay depressed on labor-market/inflation concerns even while the VIX signals market calm, and vice versa during a sharp-but-brief market selloff that doesn't yet show up in a monthly survey). Also distinct from family 032 (M2 money-supply growth, a quantity-of-money aggregate with no sentiment or survey component) and from v2.1 Strategy D / family 027 (policy-rate and yield-curve signals, not survey sentiment). Must state this distinction explicitly in prereg.md, same discipline prior macro/sentiment families used. Asset-agnostic macro sentiment signal, applied per-asset like 006/007/011/019/027/032. | Regime switch (macro / credit / sentiment) | Lemmon, M. and Portniaguina, E. (2006), "Consumer Confidence and Asset Prices: Some Empirical Evidence," *Review of Financial Studies* 19(4), 1499-1529; Baker, M. and Wurgler, J. (2006), "Investor Sentiment and the Cross-Section of Stock Returns," *Journal of Finance* 61(4), 1645-1680 |
 
+Idea #36 (return-autocorrelation regime sizing) has been taken from the
+queue and used for family `036-autocorr-regime-sizing`; see
+`families/036-autocorr-regime-sizing/` (REJECTED -- primary config beats
+DCA on wealth AND Sharpe on only 2/5 core assets (SILVER, OIL) at both fee
+levels, short of the required 3/5; SP500 and GOLD lose on both metrics,
+BTC is mixed. Since sec 4.1 itself fails, this is a straight REJECTED, not
+a near-miss. Sec 4.4's grid diagnostic also fails decisively (only 6/36,
+16.7%, clear the majority bar; need >=2/3), CSCV PBO=0.414. DSR effectively
+zero (raw pooled excess-return Sharpe -0.00884/week); sec 4.3 not run in
+full since sec 4.1 failed. Rigorously distinguished in prereg.md from
+family 003 (realized variance -- dispersion), family 005 (sign of trailing
+return -- level), family 030 (discrete streak count -- magnitude-blind)
+and family 031 (return-to-vol Sharpe ratio) via a constructed toy 8-day
+example: two return paths that are permutations of the identical multiset
+of four +1% and four -1% daily returns give IDENTICAL mean, sample
+variance, family-005 sign, family-031 Sharpe and family-030 max-streak
+across both paths, yet lag-1 autocorrelation of -0.750 (choppy) vs. +0.167
+(trending/paired-run) -- none of the four prior families' signals can
+distinguish the two paths, while this family's signal does. Holdout not
+opened.) 4 ideas (#35, #37, #39, #40) remained after taking #36, below the
+sec 8 step-2 threshold of 5 -- 1 replacement idea is added now to restore
+the threshold before the next iteration takes #35.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 41 | Rolling Sortino-ratio sizing: scale buy size up when an asset's own trailing mean daily log return divided by its trailing DOWNSIDE deviation (the semi-deviation computed only from negative daily returns, zero contribution from positive days) is elevated in its own trailing percentile, scale down when depressed -- an asymmetric risk-adjusted-return signal, mechanistically distinct from family 031 (Kelly-Sharpe sizing, `mean/std` using the FULL, symmetric variance of both up and down days) and family 003 (realized variance alone, also symmetric, no mean/return component): a Sortino-style downside deviation can differ substantially from a Sharpe-style full standard deviation even holding the trailing mean fixed, whenever the trailing window's upside and downside volatility are not equal (e.g. a period with several large up-day outliers but small, consistent down-day moves has high full variance but low downside deviation, giving a much higher Sortino ratio than Sharpe ratio for the identical return series) -- must state and verify this distinction explicitly and concretely in prereg.md, same discipline family 031 used to distinguish itself from families 003/005. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Sortino, F.A. and van der Meer, R. (1991), "Downside Risk," *Journal of Portfolio Management* 17(4), 27-31; Sortino, F.A. and Price, L.N. (1994), "Performance Measurement in a Downside Risk Framework," *Journal of Investing* 3(3), 59-64 |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).

@@ -1,0 +1,166 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.01666017568912545,
+      "std_multiplier": 0.5111565530574537,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.06229372937293729,
+      "std_multiplier": 0.4914734931207641,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.06350515463917526,
+      "std_multiplier": 0.5029892504672873,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.15320910973084886,
+      "std_multiplier": 0.49315675141570847,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.06341362981264155,
+      "std_multiplier": 0.5011172702413133,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "formula_spotcheck": {
+      "trend_window": "SP500 2013-01-02..2013-12-31 (grinding low-vol uptrend)",
+      "trend_hand_rho1": -0.09542366138669857,
+      "trend_module_rho1": -0.09542366138669052,
+      "trend_match": true,
+      "choppy_window": "SP500 2011-08-01..2011-09-30 (US credit-downgrade whipsaw)",
+      "choppy_hand_rho1": -0.2109360987002602,
+      "choppy_module_rho1": -0.2109360987002604,
+      "choppy_match": true,
+      "directionally_sensible": true,
+      "dates_checked": [
+        "2013-01-02",
+        "2013-12-31",
+        "2011-08-01",
+        "2011-09-30"
+      ],
+      "dates_all_pre_holdout": true
+    },
+    "formula_correct": true,
+    "toy_distinctiveness_example": {
+      "path_a_choppy": [
+        0.01,
+        -0.01,
+        -0.01,
+        0.01,
+        -0.01,
+        0.01,
+        -0.01,
+        0.01
+      ],
+      "path_b_trending": [
+        -0.01,
+        -0.01,
+        0.01,
+        0.01,
+        -0.01,
+        -0.01,
+        0.01,
+        0.01
+      ],
+      "stats_a": {
+        "mean_fam005_level": 0.0,
+        "sample_var_fam003": 0.0001142857142857143,
+        "sign_fam005": 0.0,
+        "sharpe_fam031": 0.0,
+        "max_streak_fam030": 2,
+        "rho1_fam036": -0.7499999999999999
+      },
+      "stats_b": {
+        "mean_fam005_level": 0.0,
+        "sample_var_fam003": 0.0001142857142857143,
+        "sign_fam005": 0.0,
+        "sharpe_fam031": 0.0,
+        "max_streak_fam030": 2,
+        "rho1_fam036": 0.16666666666666666
+      },
+      "module_rho1_a": -0.7500000000000024,
+      "module_rho1_b": 0.16666666666666802,
+      "module_matches_hand_a": true,
+      "module_matches_hand_b": true,
+      "identical_on_families_003_005_030_031": true,
+      "rho1_decisively_different": true,
+      "distinctiveness_proven": true
+    },
+    "distinctiveness_proven": true,
+    "cash_reserve_check": {
+      "avg_cash_strategy": 123.5294645087776,
+      "avg_cash_dca_baseline": 103.87727725128738,
+      "reserve_builds_up_vs_dca": true,
+      "avg_cash_low_multiplier_weeks": 141.53422346371767,
+      "avg_cash_high_multiplier_weeks": 105.71497098199717,
+      "reserve_drawn_down_on_high_mult_weeks": true
+    },
+    "reserve_builds_up_vs_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_k_zero_grid_arm_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 1105,
+  "n_eff": 107,
+  "dsr_neff": {
+    "dsr": 1.3752534784606546e-23,
+    "sr": -0.008839907843326014,
+    "sr_annualized": -0.06374548199897646,
+    "sr0": 0.13545143264919454,
+    "n": 4800,
+    "n_eff": 107,
+    "skew": 0.05124828043652839,
+    "kurtosis": 539.5244016365423
+  },
+  "dsr_rawn": {
+    "dsr": 4.918497836145037e-25,
+    "sr": -0.008839907843326014,
+    "sr_annualized": -0.06374548199897646,
+    "sr0": 0.14019025053724182,
+    "n": 4800,
+    "n_eff": 1105,
+    "skew": 0.05124828043652839,
+    "kurtosis": 539.5244016365423
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.16666666666666666,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.4142857142857143,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg15_aw40_pl252_k1.0_mn0.5",
+  "primary_trial_id": "new_036_cfg15_aw40_pl252_k1.0_mn0.5"
+}
