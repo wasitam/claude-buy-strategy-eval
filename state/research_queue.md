@@ -1327,3 +1327,46 @@ the threshold of 5 before the next iteration.
 |---|---|---|---|
 | 59 | 10-year TIPS real-yield (FRED `DFII10`) opportunity-cost regime sizing: bank deposits when the 10-year Treasury Inflation-Protected Securities real yield sits high/rising in its own trailing percentile (holding non-yielding or low-yielding assets is expensive when a safe, inflation-protected alternative pays a high real return), deploy a catch-up tilt when real yields sit low/falling (the opportunity cost of holding gold, silver, BTC or even equities relative to a safe real return is low). `DFII10` is explicitly named as a reachable FRED series in prereg.md's own alternatives-considered lists for families 019 and 032, but has never itself been used as any family's primary signal -- confirmed via a repo-wide search before adding this entry. Genuinely different mechanism from every prior family: family 027 (`T10Y2Y`) is the SLOPE between two nominal Treasury maturities (a business-cycle/recession-prediction signal), not a real (inflation-adjusted) LEVEL; family 032 (M2) is a monetary-quantity aggregate, not a market-priced yield; families 011/050 are credit spreads, not a Treasury real yield. The real-yield-as-opportunity-cost-of-non-yielding-assets channel is a distinct, well-established valuation mechanism (most directly relevant to gold, which pays no yield at all) that has not yet been tested in this loop. Applicable cross-asset (gold/silver most directly per the classic "gold vs. real rates" relationship; SP500/oil/BTC less directly but testable under this loop's established asset-agnostic-mechanism-vs-asset-specific-literature precedent, e.g. families 006/007/018/022). Must confirm `DFII10`'s point-in-time/publication-lag properties and full history length via FRED (coverage begins 2003-01-02) before any design work, per plan sec 3.2. | Sizing / valuation | Barsky, R.B. and Summers, L.H. (1988), "Gibson's Paradox and the Gold Standard," *Journal of Political Economy* 96(3), 528-550 (real interest rates as the fundamental driver of gold's relative value); Erb, C.B. and Harvey, C.R. (2013), "The Golden Dilemma," *Financial Analysts Journal* 69(4), 10-42 (real-yield-vs-gold-price empirical relationship) |
 | 60 | Economic Policy Uncertainty (EPU) Index regime deposit timing: bank deposits when the Baker-Bloom-Davis News-Based Economic Policy Uncertainty Index (FRED `USEPUINDXD`, a daily, text-mining-derived count of newspaper articles discussing policy-related economic uncertainty) sits high/rising in its own trailing percentile, deploy a catch-up tilt when it sits low/falling. Genuinely different DATA TYPE from every prior regime/sentiment family in this loop: family 038 (consumer sentiment) is a household-survey-response index; families 011/050 are market-priced credit spreads; family 019 is a composite multi-series leading-activity index; family 027 is a Treasury yield-curve shape; family 032 is a monetary aggregate; idea #58 (queued, Baltic Dry) is a physical-goods freight-rate market price. EPU is none of these -- it is a purely TEXT-BASED, news-volume-derived uncertainty measure with no market price, no survey response, and no economic-quantity content at all, capturing a genuinely distinct "how much is the media/policy discourse itself signaling uncertainty" channel (Baker, Bloom & Davis's own headline finding: elevated EPU precedes reduced investment and equity-market volatility spikes). Must confirm `USEPUINDXD`'s FRED reachability and point-in-time properties (it is published with essentially no lag, being derived from same-day news text, but confirm exact vintage/revision behavior) and full history length before any design work, per plan sec 3.2 -- flagged explicitly since this loop has not yet tested a text-derived signal of any kind. | Regime switch (macro / credit / sentiment) | Baker, S.R., Bloom, N. and Davis, S.J. (2016), "Measuring Economic Policy Uncertainty," *Quarterly Journal of Economics* 131(4), 1593-1636 |
+
+Idea #55 (ISM Manufacturing PMI regime deposit sizing) has been taken
+from the queue and used for family `052-ism-pmi-regime`; see
+`families/052-ism-pmi-regime/` (**REJECTED**). Single-asset family across
+all 5 core assets, category **Regime switch (macro / credit /
+sentiment)**. Data reachability: FRED's `NAPM` and every other plausible
+mnemonic tried all returned 404, and a live FRED site search for "ISM
+Manufacturing PMI" returned 0 results, confirming the series' ~2016
+licensing-driven discontinuation from FRED; DBnomics/forecasts.org/
+eco3min.fr/ycharts.com/multpl.com were all confirmed `EGRESS_BLOCKED` in
+this session -- per the task's explicit allowance for this contingency
+(family 051's hard-coded-FOMC-calendar precedent), the dev-period
+(1948-2019) monthly PMI level was reconstructed from anchor points
+hard-coded directly in `ism_pmi_regime.py` (not a `data/*.csv`, since
+that directory is gitignored as a live-fetch cache) and linearly
+interpolated, with confidence explicitly disclosed as materially lower
+pre-1990. Required concrete divergence from family 019's live-fetched
+OECD CLI verified before design work: the 2019 trade-war episode (OECD
+CLI troughs Sep2019 at 98.96 and is already rising to 99.16 by Dec2019,
+while the reconstructed PMI keeps falling to its own Dec2019 low ~47.2 --
+a timing divergence) and the 1998 Asian-crisis episode (OECD CLI dips
+under 1.1 points while the reconstructed PMI swings into outright
+survey-defined contraction ~46-47 -- a magnitude divergence). Known-
+episode check (Sep2008-Mar2009 post-Lehman collapse, strictly pre-2020)
+read 100.0% weak before any grid result was trusted. Sec 4.1: primary
+config (`lookback_years=10, weak_pctile=30, weak_tilt_fraction=0.0,
+persistence_months=1`) beats DCA on wealth AND Sharpe on **0/5** core
+assets at both fee levels -- decisive FAIL (loses wealth on every asset;
+wins Sharpe only on OIL). Grid: 0/24 (0%) configs reach the majority bar
+-- sec 4.4 FAIL, tied with families 047/048/051 for the weakest possible
+grid outcome. CSCV PBO=0.386 (middling). DSR effectively zero (raw pooled
+excess Sharpe -0.00924/week, genuinely negative). Sec 4.3 not run per
+established precedent (sec 4.1 already fails decisively). The weakest
+sec 4.1/4.4 result of any macro regime-switch family tested in this loop
+to date (families 011, 019, 032, 050 all managed at least 2/5 on sec
+4.1) -- whether this reflects the ISM PMI mechanism genuinely having no
+timing edge here, or an artifact of the necessarily-reconstructed (not
+live-fetched) input series, is flagged honestly as unresolved, not
+retuned. Holdout not opened (rejected, not a finalist).
+
+Removing idea #55 leaves 5 items pending (#56-60), at the sec 8 step-2
+threshold of 5 -- no replacement idea is needed before the next
+iteration takes #56.
