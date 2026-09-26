@@ -1,0 +1,92 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "decel_days": 5330,
+      "frac_decel": 0.2306460686312692
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "decel_days": 1360,
+      "frac_decel": 0.28052805280528054
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "decel_days": 1361,
+      "frac_decel": 0.2806185567010309
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "decel_days": 699,
+      "frac_decel": 0.36180124223602483
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "decel_days": 1364,
+      "frac_decel": 0.28083178917026974
+    }
+  ],
+  "known_episode_check": {
+    "window": "2008-09-01..2009-12-31",
+    "n_obs": 16,
+    "frac_decelerating_in_window": 0.0625,
+    "growth_rate_at_window_start": 0.055671218061376315,
+    "growth_rate_at_window_end": 0.061050350033633016,
+    "max_growth_rate_in_window": 0.10256068994889267
+  },
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_plus_interest": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "lag_matters_zero_vs_documented_frac_days_differ": 0.046172486909861955,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 965,
+  "n_eff": 79,
+  "dsr_neff": {
+    "dsr": 2.9793863719443252e-36,
+    "sr": -0.036062605138495046,
+    "sr_annualized": -0.26005114390731005,
+    "sr0": 0.14600441218399013,
+    "n": 4800,
+    "n_eff": 79,
+    "skew": -0.8452946758365855,
+    "kurtosis": 141.49819552186847
+  },
+  "dsr_rawn": {
+    "dsr": 7.538576876287128e-37,
+    "sr": -0.036062605138495046,
+    "sr_annualized": -0.26005114390731005,
+    "sr0": 0.14758440074526244,
+    "n": 4800,
+    "n_eff": 965,
+    "skew": -0.8452946758365855,
+    "kurtosis": 141.49819552186847
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 1,
+    "beats_dca_count_fee0.25pct": 1,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.7142857142857143,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg20_yw12_lb10_tl1_tf0.0",
+  "primary_trial_id": "new_032_cfg20_yw12_lb10_tl1_tf0.0"
+}

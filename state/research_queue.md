@@ -657,3 +657,34 @@ to restore the threshold before the next iteration takes #32.
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #32 (M2 money-supply growth regime) has been taken from the queue and
+used for family `032-m2-growth-regime`; see
+`families/032-m2-growth-regime/` (REJECTED). Assessed as a single-asset
+family across all 5 core assets, category **Regime switch (macro)**.
+Signal: FRED M2SL's trailing 12-month YoY growth rate, trend-normalized
+via its own trailing z-score, banking deposits when growth decelerates
+below its own trend and deploying with a capped catch-up lump once it
+reaccelerates -- rigorously distinguished in prereg.md (a fourfold
+distinction, since this loop now has 4 macro-regime families) from v2.1
+Strategy D (policy rates/yield-curve level), family 011 (market-priced
+credit spreads/NFCI) and family 019 (OECD real-activity composite): M2SL
+is a monetary-aggregate quantity-of-money signal, structurally and
+historically independent of all three (e.g. 2020-21's M2 acceleration
+coincided with the OECD CLI's sharp COVID-era collapse, the clearest
+evidence the two are not proxies). Failed sec 4.1 decisively (only 1/5
+core assets beat DCA on both wealth AND Sharpe at either fee level) and
+sec 4.4 (0/24 grid configs cleared the majority bar) -- sec 4.2/4.3 were
+not run in full per the plan's own "only if sec 4.1 passes" time-budget
+rule. Implementation checks and both pre-grid sanity checks (non-
+degeneracy; the 2008-09 QE-era acceleration correctly reads as
+accelerating) passed. 4 ideas (#33-36) remained after taking #32, below
+the sec 8 step-2 threshold of 5 -- 1 replacement idea is added now to
+restore the threshold before the next iteration takes #33.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 37 | Overnight/intraday return-split sizing: increase buy size when an asset's own trailing overnight (prior close -> today's open) return component has been running positive and elevated relative to its trailing intraday (open -> close) return component (an "overnight-driven" regime), decrease or hold normal otherwise. A genuinely new statistic for this loop: unlike every prior family's signal (built from close-to-close returns, price levels, or volume), this splits each trading day's total return into its close-to-open and open-to-close halves and compares their trailing relative contribution -- two assets with identical trailing close-to-close returns can have wildly different overnight/intraday splits (e.g. SP500's long-run excess return has been documented as concentrated in the overnight session, with the intraday session roughly flat or negative on average), a decomposition none of families 001/003/005/020/030/031/036's signals can see at all, since each collapses to a single daily close-to-close number. Price-only signal (daily Open and Close, both already in the existing cached OHLCV data), no external data dependency, testable identically on all 5 core assets (note: BTC trades continuously with no single "open"; this family's prereg.md must state explicitly how the overnight/intraday split is defined for a 24-hour asset, e.g. a fixed daily UTC cutoff as its own "close"/"open" proxy, or must narrow sec 4.1's scope if no principled definition exists). | Seasonality / execution timing | Cliff, M., Cooper, M. and Gulen, H. (2008), "Return Differences between Trading and Non-Trading Hours: Like Night and Day," working paper; Lou, D., Polk, C. and Skouras, S. (2019), "A Tug of War: Overnight versus Intraday Expected Returns," *Journal of Financial Economics* 134(1), 192-213 (documents the persistent overnight-return/intraday-return decomposition and its differing risk/return character) |
+
+When fewer than 5 ideas remain, the next iteration researches more and adds
+them here, each with a source, mechanism and category (plan sec 8 step 2).
