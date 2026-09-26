@@ -209,7 +209,7 @@ portfolio bookkeeping (no external data dependency at all).
 
 | Parameter | Grid values | Primary |
 |---|---|---|
-| `band_pct` (symmetric tolerance band around each 20% target; trigger if any asset's weight strays by more than this many percentage points) | 0.02, 0.04, 0.06, 0.08, 0.10, 0.15 | 0.05 |
+| `band_pct` (symmetric tolerance band around each 20% target; trigger if any asset's weight strays by more than this many percentage points) | 0.02, 0.03, 0.05, 0.08, 0.10, 0.15 | 0.05 |
 | `min_days_between_rebalances` (cooldown floor, trading days, to avoid pathological whipsaw) | 0, 5, 20 | 5 |
 
 Target weight (0.2 each) and check cadence (weekly, at deposit time) are

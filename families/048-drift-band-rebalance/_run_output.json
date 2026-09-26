@@ -1,0 +1,76 @@
+{
+  "impl_checks": {
+    "degenerate_enabled_false_equals_fixed_weight_dca": true,
+    "zero_band_equals_equal_weight_rebalance_reference": true,
+    "zero_band_differs_from_plain_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true
+  },
+  "distinction_check": {
+    "n_rebalance_events": 30,
+    "n_weekends": 277,
+    "gap_coefficient_of_variation": 1.158715722626236,
+    "dispersion_rebalance_correlation": 0.4516715406061739,
+    "gap_irregular": true,
+    "dispersion_correlation_positive": true,
+    "pass": true
+  },
+  "n_seed": 196,
+  "n_new": 18,
+  "n_total_raw": 1467,
+  "n_eff": 134,
+  "dsr_neff": {
+    "dsr": 0.00012732737043416245,
+    "sr": -0.0790882469417661,
+    "sr_annualized": -0.5703134592701914,
+    "sr0": 0.1322386645987007,
+    "n": 276,
+    "n_eff": 134,
+    "skew": -1.3032590255465721,
+    "kurtosis": 14.507041976491516
+  },
+  "dsr_rawn": {
+    "dsr": 0.00012793542390775658,
+    "sr": -0.0790882469417661,
+    "sr_annualized": -0.5703134592701914,
+    "sr0": 0.1321680775705714,
+    "n": 276,
+    "n_eff": 1467,
+    "skew": -1.3032590255465721,
+    "kurtosis": 14.507041976491516
+  },
+  "check_4_1": {
+    "beats_dca_fee0.1pct": false,
+    "beats_dca_fee0.25pct": false,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_beat_dca": 0.0,
+    "pass": false
+  },
+  "cscv_pbo": {
+    "pbo": 0.7142857142857143,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg07_bp0.05_md5",
+  "primary_trial_id": "new_048_cfg07_bp0.05_md5",
+  "shared_calendar_start": "2014-09-17",
+  "shared_calendar_end": "2019-12-31",
+  "n_calendar_days": 1332,
+  "primary_wealth_over_invested_fee0.001": 2.01264631021536,
+  "primary_sharpe_fee0.001": 1.06045141736431,
+  "primary_turnover_fee0.001": 3.5085145036701166,
+  "primary_total_fees_fee0.001": 2427.146293791556,
+  "dca_wealth_over_invested_fee0.001": 2.936827935697141,
+  "dca_sharpe_fee0.001": 0.8017476338865982,
+  "dca_turnover_fee0.001": 1.0,
+  "primary_wealth_over_invested_fee0.0025": 2.0047480241755244,
+  "primary_sharpe_fee0.0025": 1.047343378707357,
+  "primary_turnover_fee0.0025": 3.5001305180014928,
+  "primary_total_fees_fee0.0025": 6053.350959290085,
+  "dca_wealth_over_invested_fee0.0025": 2.932423704725081,
+  "dca_sharpe_fee0.0025": 0.7982484049375094
+}
