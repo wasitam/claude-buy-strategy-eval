@@ -944,7 +944,25 @@ iteration takes #43.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 47 | VVIX (volatility-of-volatility) regime sizing: scale buy size using the CBOE VVIX Index (`^VVIX`, confirmed reachable via yfinance `period="max"`, 4,955 rows, 2007-01-03+), a measure of the implied volatility OF THE VIX ITSELF (options on VIX futures), not of the S&P 500 directly. A genuinely different, higher-order statistic from every prior VIX-based family in this loop: family 016 uses the VIX *level* (first-order, S&P-500-implied vol), family 025 uses VIX-minus-realized-vol (a cross-measure spread at one tenor), and family 041 uses VIX3M/VIX (a term-structure slope across two tenors of the SAME curve) -- VVIX is a SECOND-ORDER measure (uncertainty about future volatility itself, i.e. "vol of vol"), which can diverge sharply from all three (e.g. VVIX can spike even when the VIX level and term-structure slope are both unremarkable, ahead of anticipated event risk such as an FOMC meeting or election, since it prices uncertainty about how much the VIX itself might move). Elevated VVIX in its own trailing percentile -> bank (a "the market is unusually unsure how volatile things will get" caution signal); depressed VVIX -> deploy normally/with a capped catch-up lump. Applied as a shared cross-market signal identically across all 5 core assets, same convention as 006/007/011/015/016/019/025/027/032/038/041. Must state and verify the distinction from families 016/025/041 concretely (e.g. a real-data episode where VVIX and the VIX level or VIX3M/VIX ratio move in different directions) in prereg.md. | Volatility targeting | Whaley, R.E. (2013), presentation/CBOE VVIX White Paper, CBOE (2012), "VVIX Index"; Huang, D., Schlag, C., Shaliastovich, I. and Thimme, J. (2019), "Volatility-of-Volatility Risk," *Journal of Financial and Quantitative Economics* 54(6), 2423-2452 |
+Idea #47 (VVIX vol-of-vol regime sizing) has been taken from the queue
+and used for family `046-vvix-regime-sizing`; see
+`families/046-vvix-regime-sizing/` (NEAR-MISS -- the strongest sec
+4.1/sec 4.4 single-asset result of any family in this loop: 4/5 core
+assets beat DCA at both fee levels, 100% of the grid clears the majority
+bar. But DSR is effectively zero (3.30e-23) despite a positive raw
+Sharpe, driven by extreme kurtosis (1444.6) -- the edge is concentrated
+in a handful of extreme weeks. Rolling windows pooled across 3,439
+windows fail decisively (24.9%/25.9%, need >60%). Block bootstrap and
+placebo were not completed within the iteration's time budget, since the
+verdict was already settled by the DSR and rolling-window failures --
+logged as an explicit gap in results.md, not a fabricated result.
+Distinction from families 016/025/041 verified concretely: raw
+VVIX-vs-VIX correlation only +0.264, flag-agreement 56.1%/55.2%/45.8%.
+See results.md for full detail.)
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 52 | Turn-of-quarter deposit timing (quarterly, not monthly): bank a larger share of mid-quarter-month deposits, deploy a catch-up lump-sum tilt into the first and last few trading days surrounding each calendar-quarter boundary (Mar/Jun/Sep/Dec), on the hypothesis that institutional quarter-end/quarter-start portfolio rebalancing and window-dressing flows concentrate returns at quarter boundaries -- a genuinely different periodicity from family 006 (monthly turn-of-month) and family 018 (semiannual Nov-Apr/May-Oct): a quarterly cycle sits at a third, intermediate time scale between those two, and the motivating flow (institutional quarter-end rebalancing) is distinct from either family's own literature (monthly settlement-cycle flows for 006, seasonal vacation/risk-aversion flows for 018). Must state and verify this distinction (a materially different periodicity and a materially different institutional-flow story) concretely in prereg.md. Calendar-only signal, testable identically on all 5 core assets. | Seasonality / execution timing | Maxwell, W.F. (1998), "The January Effect in the Corporate Bond Market: A Systematic Examination," *Financial Management* 27(2), 18-30 (quarterly institutional flow/rebalancing literature); Musto, D.K. (1997), "Portfolio Disclosures and Year-End Price Shifts," *Journal of Finance* 52(4), 1563-1588 (window-dressing at reporting-period boundaries) |
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
