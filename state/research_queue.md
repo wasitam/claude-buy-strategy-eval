@@ -897,3 +897,39 @@ iteration.
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #42 (VIX futures term-structure carry) was taken from the queue and
+used for family `041-vix-term-structure-carry`; see
+`families/041-vix-term-structure-carry/` (**NEAR-MISS**). Data-feasibility
+check confirmed `^VIX3M` reachable via yfinance (`period="max"`, 5,081
+rows, 2006-07-17+) -- a genuine term-structure counterpart to spot `^VIX`,
+not a re-test of families 016/025; no substitute idea was needed.
+Assessed as a single-asset family across all 5 core assets, category
+**Carry / term structure** (first family in this loop to use it). Signal:
+`ratio_t = VIX3M_t/VIX_t`, causal percentile-ranked, continuous multiplier
+(not a discrete ladder, per the established cash-cap-nullification
+lesson). Rigorously distinguished from family 016 (VIX level alone) and
+family 025 (VIX-minus-realized-vol spread), verified mechanically on real
+overlapping 2006-2019 data (backwardation flag vs. family 016's elevated
+flag agree only 92.4% of days; raw ratio-vs-VIX-level correlation -0.667).
+Sec 4.1: primary config beats DCA on wealth AND Sharpe on 4/5 core assets
+(SP500, SILVER, BTC, OIL; GOLD loses both, razor-thin) at both fees --
+PASS. Grid: 20/36 (55.6%) configs reach the majority bar -- sec 4.4 FAIL
+(need >=24/36). DSR effectively zero (1.09e-20). Sec 4.3 (run in full):
+rolling windows FAIL decisively (23.4%/23.8% pooled, need >60%, the
+weakest rolling-window result of any near-miss family so far); bootstrap
+FAILS (raw 48.3%/50.0%, detrended 53.3%/48.3%); placebo lands at the
+50.0th/46.7th percentile (need >=95th) -- almost exactly the median of 60
+shifts, one of the most decisive placebo failures in this loop. Holdout
+not opened (near-miss, not a finalist).
+
+4 ideas remain (#43-46), below the sec 8 step-2 threshold of 5 -- 1
+replacement idea is added now to restore the threshold before the next
+iteration takes #43.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 47 | VVIX (volatility-of-volatility) regime sizing: scale buy size using the CBOE VVIX Index (`^VVIX`, confirmed reachable via yfinance `period="max"`, 4,955 rows, 2007-01-03+), a measure of the implied volatility OF THE VIX ITSELF (options on VIX futures), not of the S&P 500 directly. A genuinely different, higher-order statistic from every prior VIX-based family in this loop: family 016 uses the VIX *level* (first-order, S&P-500-implied vol), family 025 uses VIX-minus-realized-vol (a cross-measure spread at one tenor), and family 041 uses VIX3M/VIX (a term-structure slope across two tenors of the SAME curve) -- VVIX is a SECOND-ORDER measure (uncertainty about future volatility itself, i.e. "vol of vol"), which can diverge sharply from all three (e.g. VVIX can spike even when the VIX level and term-structure slope are both unremarkable, ahead of anticipated event risk such as an FOMC meeting or election, since it prices uncertainty about how much the VIX itself might move). Elevated VVIX in its own trailing percentile -> bank (a "the market is unusually unsure how volatile things will get" caution signal); depressed VVIX -> deploy normally/with a capped catch-up lump. Applied as a shared cross-market signal identically across all 5 core assets, same convention as 006/007/011/015/016/019/025/027/032/038/041. Must state and verify the distinction from families 016/025/041 concretely (e.g. a real-data episode where VVIX and the VIX level or VIX3M/VIX ratio move in different directions) in prereg.md. | Volatility targeting | Whaley, R.E. (2013), presentation/CBOE VVIX White Paper, CBOE (2012), "VVIX Index"; Huang, D., Schlag, C., Shaliastovich, I. and Thimme, J. (2019), "Volatility-of-Volatility Risk," *Journal of Financial and Quantitative Economics* 54(6), 2423-2452 |
+
+When fewer than 5 ideas remain, the next iteration researches more and adds
+them here, each with a source, mechanism and category (plan sec 8 step 2).
