@@ -164,3 +164,26 @@ any backtest result was computed or trusted -- no trial was counted, no
 golden cross, confirmed present in dev data), alongside the still-valid
 2009 and 2016 dev-period windows, in both `prereg.md` and the run script.
 No engine, strategy, or grid logic changed.
+
+## 2026-09-26 — family 049, formula-spotcheck dates picked a still-elevated pre-crash point
+
+`scripts/v3/run_049_ulcer_index_sizing.py`'s first run failed the UI
+formula spot-check: `2018-08-01` was meant as a "calm, pre-crash" reference
+point ahead of the Q4 2018 SP500 selloff, but with `ui_window=126`
+(~6 trading months, a LOCAL rolling window by this family's own design),
+that date's trailing window still overlapped the separate Feb 2018
+"volpocalypse" vol spike, so its own UI reading (5.74) was already nearly
+as high as the eventual Dec 2018 trough (5.96) -- not a bug in the Ulcer
+Index computation, but a mistake in which real dates were cited as
+"calm" in the check itself (analogous in kind, though not in substance, to
+family 028's already-logged mis-cited-episode entry above). Likewise
+`2019-06-01` (meant as "post-recovery, decayed") landed inside a real,
+separate May 2019 trade-war selloff, so UI was still elevated (7.64) there
+too. Caught before the grid ran, before any backtest result was computed
+or trusted -- no trial was counted, no `state/trial_counter.json` increment
+occurred. Fixed by substituting a genuinely calm pre-crash point
+(`2018-01-15`) and a genuinely calm post-recovery point well past both
+events (`2019-11-01`), confirmed numerically (`ui[2018-01-15]=0.59`,
+`ui[2018-12-24]=5.96` -- a >3x spike; `ui[2019-11-01]=2.82 < 5.96` --
+decayed), both strictly pre-2020. No engine, strategy module, or grid
+logic changed -- only the dates cited in this one check.

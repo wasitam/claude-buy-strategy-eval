@@ -61,10 +61,18 @@ def check_ui_formula_spotcheck(dev) -> dict:
     idx = daily.index
     ui, _ = uis.compute_ulcer_index(close, ui_window=126)
 
-    pre_crash = idx.searchsorted(pd.Timestamp("2018-08-01"))
+    # 2018-01-15: a genuinely calm point BEFORE the Q4 2018 selloff (chosen
+    # far enough back that the trailing 126-day local window does not
+    # already overlap the Feb 2018 "volpocalypse" -- 2018-08-01 was tried
+    # first and rejected precisely because it still overlapped that event,
+    # per state/bugfix_log.md's entry for this family). 2019-11-01: well
+    # past both the Q4 2018 selloff's full recovery (new highs by
+    # 2019-04-23) AND the separate May 2019 trade-war dip, so the trailing
+    # 126-day window by then is calm again.
+    pre_crash = idx.searchsorted(pd.Timestamp("2018-01-15"))
     trough = idx.searchsorted(pd.Timestamp("2018-12-24"))
-    post_recovery = idx.searchsorted(pd.Timestamp("2019-06-01"))
-    dates_checked = ["2018-08-01", "2018-12-24", "2019-06-01"]
+    post_recovery = idx.searchsorted(pd.Timestamp("2019-11-01"))
+    dates_checked = ["2018-01-15", "2018-12-24", "2019-11-01"]
 
     ui_pre = float(ui[pre_crash])
     ui_trough = float(ui[trough])
