@@ -1160,10 +1160,35 @@ only 6/36 (16.7%) configs beat DCA -- sec 4.4 FAIL (CSCV PBO=0.486,
 elevated). Sec 4.3 not run per established precedent (sec 4.1 already
 fails). Holdout not opened (rejected, not a finalist).
 
-4 ideas remain (#46-49), below the sec 8 step-2 threshold of 5 -- 1
-replacement idea is added now to restore the threshold before the next
-iteration takes #46.
+Idea #50 (Ulcer Index drawdown-severity-weighted volatility sizing) has
+been taken from the queue and used for family `049-ulcer-index-sizing`;
+see `families/049-ulcer-index-sizing/` (**REJECTED**). Single-asset family
+across all 5 core assets, category **Sizing / valuation**. Local-window
+Ulcer Index (`UI_t`, RMS of daily percentage drawdown from a trailing
+rolling peak, the SAME window serving as both the peak reference and the
+RMS-averaging window), causal percentile-ranked and converted to a
+CONTINUOUS buy multiplier (elevated UI -> buy less/bank; depressed UI ->
+buy more/normal). Rigorously distinguished from family 014 (magnitude-only
+snapshot) and family 037 (duration-only count) via three programmatically-
+verified proofs: two synthetic (family 014's stat held fixed at 15%
+depth while duration varies 10 vs. 100 days -> UI 4.23 vs. 13.36; family
+037's stat held fixed at 60 days while depth varies 10% vs. 30% -> UI 6.90
+vs. 20.70) and one real dev-period SP500 example (deep-but-brief 2018-19
+vs. shallow-but-long 2015-16 -- family 014 ranks 2018-19 worse by depth,
+this family's UI ranks 2015-16 worse, 6.996 vs. 5.960 -- rankings
+disagree, as predicted). Primary config (`ui_window=126,
+pctile_lookback=252, k=1.0, min_mult=0.5`) beats DCA on final wealth on
+5/5 core assets (all razor-thin) but the combined wealth-AND-Sharpe
+criterion clears on only 2/5 (SP500, BTC) at both fee levels -- **sec 4.1
+FAIL** (need >=3/5). DSR effectively zero (2.34e-22, raw pooled excess
+Sharpe genuinely negative, -0.00573/week) -- sec 4.2 FAIL. Grid: 11/24
+(45.8%) configs reach the combined majority bar -- sec 4.4 FAIL (need
+>=2/3; CSCV PBO=0.629, elevated). Sec 4.3 not run per established
+precedent (sec 4.1 already fails). Holdout not opened (rejected, not a
+finalist).
+
+5 ideas remain (#49, #53-56), at the sec 8 step-2 threshold of 5 -- no
+replacement idea is needed before the next iteration takes #49.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 50 | Ulcer Index (drawdown-severity-weighted volatility) sizing: buy less/bank while an asset's own trailing Ulcer Index -- the root-mean-square of the daily percentage drawdown from the trailing running peak over a lookback window, `UI = sqrt(mean((100*(Close_t - running_max_t)/running_max_t)^2))` -- sits high in its own trailing percentile (a regime of frequent, deep, and/or long-lasting drawdowns), buy more/normal while it sits low (a regime of shallow, brief, or absent drawdowns). Genuinely different statistic from every prior drawdown- or volatility-based family in this loop: family 014 (`drawdown_reserve`) uses only the CURRENT drawdown-from-high level at a single point in time (a magnitude-only, memory-less snapshot); family 037 (`drawdown_duration`) uses only TIME spent underwater (a duration-only count, blind to how deep any drawdown was); family 003 (vol-managed sizing) and its siblings use ordinary return variance/std (symmetric, blind to whether moves are up or down and blind to any running-peak reference point at all) -- the Ulcer Index is the only one of these that combines BOTH depth AND persistence of drawdowns into a single RMS statistic computed relative to a running peak, so a period with one brief-but-deep drawdown and a period with several shallow-but-long drawdowns of the same average magnitude can score very differently on this statistic while scoring identically or near-identically on family 014's or 037's own statistic alone -- must construct a concrete toy or real-data example showing this decoupling in prereg.md. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Martin, P.G. and McCann, B.B. (1989), *The Investor's Guide to Fidelity Funds*, Wiley (introduced the Ulcer Index); Martin, P.G., "Ulcer Index" methodology note, tango.com (the RMS-drawdown formula and its use as a downside-risk-adjusted sizing/allocation signal, distinct from ordinary variance-based risk measures) |
