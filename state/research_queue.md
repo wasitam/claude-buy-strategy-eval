@@ -724,5 +724,30 @@ to restore the threshold before the next iteration takes #34.
 |---|---|---|---|
 | 38 | Range-based (Parkinson) realized-volatility sizing: increase buy size when an asset's own trailing Parkinson range-based volatility estimator (built from daily High/Low, `sqrt((1/(4*ln(2))) * mean((ln(High/Low))^2))` over a trailing window) is LOW relative to its own trailing percentile, decrease when elevated -- the same inverse-vol-sizing economic logic as family 003, but built from an entirely different statistic: family 003's realized variance uses only daily CLOSE-to-close returns (a single number per day), while Parkinson's estimator uses each day's intraday High/Low RANGE, a materially more efficient volatility estimator under continuous-price assumptions (Parkinson 1980) and one that can diverge sharply from close-to-close variance on days with large intraday swings that closed flat (a pattern close-to-close variance cannot see at all, and vice versa for a gap-driven day with a narrow intraday range). Price-only signal (daily High/Low/Close, already in the existing cached OHLC data, no Volume dependency), no external data dependency, testable identically on all 5 core assets. | Volatility targeting | Parkinson, M. (1980), "The Extreme Value Method for Estimating the Variance of the Rate of Return," *Journal of Business* 53(1), 61-65; Garman, M.B. and Klass, M.J. (1980), "On the Estimation of Security Price Volatilities from Historical Data," *Journal of Business* 53(1), 67-78 (the broader range-based-volatility-estimator literature Parkinson's estimator belongs to) |
 
+Idea #34 (52-week-low proximity contrarian tilt) has been taken from the
+queue and used for family `034-52wk-low-tilt`; see
+`families/034-52wk-low-tilt/` (NEAR-MISS -- passes sec 4.1 narrowly at
+exactly 3/5 core assets, the identical count and near-identical margins to
+family 020's own near-miss on the opposite-signed 52-week-high tilt; fails
+sec 4.2's DSR (effectively zero, negative raw pooled excess Sharpe), sec
+4.4's grid diagnostic (50%, need >=2/3, CSCV PBO=0.814 -- the highest of any
+family tested so far), and sec 4.3's bootstrap and placebo legs (placebo
+decisively so: the real result lands at the 3rd/2nd percentile of 60
+circular-shifted runs, need >=95th). Rigorously distinguished in prereg.md
+from family 020 (opposite reference extremum -- a running 52-week MINIMUM,
+not MAXIMUM -- and opposite economic story: contrarian/overreaction-reversal
+vs. momentum/continuation, confirmed empirically via a 72.8%-of-days signal-
+disagreement check and a -0.32 correlation between the two proximity
+ratios) and from family 014 (all-time-high drawdown ladder vs. this
+family's 52-week-low proximity ladder -- different extremum, different
+window length, different functional-form parameters). Holdout not opened.
+4 ideas (#35-38) remained after taking #34, below the sec 8 step-2
+threshold of 5 -- 1 replacement idea is added now to restore the threshold
+before the next iteration takes #35.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 39 | Consumer-sentiment contrarian regime: bank deposits when the University of Michigan Consumer Sentiment Index (FRED `UMCSENT`, monthly, ALFRED-revisable, confirmed reachable via the same fredgraph.csv path families 011/019/027/032 already use) reads elevated/euphoric in its own trailing percentile (a classic "excess optimism precedes weak forward returns" contrarian-sentiment signal), deploy normally or with a capped catch-up lump when sentiment is depressed/pessimistic. A genuinely different signal source from every prior sentiment/regime family in this loop: family 016's VIX is a market-*priced*, option-implied fear gauge (a forward-looking risk-neutral measure), while UMCSENT is a *survey-based* measure of household sentiment about the real economy and personal finances, constructed from consumer interviews with no direct link to option prices or realized market volatility at all -- the two can and do diverge (e.g. consumer sentiment can stay depressed on labor-market/inflation concerns even while the VIX signals market calm, and vice versa during a sharp-but-brief market selloff that doesn't yet show up in a monthly survey). Also distinct from family 032 (M2 money-supply growth, a quantity-of-money aggregate with no sentiment or survey component) and from v2.1 Strategy D / family 027 (policy-rate and yield-curve signals, not survey sentiment). Must state this distinction explicitly in prereg.md, same discipline prior macro/sentiment families used. Asset-agnostic macro sentiment signal, applied per-asset like 006/007/011/019/027/032. | Regime switch (macro / credit / sentiment) | Lemmon, M. and Portniaguina, E. (2006), "Consumer Confidence and Asset Prices: Some Empirical Evidence," *Review of Financial Studies* 19(4), 1499-1529; Baker, M. and Wurgler, J. (2006), "Investor Sentiment and the Cross-Section of Stock Returns," *Journal of Finance* 61(4), 1645-1680 |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
