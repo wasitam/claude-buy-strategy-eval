@@ -1131,7 +1131,49 @@ above it before the next iteration takes #50.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 53 | Money-market funding-stress regime sizing (TED-spread-style: 3-month LIBOR/interbank rate minus 3-month T-bill yield, FRED series, e.g. legacy `TEDRATE` for the pre-2022 dev-period portion): bank deposits when interbank funding stress sits high in its own trailing percentile, deploy a capped catch-up lump when low. Genuinely different signal from family 011's credit-stress filter (BAA-AAA corporate bond spread / NFCI, a CORPORATE credit-risk-premium and broad financial-conditions signal) -- this measures short-term INTERBANK FUNDING/LIQUIDITY stress specifically (the classic 2007-2008 "banks won't lend to each other" signal), a distinct point on the stress-signal spectrum from a corporate bond spread, which can stay contained even while interbank funding tightens (and vice versa in a slow-moving corporate-credit deterioration with ample bank liquidity) -- must construct a concrete real dev-period divergence example (a period where the two spreads move in different directions or diverge in magnitude) in prereg.md, plus confirm the series' point-in-time/publication-lag properties and feasible history length via FRED before any design work. | Regime switch (macro / credit / sentiment) | Poole, W. (2008 speeches) and FRBSF Economic Letter (2008), "The TED Spread"; Taylor, J.B. and Williams, J.C. (2009), "A Black Swan in the Money Market," *American Economic Journal: Macroeconomics* 1(1), 58-83 (interbank funding-stress spread as a distinct signal from corporate credit spreads) |
+Idea #53 (Money-market funding-stress regime sizing) has been taken from
+the queue and used for family `050-ted-funding-stress`; see
+`families/050-ted-funding-stress/` (**REJECTED**). Single-asset family
+across all 5 core assets, category **Regime switch (macro / credit /
+sentiment)**. `TEDRATE` confirmed live reachable via FRED (1986-01-02
+through 2022-01-21, discontinued but comfortably covering the full dev
+period) -- no substitute construction was needed. Required concrete real
+dev-period divergence from family 011 verified on live FRED data before
+design work: Aug-Sep 2007 TED spike (z=+2.98/+3.93) while the BAA-AAA
+corporate spread stayed flat (z=-0.10/-0.17) -- the interbank funding
+market froze months before corporate credit widened; mirror-image
+Dec2001-Feb2002 divergence (corporate spread z=+4.48..+4.55 near record
+highs while TED z=-1.51..-1.76, depressed); full-history monthly z-score
+correlation only +0.286. Brief distinctions from family 032 (M2, a
+monetary-quantity aggregate, not a spread) and family 019 (OECD CLI, a
+composite multi-series index, not a market-quoted spread) also
+documented. Known-episode check (Aug 2007-Mar 2008, strictly pre-2020)
+confirmed the primary config reads 95.1% stressed in the TED spread's own
+textbook onset window before any grid result was trusted. Sec 4.1:
+primary config (`lookback_years=10, stress_pctile=80,
+stress_tilt_fraction=0.0, persistence_days=1`) beats DCA on wealth AND
+Sharpe on only 2/5 core assets (SP500, BTC, both razor-thin) -- short of
+the 3/5 majority, though a genuinely closer, mixed-margin result than
+family 011's uniform 0/5 failure. Grid: 4/24 (16.7%) configs reach the
+majority bar (the entire `lookback_years=5, stress_pctile=80` block) --
+sec 4.4 FAIL, though the grid is directionally sensitive to
+`stress_pctile` (the 90th-percentile block fails almost completely)
+rather than uniformly flat. CSCV PBO=0.186 (notably lower than most
+rejected families, consistent with a genuinely differentiated grid). DSR
+effectively zero (raw pooled excess Sharpe -0.01344/week, genuinely
+negative). Partially supports but does not confirm the prereg's
+hypothesis that TED's faster mean-reversion (vs. family 011's slower
+corporate-credit spread) would let this mechanism clear the sec 4.1 bar.
+Holdout not opened (rejected, not a finalist).
+
+3 ideas remain (#54-56), below the sec 8 step-2 threshold of 5 -- 1
+replacement idea is added now to restore ground before the next
+iteration takes #54, following families 023/024/025/026/027's precedent
+(adding exactly 1 replacement idea).
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 58 | Baltic Dry Index (BDI) shipping-freight-rate regime sizing: bank deposits when the Baltic Dry Index (a global dry-bulk shipping freight-rate index, a real-time market price for physical goods transport capacity, historically used as a leading indicator of global trade volume and industrial demand) sits low/falling in its own trailing percentile, deploy a catch-up tilt when high/rising. Genuinely different data type from every macro/regime family in this loop so far: families 011/050 are financial-market interbank/credit spreads, family 019 is a composite survey-based leading-activity index, family 027 is a Treasury yield-curve shape, and family 032 is a monetary aggregate -- none is a market-priced good-transport (freight) rate, a physical-trade-volume proxy with no financial-intermediation content at all. Must confirm free daily/weekly BDI data reachability (e.g. via a public index provider or a reachable proxy) before any design work, per this loop's standing data-feasibility discipline -- flagged explicitly as the first task at this idea's own gate step, since BDI is less commonly available as a free public series than the FRED-hosted signals used by 011/019/027/032/050. | Regime switch (macro / credit / sentiment) | Baltic Exchange (index methodology); Kilian, L. (2009), "Not All Oil Price Shocks Are Alike: Disentangling Demand and Supply Shocks in the Crude Oil Market," *American Economic Review* 99(3), 1053-1069 (uses a shipping-cost-based measure as a global real-activity proxy) |
 
 Idea #45 (Hurst-exponent fractal trend-persistence regime sizing) has
 been taken from the queue and used for family `044-hurst-regime-sizing`;
