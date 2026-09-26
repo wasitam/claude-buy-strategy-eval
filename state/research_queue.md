@@ -1131,7 +1131,6 @@ above it before the next iteration takes #50.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 49 | Tolerance-band ("drift-triggered") rebalancing of the 5-asset portfolio: rebalance back to FIXED equal target weights (the v2 Strategy-C1-equivalent baseline, no momentum/risk-parity tilt) only when any asset's current weight drifts outside a symmetric band around its target (e.g. target 20% +/- `band_pct`), checked at each week-end decision day, rather than on family 013's/029's/002's fixed WEEKLY calendar cadence regardless of drift. Genuinely different mechanism axis from every prior rebalancing/rotation family in this loop: families 002 (dual momentum) and 043 (liquidity rotation) both ask "which asset(s) should the marginal deposit favor"; families 013 (momentum-tilted) and 029 (risk-parity) both ask "what should each asset's TARGET weight be"; this family asks neither -- targets are FIXED equal weights, exactly like v2's already-closed Strategy C1/C2/C3 rebalance-frequency sweep, but this family's trigger is drift-based (a function of realized price divergence since the last rebalance) rather than any of C1/C2/C3's pre-declared FIXED calendar frequencies (weekly/monthly/quarterly) -- must state and verify this distinction (a genuinely path-dependent, non-calendar trigger) concretely in prereg.md, e.g. by confirming rebalance events cluster during high-dispersion periods rather than falling on a fixed schedule. The economic rationale (avoiding unnecessary turnover/fees between rebalances while still controlling drift risk) is a transaction-cost-minimization argument, not a return-forecasting one -- expected sign is on FEES/turnover and Sharpe (lower whipsaw-driven turnover), not necessarily on raw wealth. | Rebalancing / allocation | Donohue, C. and Yip, K. (2003), "Optimal Portfolio Rebalancing with Transaction Costs," *Journal of Portfolio Management* 29(4), 49-63; Masters, S.J. (2003), "Rebalancing," *Journal of Portfolio Management* 29(3), 52-57 |
 | 53 | Money-market funding-stress regime sizing (TED-spread-style: 3-month LIBOR/interbank rate minus 3-month T-bill yield, FRED series, e.g. legacy `TEDRATE` for the pre-2022 dev-period portion): bank deposits when interbank funding stress sits high in its own trailing percentile, deploy a capped catch-up lump when low. Genuinely different signal from family 011's credit-stress filter (BAA-AAA corporate bond spread / NFCI, a CORPORATE credit-risk-premium and broad financial-conditions signal) -- this measures short-term INTERBANK FUNDING/LIQUIDITY stress specifically (the classic 2007-2008 "banks won't lend to each other" signal), a distinct point on the stress-signal spectrum from a corporate bond spread, which can stay contained even while interbank funding tightens (and vice versa in a slow-moving corporate-credit deterioration with ample bank liquidity) -- must construct a concrete real dev-period divergence example (a period where the two spreads move in different directions or diverge in magnitude) in prereg.md, plus confirm the series' point-in-time/publication-lag properties and feasible history length via FRED before any design work. | Regime switch (macro / credit / sentiment) | Poole, W. (2008 speeches) and FRBSF Economic Letter (2008), "The TED Spread"; Taylor, J.B. and Williams, J.C. (2009), "A Black Swan in the Money Market," *American Economic Journal: Macroeconomics* 1(1), 58-83 (interbank funding-stress spread as a distinct signal from corporate credit spreads) |
 
 Idea #45 (Hurst-exponent fractal trend-persistence regime sizing) has
@@ -1187,8 +1186,49 @@ Sharpe genuinely negative, -0.00573/week) -- sec 4.2 FAIL. Grid: 11/24
 precedent (sec 4.1 already fails). Holdout not opened (rejected, not a
 finalist).
 
-5 ideas remain (#49, #53-56), at the sec 8 step-2 threshold of 5 -- no
-replacement idea is needed before the next iteration takes #49.
+**Idea #49 closed as duplicate, no new family created (this iteration,
+2026-09-26).** This iteration was assigned idea #49 (tolerance-band
+drift-triggered rebalancing of the 5-asset portfolio to a FIXED
+equal-weight target) with an explicit instruction to first re-read family
+`048-drift-band-rebalance/` in full, since its name sounded similar, and
+to check whether it already covers exactly this mechanism before doing
+any further work. It does. `families/048-drift-band-rebalance/prereg.md`
+cites this exact queue item by number ("Seed queue item #49 ...") and
+implements precisely the mechanism idea #49 describes: FIXED equal 20%
+target weights for every asset (no momentum or risk-parity tilt), with a
+rebalance triggered only when `max_a |w_a,t - 0.2| > band_pct`, checked at
+each week-end decision day, plus a `min_days_between_rebalances` cooldown
+-- word-for-word the same trigger condition and target structure this
+queue entry specifies. `families/048-drift-band-rebalance/results.md`
+already ran and rejected it: primary config (`band_pct=0.05,
+min_days_between_rebalances=5`) beats fixed-weight 5-asset DCA on Sharpe
+(1.060 vs 0.802) but loses on wealth (2.013x vs 2.937x invested at 0.1%
+fees) -- sec 4.1 FAIL, and the same Sharpe-wins/wealth-loses pattern holds
+across the entire 18-config grid (0/18 pass) -- sec 4.4 FAIL. DSR
+effectively zero. The family's own required distinction checks (rebalance
+gaps have coefficient of variation 1.159, far from a fixed calendar's
+CV=0; dispersion-vs-rebalance point-biserial correlation +0.452) already
+confirm the mechanism genuinely is a path-dependent drift trigger against
+a fixed target, not a relabeled v2 C1/C2/C3 calendar rule -- i.e. this is
+not a case where family 048 tested something superficially similar but
+mechanistically different under a confusing name; it is the literal same
+family + queue item, already fully assessed and REJECTED, logged in
+`state/ledger.csv` (row `048-drift-band-rebalance`) and in this file's own
+earlier entry ("Idea #49 ... has been taken from the queue and used for
+family `048-drift-band-rebalance` ... REJECTED"). The row for idea #49
+that remained in the "currently pending" table below that point (listing
+"#49, #53" together) was a bookkeeping leftover from a later
+replenishment step that mistakenly re-listed an already-resolved item
+instead of only the genuinely-still-open one (#53) -- it has been removed
+above. No new backtest, prereg, or strategy code was run for idea #49 in
+this iteration, per this task's explicit instruction for the duplicate
+case. Idea #49 is now closed for good: **closed as duplicate of family
+048, no new family created.**
+
+Removing the stale #49 row drops the pending list to 4 items (#53-56),
+below the sec 8 step-2 threshold of 5 -- 1 replacement idea is added now
+to restore the threshold.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
+| 57 | Short-end T-bill curve roll-down ("cash carry") deposit-timing: when the short end of the risk-free curve is upward-sloped (FRED `DGS6MO` / `DGS1` yield above the 3-month T-bill yield already used for this engine's own cash interest, `IRX`/FRED `DGS3MO`, both standard constant-maturity series, same reachability class as `T10Y2Y` already confirmed for family 027's queue entry), holding a deposit in cash a little longer before deploying it earns roll-down/carry on the bill itself as it "rolls down" the curve toward maturity, so bank a small, capped share of the week's deposit and release it with a short lag; when the short end is flat or inverted, there is no roll-down benefit to holding cash longer, so deploy the full deposit immediately (behaves like plain DCA). Genuinely different axis from family 027 (queued, 2s10s `T10Y2Y`): 027 uses the LONG-end slope (10y minus 2y) as a business-cycle/recession-prediction regime signal wholly unconnected to any instrument this engine actually holds; this idea uses the SHORT end of the curve (3-month vs 6-month/1-year) as a literal roll-down/carry measure of the exact asset class (T-bills) the engine's own idle cash already earns interest in -- the classic money-market "carry" mechanism (hold the higher-yielding, longer-maturity bill and let it roll down to a lower yield/higher price as time passes) rather than a macro-regime forecast, so it is placed in the Carry/term-structure category (currently the loop's thinnest category, only family 041's VIX term structure sits there) rather than Regime switch. Also distinct from the commodity-futures term-structure carry idea (#12, seed queue, explicitly skipped by the owner for data infeasibility -- no free front/second-month futures curve was reachable): this idea needs no futures curve at all, only constant-maturity Treasury yields already known reachable via FRED. Asset-agnostic macro/rates signal, applied identically to deposit timing across all 5 core assets, same cross-asset-signal precedent as 006/007/011/019/027. Must confirm `DGS6MO`/`DGS1`/`DGS3MO` publication-lag and point-in-time properties via FRED (ALFRED vintages if revised) before any design work, per plan sec 3.2. | Carry / term structure | Fama, E.F. and Bliss, R.R. (1987), "The Information in Long-Maturity Forward Rates," *American Economic Review* 77(4), 680-692 (short-rate forward/roll-down predictability); Campbell, J.Y. and Shiller, R.J. (1991), "Yield Spreads and Interest Rate Movements: A Bird's Eye View," *Review of Economic Studies* 58(3), 495-514 (short-end curve carry/roll-down as a return driver distinct from long-end recession signaling) |
