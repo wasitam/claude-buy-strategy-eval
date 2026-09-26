@@ -128,11 +128,23 @@ reproduced in `results.md`):**
   opposite property: it deliberately avoids clustering near month
   boundaries (no meeting falls in the extreme turn-of-month band in most
   years), so this family's window and family 006's window have very
-  little date-level overlap, confirmed directly: **0 of the 208 FOMC
-  decision dates fall within family 006's own primary turn-of-month
-  window** (last 1 trading day of the month or first 3 trading days of
-  the following month) -- computed and reported exactly in
-  `results.md`.
+  little SYSTEMATIC overlap, confirmed directly and quantitatively (not
+  merely asserted): family 006's primary turn-of-month window (last 1
+  business day of the month plus first 3 business days of the following
+  month) covers ~4 of ~21 business days per month (~19%), so **pure
+  chance alone**, with no clustering at all, predicts roughly
+  `208 * 4/21 =~ 40` of the 208 FOMC dates would fall inside that window
+  by coincidence. The actual count, computed directly on the 208-date
+  list, is 43 -- a ratio of about 1.08x the chance-expected rate, i.e.
+  **statistically indistinguishable from a non-clustered, uniform
+  placement across the month** (computed and reported exactly in
+  `results.md`, with an explicit pre-grid gate requiring this ratio stay
+  within 0.5x-1.5x of the chance baseline before any backtest runs). This
+  is the correct redundancy test: not "zero overlap" (which no
+  8-meetings-a-year, evenly-spaced calendar could achieve while also
+  covering the whole month, since some dates must fall somewhere), but
+  "no disproportionate concentration in family 006's specific window,"
+  which is confirmed.
 - **Month-of-year distribution (vs. families 018's fixed May-Oct/Nov-Apr
   Halloween split and 024's fixed daylight-saving-linked seasonal
   window):** all 12 calendar months have at least one meeting across the

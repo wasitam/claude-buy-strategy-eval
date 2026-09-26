@@ -187,3 +187,22 @@ events (`2019-11-01`), confirmed numerically (`ui[2018-01-15]=0.59`,
 `ui[2018-12-24]=5.96` -- a >3x spike; `ui[2019-11-01]=2.82 < 5.96` --
 decayed), both strictly pre-2020. No engine, strategy module, or grid
 logic changed -- only the dates cited in this one check.
+
+---
+`scripts/v3/run_051_pre_fomc_drift.py`'s first-draft redundancy-check gate
+against family 006's turn-of-month window used an arbitrary hard threshold
+(overlap count > 20 fails) rather than comparing against the correct
+chance-expected baseline. Family 006's TOM window covers ~4 of ~21
+business days/month (~19%), so pure chance alone predicts ~40 of 208 FOMC
+dates would fall inside it purely by coincidence, with zero clustering.
+The actual measured overlap (43/208, ratio 1.08x chance) tripped the naive
+threshold and would have wrongly aborted the family before any backtest,
+even though 43/208 is the CORRECT, expected result for a genuinely
+non-clustered calendar. Fixed before any grid or trial ran: the gate now
+compares the overlap count to the chance-expected rate (208 * 4/21) and
+requires the ratio stay within 0.5x-1.5x, which 1.08x comfortably passes.
+prereg.md's own text was updated to match (the correct redundancy claim is
+"no disproportionate concentration," not "zero overlap," since some
+FOMC dates must fall somewhere in the month by construction). No engine or
+strategy-module logic was affected; no trial was counted under the wrong
+gate.

@@ -1,0 +1,143 @@
+{
+  "redundancy_checks": {
+    "n_meetings": 208,
+    "meetings_per_year_min_max": [
+      8,
+      8
+    ],
+    "weekday_counts_mon0_sun6": {
+      "1": 85,
+      "2": 115,
+      "3": 7,
+      "4": 1
+    },
+    "day_of_month_min_max_mean_std": [
+      1,
+      31,
+      17.89423076923077,
+      9.03767559064575
+    ],
+    "month_counts": {
+      "1": 18,
+      "2": 8,
+      "3": 26,
+      "4": 8,
+      "5": 18,
+      "6": 21,
+      "7": 11,
+      "8": 20,
+      "9": 23,
+      "10": 12,
+      "11": 17,
+      "12": 26
+    },
+    "year_mod_4_counts": {
+      "0": 48,
+      "1": 48,
+      "2": 56,
+      "3": 56
+    },
+    "inter_meeting_gap_days_min_max_mean_std": [
+      34,
+      58,
+      45.608695652173914,
+      5.552618706881478
+    ],
+    "overlap_with_family006_primary_tom_window": 43,
+    "expected_chance_overlap_with_tom_window": 39.61904761904762,
+    "overlap_vs_chance_ratio": 1.0853365384615383
+  },
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "window_days_count": 416,
+      "frac_pre_fomc": 0.018001644380977108,
+      "first_date": "1927-12-30",
+      "last_date": "2019-12-31"
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "window_days_count": 310,
+      "frac_pre_fomc": 0.06394389438943894,
+      "first_date": "2000-08-30",
+      "last_date": "2019-12-31"
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "window_days_count": 310,
+      "frac_pre_fomc": 0.06391752577319587,
+      "first_date": "2000-08-30",
+      "last_date": "2019-12-31"
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "window_days_count": 84,
+      "frac_pre_fomc": 0.043478260869565216,
+      "first_date": "2014-09-17",
+      "last_date": "2019-12-31"
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "window_days_count": 310,
+      "frac_pre_fomc": 0.06382540662960676,
+      "first_date": "2000-08-23",
+      "last_date": "2019-12-31"
+    }
+  ],
+  "impl_checks": {
+    "degenerate_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true,
+    "no_negative_cash_units_primary_btc": true,
+    "no_lookahead_btc": true,
+    "capital_never_exceeds_deposits_plus_interest": true
+  },
+  "n_seed": 196,
+  "n_new": 16,
+  "n_total_raw": 1531,
+  "n_eff": 134,
+  "dsr_neff": {
+    "dsr": 3.7729991275506095e-30,
+    "sr": -0.031069314176550334,
+    "sr_annualized": -0.2240440107141049,
+    "sr0": 0.13232405569375535,
+    "n": 4800,
+    "n_eff": 134,
+    "skew": -0.2965658445195157,
+    "kurtosis": 17.71100061868384
+  },
+  "dsr_rawn": {
+    "dsr": 1.6158046992145665e-29,
+    "sr": -0.031069314176550334,
+    "sr_annualized": -0.2240440107141049,
+    "sr0": 0.13048245631644653,
+    "n": 4800,
+    "n_eff": 1531,
+    "skew": -0.2965658445195157,
+    "kurtosis": 17.71100061868384
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 1,
+    "beats_dca_count_fee0.25pct": 1,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo_sp500": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg03_wd2_mt0.0_ml6_bw8",
+  "primary_trial_id": "new_051_cfg03_wd2_mt0.0_ml6_bw8"
+}

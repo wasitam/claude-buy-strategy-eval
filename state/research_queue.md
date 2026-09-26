@@ -1274,3 +1274,56 @@ to restore the threshold.
 | # | Idea | Category | Key source |
 |---|---|---|---|
 | 57 | Short-end T-bill curve roll-down ("cash carry") deposit-timing: when the short end of the risk-free curve is upward-sloped (FRED `DGS6MO` / `DGS1` yield above the 3-month T-bill yield already used for this engine's own cash interest, `IRX`/FRED `DGS3MO`, both standard constant-maturity series, same reachability class as `T10Y2Y` already confirmed for family 027's queue entry), holding a deposit in cash a little longer before deploying it earns roll-down/carry on the bill itself as it "rolls down" the curve toward maturity, so bank a small, capped share of the week's deposit and release it with a short lag; when the short end is flat or inverted, there is no roll-down benefit to holding cash longer, so deploy the full deposit immediately (behaves like plain DCA). Genuinely different axis from family 027 (queued, 2s10s `T10Y2Y`): 027 uses the LONG-end slope (10y minus 2y) as a business-cycle/recession-prediction regime signal wholly unconnected to any instrument this engine actually holds; this idea uses the SHORT end of the curve (3-month vs 6-month/1-year) as a literal roll-down/carry measure of the exact asset class (T-bills) the engine's own idle cash already earns interest in -- the classic money-market "carry" mechanism (hold the higher-yielding, longer-maturity bill and let it roll down to a lower yield/higher price as time passes) rather than a macro-regime forecast, so it is placed in the Carry/term-structure category (currently the loop's thinnest category, only family 041's VIX term structure sits there) rather than Regime switch. Also distinct from the commodity-futures term-structure carry idea (#12, seed queue, explicitly skipped by the owner for data infeasibility -- no free front/second-month futures curve was reachable): this idea needs no futures curve at all, only constant-maturity Treasury yields already known reachable via FRED. Asset-agnostic macro/rates signal, applied identically to deposit timing across all 5 core assets, same cross-asset-signal precedent as 006/007/011/019/027. Must confirm `DGS6MO`/`DGS1`/`DGS3MO` publication-lag and point-in-time properties via FRED (ALFRED vintages if revised) before any design work, per plan sec 3.2. | Carry / term structure | Fama, E.F. and Bliss, R.R. (1987), "The Information in Long-Maturity Forward Rates," *American Economic Review* 77(4), 680-692 (short-rate forward/roll-down predictability); Campbell, J.Y. and Shiller, R.J. (1991), "Yield Spreads and Interest Rate Movements: A Bird's Eye View," *Review of Economic Studies* 58(3), 495-514 (short-end curve carry/roll-down as a return driver distinct from long-end recession signaling) |
+
+Idea #54 (Pre-FOMC announcement drift deposit timing) has been taken from
+the queue and used for family `051-pre-fomc-drift`; see
+`families/051-pre-fomc-drift/` (**REJECTED**). Single-asset family across
+all 5 core assets, category **Seasonality / execution timing**. FOMC
+meeting-calendar data reachability: `federalreserve.gov`,
+`en.wikipedia.org` and `www.r-bloggers.com` were all confirmed
+`EGRESS_BLOCKED` in this session (no live-reachable structured source),
+so the 208 scheduled FOMC decision dates (1994-02-04..2019-12-11, 8/year)
+were hard-coded from this session's own knowledge of the well-documented
+public historical FOMC record, per the task's explicit allowance for this
+contingency (unscheduled/emergency actions deliberately excluded).
+Required concrete redundancy check against families 006/007/018/022/024
+verified on the real 208-date list (not asserted): weekday distribution
+spread across 4 weekdays (never a single fixed day, unlike 007);
+day-of-month overlap with family 006's own turn-of-month window measured
+at 1.09x the pure-chance-expected rate (43 actual vs. 39.6 expected --
+"no disproportionate concentration," the correct test, not "zero
+overlap" which no 8-meetings/year calendar could achieve); month-of-year
+dates shift by days-to-weeks year over year (unlike 018/024's fixed
+repeating annual template); year-mod-4 counts near-uniform (48/48/56/56,
+unlike 022's quadrennial dependence); inter-meeting gaps irregular
+(34-58 calendar days, not a fixed modulus). Cross-asset scoping: applied
+to all 5 core assets per family 022's own precedent for a US-specific
+macro event (FOMC decisions plausibly relevant to all USD-denominated
+assets). Sec 4.1: primary config (`window_days=2, mild_tilt_fraction=0.0,
+max_lump_multiple=6, banking_window_weeks=8`) beats DCA on wealth AND
+Sharpe on only **1/5** core assets (OIL only) at both fee levels -- FAIL
+(need >=3/5), decisively. Structural Sharpe-wins/wealth-loses pattern
+(the primary wins Sharpe on 4/5 assets but wealth on only 1/5; SP500 --
+the literature's own anchor asset -- loses wealth despite winning
+Sharpe). Grid: 0/16 (0%) configs reach the majority bar -- sec 4.4 FAIL,
+tied with families 047/048 for the weakest possible grid outcome, with
+the same Sharpe/wealth split holding structurally across the whole grid.
+CSCV PBO=0.0 (lowest of any family so far -- no genuine overfitting-to-
+noise signal, every config shares the same consistent SP500 wealth-loss
+ranking). DSR effectively zero (3.77e-30 N_eff-based; raw pooled excess
+Sharpe -0.0311/week, genuinely negative, moderate skew/kurtosis). Sec 4.3
+not run per established precedent (sec 4.1 already fails decisively).
+Caught and fixed a redundancy-gate bug before any backtest ran (first
+draft used an arbitrary hard overlap threshold instead of the correct
+chance-expected baseline; logged in `state/bugfix_log.md`, no trial
+affected). Holdout not opened (rejected, not a finalist).
+
+5 ideas remain (#55-58 plus this note leaves #55-58; +#54 just
+resolved), below the sec 8 step-2 threshold's comfortable margin -- 2
+replacement ideas are added now to restore the queue comfortably above
+the threshold of 5 before the next iteration.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 59 | 10-year TIPS real-yield (FRED `DFII10`) opportunity-cost regime sizing: bank deposits when the 10-year Treasury Inflation-Protected Securities real yield sits high/rising in its own trailing percentile (holding non-yielding or low-yielding assets is expensive when a safe, inflation-protected alternative pays a high real return), deploy a catch-up tilt when real yields sit low/falling (the opportunity cost of holding gold, silver, BTC or even equities relative to a safe real return is low). `DFII10` is explicitly named as a reachable FRED series in prereg.md's own alternatives-considered lists for families 019 and 032, but has never itself been used as any family's primary signal -- confirmed via a repo-wide search before adding this entry. Genuinely different mechanism from every prior family: family 027 (`T10Y2Y`) is the SLOPE between two nominal Treasury maturities (a business-cycle/recession-prediction signal), not a real (inflation-adjusted) LEVEL; family 032 (M2) is a monetary-quantity aggregate, not a market-priced yield; families 011/050 are credit spreads, not a Treasury real yield. The real-yield-as-opportunity-cost-of-non-yielding-assets channel is a distinct, well-established valuation mechanism (most directly relevant to gold, which pays no yield at all) that has not yet been tested in this loop. Applicable cross-asset (gold/silver most directly per the classic "gold vs. real rates" relationship; SP500/oil/BTC less directly but testable under this loop's established asset-agnostic-mechanism-vs-asset-specific-literature precedent, e.g. families 006/007/018/022). Must confirm `DFII10`'s point-in-time/publication-lag properties and full history length via FRED (coverage begins 2003-01-02) before any design work, per plan sec 3.2. | Sizing / valuation | Barsky, R.B. and Summers, L.H. (1988), "Gibson's Paradox and the Gold Standard," *Journal of Political Economy* 96(3), 528-550 (real interest rates as the fundamental driver of gold's relative value); Erb, C.B. and Harvey, C.R. (2013), "The Golden Dilemma," *Financial Analysts Journal* 69(4), 10-42 (real-yield-vs-gold-price empirical relationship) |
+| 60 | Economic Policy Uncertainty (EPU) Index regime deposit timing: bank deposits when the Baker-Bloom-Davis News-Based Economic Policy Uncertainty Index (FRED `USEPUINDXD`, a daily, text-mining-derived count of newspaper articles discussing policy-related economic uncertainty) sits high/rising in its own trailing percentile, deploy a catch-up tilt when it sits low/falling. Genuinely different DATA TYPE from every prior regime/sentiment family in this loop: family 038 (consumer sentiment) is a household-survey-response index; families 011/050 are market-priced credit spreads; family 019 is a composite multi-series leading-activity index; family 027 is a Treasury yield-curve shape; family 032 is a monetary aggregate; idea #58 (queued, Baltic Dry) is a physical-goods freight-rate market price. EPU is none of these -- it is a purely TEXT-BASED, news-volume-derived uncertainty measure with no market price, no survey response, and no economic-quantity content at all, capturing a genuinely distinct "how much is the media/policy discourse itself signaling uncertainty" channel (Baker, Bloom & Davis's own headline finding: elevated EPU precedes reduced investment and equity-market volatility spikes). Must confirm `USEPUINDXD`'s FRED reachability and point-in-time properties (it is published with essentially no lag, being derived from same-day news text, but confirm exact vintage/revision behavior) and full history length before any design work, per plan sec 3.2 -- flagged explicitly since this loop has not yet tested a text-derived signal of any kind. | Regime switch (macro / credit / sentiment) | Baker, S.R., Bloom, N. and Davis, S.J. (2016), "Measuring Economic Policy Uncertainty," *Quarterly Journal of Economics* 131(4), 1593-1636 |
