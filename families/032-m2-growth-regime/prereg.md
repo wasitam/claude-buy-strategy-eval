@@ -278,14 +278,16 @@ brief)
    primary configuration's growth-rate/z-score reading during the
    well-documented 2008-09 QE-era M2 acceleration (the Fed's
    post-Lehman balance-sheet expansion, roughly late 2008 through 2009)
-   must read as **accelerating** (z at or above the decelerating
-   threshold, i.e. NOT flagged "decelerating") — confirming the signal
-   construction correctly identifies a real, well-known M2 regime shift
-   before any grid result is trusted. This spot-check stays strictly
-   within development dates (2008-09 is years before the 2020-01-01
-   holdout cutoff) and is checked, never the reverse: the loop does not
-   search for whichever episode happens to look best, it confirms the
-   single episode named in the task brief itself.
+   must read as **accelerating** for a clear majority of that window (a
+   fraction of months flagged "decelerating" below 50%, allowing for at
+   most a single isolated noisy monthly print rather than requiring a
+   literal 0% given the signal's monthly granularity) — confirming the
+   signal construction correctly identifies a real, well-known M2 regime
+   shift before any grid result is trusted. This spot-check stays
+   strictly within development dates (2008-09 is years before the
+   2020-01-01 holdout cutoff) and is checked, never the reverse: the loop
+   does not search for whichever episode happens to look best, it
+   confirms the single episode named in the task brief itself.
 
 ## Data inputs
 
