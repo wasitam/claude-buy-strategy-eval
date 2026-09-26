@@ -1,0 +1,125 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.019040200787571942,
+      "std_multiplier": 0.5206914008994868,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.0724009900990099,
+      "std_multiplier": 0.510570619746736,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.07402061855670103,
+      "std_multiplier": 0.524628867328178,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.17753623188405798,
+      "std_multiplier": 0.47903355882830057,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.07350216182828907,
+      "std_multiplier": 0.5345550884278388,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "skew_kurtosis_divergence": {
+      "path_a_symmetric_fat_tail": {
+        "skew": 0.0,
+        "excess_kurtosis": 7.0
+      },
+      "path_b_skewed_thin_tail": {
+        "skew": 1.4999999999999996,
+        "excess_kurtosis": 0.2499999999999991
+      },
+      "divergence_confirmed": true,
+      "rankings_invert": true
+    },
+    "divergence_confirmed": true,
+    "rankings_invert": true,
+    "crash_episode_spotcheck": {
+      "crash_window": "1987-09-01..1987-12-31 (Black Monday quarter, strictly pre-2020)",
+      "crash_peak_date": "1987-10-19",
+      "crash_peak_kurtosis": 56.03631373493955,
+      "calm_window": "2017-01-01..2017-12-31",
+      "calm_median_kurtosis": 2.9990198374870873,
+      "spike_ratio": 18.68487598331227,
+      "sign_magnitude_sane": true
+    },
+    "sign_magnitude_sane": true,
+    "cash_reserve_check": {
+      "avg_cash_strategy": 123.52719491680763,
+      "avg_cash_dca_baseline": 103.87727725128738,
+      "reserve_builds_up_vs_dca": true,
+      "avg_cash_low_multiplier_weeks": 143.2483122580706,
+      "avg_cash_high_multiplier_weeks": 104.3184508292731,
+      "reserve_drawn_down_on_high_mult_weeks": true
+    },
+    "reserve_builds_up_vs_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_k_zero_grid_arm_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 24,
+  "n_total_raw": 1185,
+  "n_eff": 126,
+  "dsr_neff": {
+    "dsr": 1.6170892818499285e-22,
+    "sr": -0.007748447279519034,
+    "sr_annualized": -0.05587484794307066,
+    "sr0": 0.12916049768327112,
+    "n": 4800,
+    "n_eff": 126,
+    "skew": -6.167818304120812,
+    "kurtosis": 349.66016273416346
+  },
+  "dsr_rawn": {
+    "dsr": 7.50462595001347e-25,
+    "sr": -0.007748447279519034,
+    "sr_annualized": -0.05587484794307066,
+    "sr0": 0.13670546186107774,
+    "n": 4800,
+    "n_eff": 1185,
+    "skew": -6.167818304120812,
+    "kurtosis": 349.66016273416346
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 2,
+    "beats_dca_count_fee0.25pct": 2,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.4583333333333333,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.44285714285714284,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg15_kw90_pl252_k1.0_mn0.5",
+  "primary_trial_id": "new_039_cfg15_kw90_pl252_k1.0_mn0.5"
+}
