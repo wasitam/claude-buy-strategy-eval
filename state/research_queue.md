@@ -837,5 +837,44 @@ restore the threshold before the next iteration takes #37.
 |---|---|---|---|
 | 42 | VIX futures term-structure carry (contango/backwardation) regime: bank deposits (or hold normal size) when the VIX term structure is inverted into backwardation (near-term implied vol, `^VIX`, trading ABOVE 3-month implied vol, `^VIX3M` -- a "fear spike" signal historically associated with continued near-term stress), deploy normally or with a capped catch-up lump when the curve is in its normal contango state (`VIX3M/VIX` ratio elevated in its own trailing percentile -- the typical calm-market state in which the volatility risk premium has historically been most reliably harvested by staying invested). A genuinely different signal from every prior VIX-based family in this loop: family 016's `vix_contrarian` uses the LEVEL of spot VIX alone (a single point on the curve, no term-structure/slope component at all), while this family uses the SLOPE/ratio between two points on the VIX futures-implied curve (a term-structure carry signal, the same economic object as bond-market term-structure carry, applied to the volatility market) -- an asset can have an elevated spot VIX level yet still sit in mild contango, or a middling spot VIX level yet sit in outright backwardation, so the two statistics are not interchangeable. Also distinct from family 025's `vrp_sizing` (realized-vs-implied volatility SPREAD at a single tenor, a cross-measure gap, not a curve-slope-between-two-implied-tenors signal at all). Applied as a shared macro/regime signal identically across all 5 core assets' own per-asset decisions, the same convention families 006/007/011/019/027/032 already use for a single shared external signal. Data: `^VIX` and `^VIX3M` daily closes, both free and already reachable via the same data path family 016/025 use (CBOE-sourced, no publication lag since both are same-day closing index levels, not survey/reported economic data). | Carry / term structure | Simon, D.P. and Campasano, J. (2014), "The VIX Futures Basis: Evidence and Trading Strategies," *Journal of Derivatives* 21(3); Cheng, I.-H. (2019), "The VIX Premium," *Review of Financial Studies* 32(1), 180-227 (documents the VIX futures term-structure's historical tendency toward contango and the return premium associated with it, and its inversion into backwardation during market stress) |
 
+**Idea #37 (overnight/intraday return-split sizing) was reviewed against
+family 026 and SKIPPED, not tested.** Full side-by-side reasoning in
+`families/038-consumer-sentiment-contrarian/prereg.md`'s "Scoping decision"
+section. Summary: idea #37 as worded ("increase buy size when an asset's
+own trailing overnight return component has been running positive and
+elevated RELATIVE TO its trailing intraday return component ... decrease
+or hold normal otherwise") is mechanically the same construction family
+026 already tested and rejected (`families/026-intraday-overnight/`): the
+identical Open/Close overnight-vs-intraday decomposition, the identical
+relative comparison (a spread between the two legs, not a standalone level
+of either leg), and the identical elevated-buy-more / otherwise-buy-less-
+or-normal sizing shape. None of the potential distinctions the task brief
+suggested as hypothetically available (a ratio instead of a spread, a
+different aggregation window, a different asset scope, a different sign
+convention) are actually present in how idea #37 is stated -- they were
+offered as ways a distinction *could* be built, not features already in
+#37's own wording, and building one in now (after already knowing family
+026's exact construction and result) would be exactly the kind of
+after-the-fact relabeling the loop's holdout/closed-family discipline
+warns against, applied here by analogy to this loop's own family 026.
+**Decision: idea #37 removed from the active queue without being tested.**
+A genuinely distinct future overnight/intraday idea (e.g. a true ratio or
+single-leg-level construction, explicitly not the relative-spread
+construction) could still be proposed fresh in a later iteration under a
+new idea number, but not as a re-labeling of #37 as currently worded.
+
+Idea #39 (consumer-sentiment contrarian regime) was taken as this
+iteration's substitute family (per the task brief's option (b)) and used
+for family `038-consumer-sentiment-contrarian`; see
+`families/038-consumer-sentiment-contrarian/`. 3 ideas (#40, #41, #42)
+remained after taking #37 (skipped) and #39, below the sec 8 step-2
+threshold of 5 -- 2 replacement ideas are added below to restore the
+threshold before the next iteration.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 43 | Realized-volatility term-structure (short-vs-long trailing-window ratio) sizing: buy more when an asset's own SHORT trailing realized-volatility window (e.g. 10-20 trading days) is unusually LOW relative to its own LONGER trailing window (e.g. 100-252 days) -- a "calm now relative to its own recent-past normal" regime, buy less/hold normal when short-window vol is elevated relative to the long-window reference. Genuinely different from family 003 (a single absolute realized-variance level, no term-structure/ratio-of-two-windows component at all) and from family 035 (Parkinson high-low range estimator vs. this family's close-to-close estimator, and also a single-window level, not a short-vs-long ratio); the economic story here (a vol-term-structure/calm-relative-to-own-longer-run-normal signal) is closer to the equity vol-of-vol and VIX-term-structure carry literature (already tested via VIX itself in families 016/042) but applied to the asset's OWN realized volatility rather than to an options-market-implied series -- must state and verify this distinction concretely (e.g. a toy or real-data example where the short/long ratio and the single-window level disagree) in prereg.md. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Volatility targeting | Christensen, B.J. and Prabhala, N.R. (1998), "The relation between implied and realized volatility," *Journal of Financial Economics* 50(2), 125-150 (vol term-structure/realized-vol-ratio framing); Bollerslev, T. et al. (2018), "Risk Everywhere: Modeling and Managing Volatility," *Review of Financial Studies* 31(7), 2729-2773 |
+| 44 | Amihud-illiquidity-regime rotation across the 5 core assets: instead of family 021's already-tested single-asset Amihud illiquidity SIZING rule (buy more of the SAME asset when its own trailing Amihud ratio is elevated), this family ROTATES the marginal weekly deposit toward whichever of the 5 core assets currently has the LOWEST trailing Amihud illiquidity ratio (i.e. currently the most liquid, cheapest to trade, per-dollar-of-volume least price-impactful asset among the 5) rather than sizing any one asset's own buys. A genuinely different mechanism category (cross-asset rotation, not single-asset sizing) built from the SAME underlying Amihud statistic family 021 already validated the computation of, applied here as a cross-sectional RANKING across assets rather than a within-asset trailing-percentile SIZING rule -- must state and verify this distinction (family 021 never compares one asset's Amihud ratio to another's; this family never sizes a single asset's OWN buy based on its own history alone). Requires each of the 5 core assets' daily Volume (already confirmed reachable and used by family 021/033). | Cross-asset rotation / relative strength | Amihud, Y. (2002), "Illiquidity and stock returns: cross-section and time-series effects," *Journal of Financial Markets* 5(1), 31-56 (the same source family 021 used, applied here to its cross-sectional ranking application rather than its single-asset time-series application) |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
