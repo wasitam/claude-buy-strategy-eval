@@ -1076,6 +1076,59 @@ risk-off sign.
 replacement idea is added now to restore the threshold before the next
 iteration takes #49.
 
+Idea #49 (tolerance-band drift-triggered rebalancing of the 5-asset
+portfolio) has been taken from the queue and used for family
+`048-drift-band-rebalance`; see `families/048-drift-band-rebalance/`
+(**REJECTED**). Assessed as a 5-asset portfolio family (sec 4.1 Portfolio
+line) vs. fixed-weight 5-asset DCA, category **Rebalancing / allocation**.
+Target weights are FIXED equal weight (20% each, never tilted by any
+signal, unlike families 013/029) and a rebalance to that fixed target
+fires only when some asset's weight drifts more than `band_pct` outside
+20% (checked at each week-end) with a `min_days_between_rebalances`
+cooldown; between triggers the strategy behaves exactly like plain DCA.
+Required concrete distinction check (real dev data, primary config)
+passed both legs before the grid was trusted: inter-rebalance gap
+coefficient of variation 1.159 (far from the 0 a fixed calendar cadence
+would show) and dispersion-vs-rebalance point-biserial correlation +0.452
+(rebalance week-ends have materially higher cross-asset dispersion) --
+confirms the trigger genuinely responds to realized price divergence
+rather than being a disguised calendar rule, the distinction v2's closed
+C1/C2/C3 and families 002/013/029/043 all required. Sec 4.1: primary
+config (`band_pct=0.05, min_days_between_rebalances=5`) beats DCA on
+Sharpe (1.060 vs 0.802) but loses on wealth (2.013x vs 2.937x invested at
+0.1% fees) -- FAIL (need both), and this Sharpe-wins/wealth-loses pattern
+holds uniformly across the ENTIRE 18-config grid (0/18, 0% clear the bar)
+-- sec 4.4 FAIL, tied with family 047 for the weakest possible grid
+outcome. DSR effectively zero (raw pooled excess Sharpe -0.0791/week,
+skew -1.30, kurtosis 14.51). CSCV PBO=0.714 (elevated). Sec 4.3 not run
+(sec 4.1 fails decisively across the whole grid, per established
+precedent). Turnover/fee comparison (this family's own hypothesized
+channel, per the task's transaction-cost framing): primary config's
+turnover (3.51x invested) exceeds DCA's structural zero-sell floor
+(1.00x) but falls monotonically as `band_pct` widens (5.08x at
+`band_pct=0.02` down to 2.04x at `band_pct=0.15`) -- the band mechanism
+suppresses turnover exactly as designed relative to an always-rebalance
+rule, it just cannot outrun a benchmark that never sells, and the wealth
+shortfall is driven by the FIXED TARGET's bounded BTC exposure (the same
+root cause families 013's zero-tilt corner and 029's risk-parity target
+hit), not by fee drag. Caught and fixed a real `PRIMARY_CONFIG`-grid
+mismatch before any backtest ran (import-time assertion, family 021's
+lesson): the first-draft grid did not contain the intended primary value
+0.05; corrected before running, documented in results.md. Zero
+external-data dependency (price-only signal), the only family in this
+loop with no data-reachability risk by construction. Holdout not opened
+(rejected, not a finalist).
+
+2 ideas remain (#50, #53), below the sec 8 step-2 threshold of 5 -- 3
+replacement ideas are added now to restore the threshold comfortably
+above it before the next iteration takes #50.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 54 | Pre-FOMC announcement drift deposit timing (SP500): bank a larger share of deposits on an ordinary week, deploy a catch-up tilt into the 1-2 trading days immediately preceding each scheduled FOMC rate-decision announcement (a fixed, publicly known macro-event calendar, not a moving average, momentum sign, or a periodic weekday/month-of-year cycle). Genuinely different calendar structure from every prior seasonality family in this loop: families 006 (turn-of-month) and 007 (day-of-week) are both fixed MODULAR calendar cycles (day-of-month or day-of-week, repeating identically every period); family 018 (Halloween) and family 024 (SAD daylight) are both fixed ANNUAL calendar windows keyed to the calendar year itself; family 022 (election cycle) is a fixed QUADRENNIAL cycle keyed to year mod 4. This family's calendar is keyed to the FOMC's own scheduled meeting dates (8 per year, irregularly spaced within the year, published well in advance by the Federal Reserve, not derivable from any simple modular date function) -- a genuinely different, externally-determined event calendar, not a period of any of the above cycles' own repeating pattern. Must construct and verify this concretely in prereg.md (e.g., confirm FOMC meeting dates do not fall in a fixed weekday/month/quadrennial-year pattern that would make this family redundant with 006/007/018/022/024). Applicable to SP500 primarily (the motivating literature is US-equity-specific); must address whether/how to apply the same calendar to the other 4 core assets (a macro rate-policy event, plausibly relevant to all dollar-denominated assets, unlike family 008's CAPE which has no cross-asset analog at all) per family 022's own precedent for a US-specific event applied to all 5 core assets. | Seasonality / execution timing | Lucca, D.O. and Moench, E. (2015), "The Pre-FOMC Announcement Drift," *Journal of Finance* 70(1), 329-371 |
+| 55 | ISM Manufacturing PMI regime deposit sizing: bank deposits (or trim buy size) when the ISM Manufacturing PMI (a single business-survey diffusion index, `<=50` conventionally read as contraction) sits low/falling in its own trailing percentile, deploy a catch-up tilt when it sits high/rising. Genuinely different macro signal from every prior regime family in this loop: family 019 (OECD CLI) is a COMPOSITE leading indicator averaging many underlying series across multiple economies with a built-in smoothing/detrending methodology; family 011 (credit-stress filter) and family 032 (M2 growth) are neither a business survey nor a leading-indicator diffusion index at all (a credit spread and a monetary aggregate respectively); family 027 (yield-curve slope) is a market-priced term-structure signal, not a survey. ISM PMI is a single-country, single-survey-based diffusion index (a monthly non-market business-condition survey, FRED/ISM published, with a known reporting lag that must be respected per plan sec 3.2 point-in-time rules) -- must construct a concrete real dev-period divergence example against family 019's OECD CLI in prereg.md (the two leading-indicator families should NOT move in lockstep at all times, given the methodological differences) before any design work, plus confirm the series' publication-lag/point-in-time properties and feasible history length via FRED. | Regime switch (macro / credit / sentiment) | Institute for Supply Management PMI methodology; Koenig, E.F. (2002), "Using the Purchasing Managers' Index to Assess the Economy's Strength and the Likely Direction of Monetary Policy," Federal Reserve Bank of Dallas Economic and Financial Policy Review |
+| 56 | Momentum acceleration ("velocity of momentum") sizing: buy more when an asset's trailing momentum is itself INCREASING (the trend is accelerating), buy less when trailing momentum is decreasing even if still positive (the trend is decelerating) -- a second-derivative-of-price signal, not a level or sign-of-return signal. Genuinely different statistic from every prior momentum/trend family in this loop: family 005 (TSMOM sizing) scales by the SIGN of the trailing 12-month return only (a first-derivative, binary-direction signal, blind to whether that return is itself rising or falling); family 013 (momentum-tilted rebalancing) uses the LEVEL of cross-sectional relative momentum to set portfolio weights, not its own rate of change; family 002 (dual momentum) uses momentum LEVEL as a binary admission/ranking filter. This family instead compares momentum at two different points in time (e.g., today's trailing N-month return vs. that same trailing N-month return M months ago) and sizes buys by the sign/magnitude of that difference -- a genuinely distinct, higher-order statistic ("is the trend itself gaining or losing steam"), not a relabeling of any prior family's own signal. Must construct a concrete toy or real-data example in prereg.md showing a case where trailing momentum LEVEL and momentum ACCELERATION disagree in sign (e.g., a still-positive but decelerating trend) to prove the two are not interchangeable, following family 044's own Hurst-vs-autocorrelation divergence-example precedent. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Trend / time-series momentum exit | Novy-Marx, R. (2012), "Is Momentum Really Momentum?," *Journal of Financial Economics* 103(3), 429-453 (momentum of momentum / "intermediate horizon" persistence); Gao, L., Han, Y., Li, S.Z. and Zhou, G. (2018), "Market Intraday Momentum," *Journal of Financial Economics* (momentum-of-momentum / acceleration framing) |
+
 | # | Idea | Category | Key source |
 |---|---|---|---|
 | 49 | Tolerance-band ("drift-triggered") rebalancing of the 5-asset portfolio: rebalance back to FIXED equal target weights (the v2 Strategy-C1-equivalent baseline, no momentum/risk-parity tilt) only when any asset's current weight drifts outside a symmetric band around its target (e.g. target 20% +/- `band_pct`), checked at each week-end decision day, rather than on family 013's/029's/002's fixed WEEKLY calendar cadence regardless of drift. Genuinely different mechanism axis from every prior rebalancing/rotation family in this loop: families 002 (dual momentum) and 043 (liquidity rotation) both ask "which asset(s) should the marginal deposit favor"; families 013 (momentum-tilted) and 029 (risk-parity) both ask "what should each asset's TARGET weight be"; this family asks neither -- targets are FIXED equal weights, exactly like v2's already-closed Strategy C1/C2/C3 rebalance-frequency sweep, but this family's trigger is drift-based (a function of realized price divergence since the last rebalance) rather than any of C1/C2/C3's pre-declared FIXED calendar frequencies (weekly/monthly/quarterly) -- must state and verify this distinction (a genuinely path-dependent, non-calendar trigger) concretely in prereg.md, e.g. by confirming rebalance events cluster during high-dispersion periods rather than falling on a fixed schedule. The economic rationale (avoiding unnecessary turnover/fees between rebalances while still controlling drift risk) is a transaction-cost-minimization argument, not a return-forecasting one -- expected sign is on FEES/turnover and Sharpe (lower whipsaw-driven turnover), not necessarily on raw wealth. | Rebalancing / allocation | Donohue, C. and Yip, K. (2003), "Optimal Portfolio Rebalancing with Transaction Costs," *Journal of Portfolio Management* 29(4), 49-63; Masters, S.J. (2003), "Rebalancing," *Journal of Portfolio Management* 29(3), 52-57 |
