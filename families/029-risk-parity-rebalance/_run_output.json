@@ -1,0 +1,79 @@
+{
+  "impl_checks": {
+    "degenerate_enabled_false_equals_fixed_weight_dca": true,
+    "equal_vol_override_equals_family013_equal_weight_reference": true,
+    "equal_vol_override_differs_from_plain_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true,
+    "capital_neutrality": true
+  },
+  "non_degeneracy": {
+    "avg_weight_btc": 0.06990767046489527,
+    "avg_weight_gold": 0.3104625774642751,
+    "btc_below_gold": true,
+    "btc_below_equal_weight": true,
+    "all_avg_weights": {
+      "SP500": 0.3183631346540425,
+      "GOLD": 0.3104625774642751,
+      "SILVER": 0.18335661870568495,
+      "BTC": 0.06990767046489527,
+      "OIL": 0.11790999871110217
+    }
+  },
+  "n_seed": 196,
+  "n_new": 12,
+  "n_total_raw": 869,
+  "n_eff": 72,
+  "dsr_neff": {
+    "dsr": 1.291515344203543e-05,
+    "sr": -0.09565509036564906,
+    "sr_annualized": -0.6897786661449783,
+    "sr0": 0.14628730192820769,
+    "n": 276,
+    "n_eff": 72,
+    "skew": -1.227727047532419,
+    "kurtosis": 12.705279593133156
+  },
+  "dsr_rawn": {
+    "dsr": 8.123075168607699e-06,
+    "sr": -0.09565509036564906,
+    "sr_annualized": -0.6897786661449783,
+    "sr0": 0.15224796641975355,
+    "n": 276,
+    "n_eff": 869,
+    "skew": -1.227727047532419,
+    "kurtosis": 12.705279593133156
+  },
+  "check_4_1": {
+    "beats_dca_fee0.1pct": false,
+    "beats_dca_fee0.25pct": false,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_beat_dca": 0.0,
+    "pass": false
+  },
+  "cscv_pbo": {
+    "pbo": 0.38571428571428573,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg07_vl126_mn0.05_mx0.4_sm10",
+  "primary_trial_id": "new_029_cfg07_vl126_mn0.05_mx0.4_sm10",
+  "shared_calendar_start": "2014-09-17",
+  "shared_calendar_end": "2019-12-31",
+  "n_calendar_days": 1332,
+  "primary_wealth_over_invested_fee0.001": 1.4468460726746752,
+  "primary_sharpe_fee0.001": 0.7889853437727565,
+  "dca_wealth_over_invested_fee0.001": 2.936827935697141,
+  "dca_sharpe_fee0.001": 0.8017476338865982,
+  "primary_wealth_over_invested_fee0.0025": 1.4399418406470461,
+  "primary_sharpe_fee0.0025": 0.7637871338782339,
+  "dca_wealth_over_invested_fee0.0025": 2.932423704725081,
+  "dca_sharpe_fee0.0025": 0.7982484049375094,
+  "check_4_3_rolling": null,
+  "check_4_3_bootstrap": null,
+  "check_4_3_placebo": null
+}

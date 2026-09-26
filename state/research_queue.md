@@ -363,9 +363,53 @@ idea is added now to restore the threshold before the next iteration
 takes #25, following family 023's precedent (adding exactly 1 replacement
 idea).
 
+Idea #29 (threshold/band-triggered rebalancing) was taken from the queue
+and, per this iteration's explicit task guidance, **refined** before
+pre-registration into a **risk-parity/inverse-volatility** target-weight
+mechanism instead of the literal drift-band-trigger framing above: on
+inspection, a pure drift-band trigger (rebalance only when a position
+wanders beyond a fixed +/-N percentage-point band from a FIXED target)
+looked too close in spirit to v2's closed C1-C3 sweep (which already
+varies the rebalancing SCHEDULE against fixed targets; a band trigger is
+just another way of choosing WHEN to rebalance toward the same kind of
+fixed target, not a different kind of target), whereas risk-parity
+weighting changes WHAT the target itself is (volatility-based, not fixed)
+-- a more clearly distinct mechanism, and the one explicitly endorsed by
+the task's default guidance. See `families/029-risk-parity-rebalance/`
+(**REJECTED**). Assessed as a 5-asset portfolio family, category
+**Rebalancing / allocation**: each week, target weights are set inversely
+proportional to each asset's own trailing realized volatility (bounded,
+renormalized, optionally EMA-smoothed), rebalanced weekly. Rigorously
+distinguished in prereg.md from sec 7.2's closed C1-C3 (fixed target
+weights vs. this family's volatility-dependent, time-varying targets) and
+from family 013 (momentum-tilted rebalancing, this loop, REJECTED: family
+013's target is driven by trailing RETURN, this family's by trailing
+VOLATILITY -- the two mechanisms make opposite allocation calls for BTC,
+this universe's asset with both the highest trailing return and the
+highest volatility over the dev window). Pre-grid non-degeneracy check
+confirmed BTC's average risk-parity weight (0.070) is materially below
+both gold's (0.310) and the 0.20 equal-weight baseline. Sec 4.1: primary
+config (`vol_lookback_days=126, min_weight=0.05, max_weight=0.40,
+smoothing_halflife_days=10`) loses to fixed-weight 5-asset DCA on BOTH
+wealth and Sharpe at both fees (0.1%: 1.447x/0.789 vs DCA's 2.937x/0.802)
+-- FAIL, decisively, and uniformly across the whole 12-config grid (0/12
+pass the combined bar, need >=8/12). DSR effectively zero (raw pooled
+excess Sharpe strongly negative, -69.0%/yr annualized). CSCV PBO=0.386.
+Interpretation: BTC dominates this dev window's total 5-asset compounding
+so heavily that any mechanism structurally underweighting it -- whether
+family 013's momentum-driven or this family's volatility-driven
+rebalancing -- gives up more wealth than it recovers in risk-adjusted
+terms; a second instance of this same BTC-dominance failure mode in the
+"Rebalancing / allocation" category. Holdout not opened (not a finalist).
+
+4 ideas remain (#30-33), below the sec 8 step-2 threshold of 5 -- one more
+idea is added now to restore the threshold before the next iteration
+takes #30, following families 023/024/025/026/027/028's precedent (adding
+exactly 1 replacement idea).
+
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 29 | Threshold/band-triggered rebalancing for the 5-asset portfolio: rebalance a position back toward its 20% target weight only when it drifts beyond a fixed band (e.g. +/-5 or +/-10 percentage points) from target, rather than on a fixed calendar interval. A **Rebalancing / allocation** family -- the category was previously only tested via v2's closed C1-C3 sweep (sec 7.2), which varied the fixed CALENDAR interval (weekly/monthly/quarterly/annual) a portfolio rebalances on; this family instead varies a drift-BAND trigger, never rebalancing on a schedule at all -- must state this distinction explicitly in prereg.md, same discipline family 020 used for its own distinction from 001/005/014. Portfolio family (uses `src/backtest/v3/portfolio_engine.py`/`portfolio_robustness.py`), assessed vs. fixed-weight 5-asset DCA per sec 4.1's Portfolio line, not the single-asset >=3/5 rule. | Rebalancing / allocation | Donohue, C. and Yip, K. (2003), "Optimal Portfolio Rebalancing with Transaction Costs," *Journal of Portfolio Management* 29(4), 49-63; Masters, S.J. (2003), "Rebalancing," *Journal of Portfolio Management* |
+| 34 | Cross-asset tail-risk/drawdown-correlation rotation: each week, rank the 5 core assets by their trailing correlation to a rolling "risk-off" composite (e.g. the equal-weight average trailing return of the other 4 assets during that composite's worst trailing-decile days), and tilt allocation toward assets that have historically shown the LOWEST co-drawdown behavior with the rest of the universe (a diversification-quality signal), rather than toward assets with the lowest standalone volatility (this loop's own family 029, risk parity) or the strongest trailing momentum (family 013). A **Cross-asset rotation / relative strength** family (allocation driven by CROSS-asset co-movement structure during stress, not any one asset's own price level, return, or volatility in isolation) -- genuinely distinct from family 002 (binary absolute+relative momentum admission gate, no correlation/co-movement measure at all), family 010 (gold/silver ratio, a two-asset relative-value spread, not a 5-asset correlation structure), and family 013/029 (both single-asset trailing statistics -- return or volatility -- with no cross-asset dependence structure at all). Price-only signal (daily Close of all 5 core assets), no external data dependency. | Cross-asset rotation / relative strength | Longin, F. and Solnik, B. (2001), "Extreme Correlation of International Equity Markets," *Journal of Finance* 56(2), 649-676 (correlations rise in market downturns -- the "correlation breakdown" / tail-dependence literature); Ang, A. and Chen, J. (2002), "Asymmetric Correlations of Equity Portfolios," *Journal of Financial Economics* 63(3), 443-494 |
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
