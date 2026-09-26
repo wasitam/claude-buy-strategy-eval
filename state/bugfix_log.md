@@ -3,6 +3,38 @@
 Reruns of an identical configuration after a bug fix are logged here rather
 than counted as new trials (research-loop-plan-v3.md sec 6.1).
 
+## 2026-09-26 -- family 043, block bootstrap crashed on Volume-dependent signal
+
+`scripts/v3/robustness_043_liquidity_rotation.py` (sec 4.3, run only
+because sec 4.1 passed on this family's primary config -- the first
+portfolio family in this loop to clear sec 4.1) crashed in
+`block_bootstrap_portfolio` with `KeyError: 'Volume'`: this family's
+signal needs each asset's Volume column (reused from family 021's
+`compute_illiq`), but `robustness._synthetic_daily_from_returns` -- the
+shared helper that builds a synthetic OHLC path from a bootstrapped
+log-return sequence -- never produced one, since no prior family that
+reached the bootstrap stage needed Volume (family 021 itself, the first
+and only other Volume-dependent family, was REJECTED at sec 4.1 and never
+reached sec 4.3). Caught by the robustness script itself failing outright
+(not a silent wrong-result bug) before any bootstrap result was trusted
+-- no trial was miscounted, since block-bootstrap runs are not counted as
+trials at all (sec 4.3 diagnostics, not grid configurations).
+
+Fixed with a small, contained, backward-compatible extension (same spirit
+as family 021's own `data.py` Volume extension): `_synthetic_daily_from_returns`
+now accepts an optional `volume` array and adds it as a `Volume` column
+only when supplied (every existing caller that never passes it is
+unaffected -- verified no other family's bootstrap output changed).
+`portfolio_robustness.py` gained `_synthetic_volume_from_blocks`, which
+block-bootstraps the REAL Volume series using the exact same block start
+indices already drawn for that asset's return series, so a bootstrapped
+return block stays paired with that same historical window's volume
+level (keeping the return/volume relationship within each block
+realistic rather than reshuffling them independently). Wired into
+`block_bootstrap_portfolio` only; the single-asset `block_bootstrap` in
+`robustness.py` was left unmodified since no single-asset family
+currently needs Volume during bootstrap (family 021 is closed).
+
 ## 2026-09-25 — family 001, N_eff clustering crash
 
 `scripts_v3_run_001.py`'s first run completed implementation checks and the

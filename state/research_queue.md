@@ -969,4 +969,39 @@ iteration takes #44.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
+Idea #44 (Amihud-illiquidity cross-asset rotation) was taken from the queue
+and used for family `043-liquidity-rotation`; see
+`families/043-liquidity-rotation/` (**NEAR-MISS**). Assessed as a
+5-asset portfolio family (sec 4.1 Portfolio line) vs. fixed-weight
+5-asset DCA, category **Cross-asset rotation / relative strength**.
+Reused family 021's exact per-asset Amihud-ratio/causal-percentile
+computation unmodified, then ranked the 5 assets' own-history percentiles
+AGAINST EACH OTHER each week-end (cross-sectional, not within-asset) and
+rebalanced the pooled $2,500/week deposit toward the `top_n`
+currently-most-liquid assets at equal weight. Rigorous distinction from
+family 021 verified concretely (max pairwise cross-asset percentile
+correlation only 0.241, per-asset selection frequency 7.6%-57.8% with
+none frozen at 0%/100%, turnover 36.2%, and `top_n=5` collapses to an
+always-invested equal-weight portfolio with no parameter setting
+recovering 021's within-asset rule -- the two are not nested). Primary
+config (`illiq_lookback=252, top_n=1, signal_smooth_days=10`) beats
+fixed-weight DCA on wealth AND Sharpe at both fee levels -- **sec 4.1
+PASS**, the second family in this loop (after 002) to clear it -- but
+DSR=0.423 (sec 4.2 FAIL), block bootstrap and placebo both fail
+decisively while rolling windows pass (sec 4.3 FAIL overall), and only
+1/12 (8.3%) of the grid clears the bar (sec 4.4 FAIL, decisively). BTC's
+57.8% selection frequency during its 2014-2019 bull run is flagged as the
+likely dominant driver, the same BTC-concentration pattern family 002
+showed. Holdout not opened (near-miss, not a finalist). This iteration
+also extended `robustness.py`/`portfolio_robustness.py` with an optional
+synthetic-Volume path for block bootstrap (the first Volume-dependent
+signal to reach sec 4.3; logged in `state/bugfix_log.md`).
+
+4 ideas remain (#45-48), below the sec 8 step-2 threshold of 5 -- 1
+replacement idea is added now to restore the threshold before the next
+iteration takes #45.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 49 | Tolerance-band ("drift-triggered") rebalancing of the 5-asset portfolio: rebalance back to FIXED equal target weights (the v2 Strategy-C1-equivalent baseline, no momentum/risk-parity tilt) only when any asset's current weight drifts outside a symmetric band around its target (e.g. target 20% +/- `band_pct`), checked at each week-end decision day, rather than on family 013's/029's/002's fixed WEEKLY calendar cadence regardless of drift. Genuinely different mechanism axis from every prior rebalancing/rotation family in this loop: families 002 (dual momentum) and 043 (liquidity rotation) both ask "which asset(s) should the marginal deposit favor"; families 013 (momentum-tilted) and 029 (risk-parity) both ask "what should each asset's TARGET weight be"; this family asks neither -- targets are FIXED equal weights, exactly like v2's already-closed Strategy C1/C2/C3 rebalance-frequency sweep, but this family's trigger is drift-based (a function of realized price divergence since the last rebalance) rather than any of C1/C2/C3's pre-declared FIXED calendar frequencies (weekly/monthly/quarterly) -- must state and verify this distinction (a genuinely path-dependent, non-calendar trigger) concretely in prereg.md, e.g. by confirming rebalance events cluster during high-dispersion periods rather than falling on a fixed schedule. The economic rationale (avoiding unnecessary turnover/fees between rebalances while still controlling drift risk) is a transaction-cost-minimization argument, not a return-forecasting one -- expected sign is on FEES/turnover and Sharpe (lower whipsaw-driven turnover), not necessarily on raw wealth. | Rebalancing / allocation | Donohue, C. and Yip, K. (2003), "Optimal Portfolio Rebalancing with Transaction Costs," *Journal of Portfolio Management* 29(4), 49-63; Masters, S.J. (2003), "Rebalancing," *Journal of Portfolio Management* 29(3), 52-57 |
 | 48 | CBOE SKEW Index (tail-risk pricing) regime sizing: scale buy size using the CBOE SKEW Index (`^SKEW`, a standardized measure of the market-implied probability of a large negative S&P 500 tail move, derived from the slope of the S&P 500 options volatility skew/risk-reversal -- distinct from `^VIX`'s at-the-money implied volatility LEVEL, `^VIX3M/^VIX`'s term-structure SLOPE across tenors already tested in family 041, and `^VVIX`'s vol-of-vol). SKEW measures the shape/asymmetry of the volatility SMILE at a single tenor (how much more expensive out-of-the-money puts are than calls, i.e. how much crash-tail-risk the options market is pricing), which can move independently of the VIX level itself (e.g. SKEW can spike while VIX stays low -- a "complacent VIX, but the tails are getting pricier" regime -- or vice versa during a broad-based vol spike where the smile flattens even as the level rises). Elevated SKEW in its own trailing percentile -> bank a reserve (the options market is pricing an unusually fat left tail); depressed SKEW -> deploy normally/with a capped catch-up lump. Applied as a shared cross-market signal identically across all 5 core assets, same convention as 006/007/011/015/016/019/025/027/032/038/041/047. Must state and verify the distinction from families 016 (VIX level)/025 (VIX-minus-realized spread)/041 (VIX3M/VIX term-structure slope)/047 (VVIX vol-of-vol) concretely (e.g. a real-data episode where SKEW and VIX/VIX3M/VVIX move in different directions) in prereg.md, and confirm `^SKEW`'s reachability and history length via yfinance before any design work (per family 041's data-feasibility-check-first precedent). | Volatility targeting | Bondarenko, O. (2003), "Why Are Put Options So Expensive?" *Quarterly Journal of Finance*; CBOE (2010), "The CBOE Skew Index -- SKEW," CBOE White Paper (SKEW methodology and its use as a tail-risk-pricing indicator distinct from VIX) |

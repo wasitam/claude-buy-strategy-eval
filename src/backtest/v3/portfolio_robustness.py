@@ -14,6 +14,23 @@ from . import metrics as met
 from .robustness import _synthetic_daily_from_returns
 
 
+def _synthetic_volume_from_blocks(daily: pd.DataFrame, starts: np.ndarray, block_days: int, target_len: int):
+    """Block-bootstraps the real Volume series using the SAME block start
+    indices as the paired return series (families 021/043's Amihud-ratio
+    signal needs a Volume column; see robustness._synthetic_daily_from_returns).
+    Returns None if `daily` has no Volume column (backward compatible for
+    every Volume-free family)."""
+    if "Volume" not in daily.columns:
+        return None
+    vol = daily["Volume"].to_numpy()
+    blocks = [vol[s: s + block_days] for s in starts]
+    path = np.concatenate(blocks) if blocks else np.array([])
+    if len(path) < target_len:
+        pad_val = path[-1] if len(path) else (vol[-1] if len(vol) else np.nan)
+        path = np.concatenate([path, np.full(target_len - len(path), pad_val)])
+    return path[:target_len]
+
+
 def rolling_windows_portfolio(
     aligned: dict, daily_rf: pd.Series, weekly_deposit_per_asset: float,
     strategy_decide_builder, benchmark_decide_builder,
@@ -77,7 +94,8 @@ def block_bootstrap_portfolio(
             path = np.concatenate(blocks)[:n]
             if detrend:
                 path = path - mean_rets[a]
-            synth[a] = _synthetic_daily_from_returns(aligned[a], path)
+            vol_synth = _synthetic_volume_from_blocks(aligned[a], starts, block_days, target_len=len(path) + 1)
+            synth[a] = _synthetic_daily_from_returns(aligned[a], path, volume=vol_synth)
         # align all assets to the shortest synthetic index (same length by construction)
         common_idx = synth[names[0]].index
         synth = {a: df.reindex(common_idx) for a, df in synth.items()}

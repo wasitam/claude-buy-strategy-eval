@@ -42,7 +42,7 @@ def rolling_windows(
     return pd.DataFrame(rows)
 
 
-def _synthetic_daily_from_returns(daily: pd.DataFrame, log_returns: np.ndarray) -> pd.DataFrame:
+def _synthetic_daily_from_returns(daily: pd.DataFrame, log_returns: np.ndarray, volume: np.ndarray | None = None) -> pd.DataFrame:
     start_price = float(daily["Close"].iloc[0])
     closes = start_price * np.exp(np.cumsum(log_returns))
     closes = np.concatenate([[start_price], closes])
@@ -55,7 +55,23 @@ def _synthetic_daily_from_returns(daily: pd.DataFrame, log_returns: np.ndarray) 
     highs = np.maximum(opens, closes) + pad
     lows = np.maximum(np.minimum(opens, closes) - pad, 1e-6)
     idx = daily.index[: len(closes)]
-    return pd.DataFrame({"Open": opens, "High": highs, "Low": lows, "Close": closes}, index=idx)
+    out = {"Open": opens, "High": highs, "Low": lows, "Close": closes}
+    if volume is not None:
+        # Volume-dependent signals (e.g. families 021/043's Amihud ratio)
+        # need a synthetic Volume column too, or their signal computation
+        # crashes on synthetic bootstrap data (KeyError: 'Volume'). Only
+        # added when the caller supplies one (block-bootstrapped from the
+        # real series using the SAME block starts as the returns, so a
+        # bootstrapped block's volume level stays paired with that same
+        # historical window's return block) -- see
+        # portfolio_robustness._synthetic_volume_from_blocks. Backward
+        # compatible: existing callers that never pass `volume` are
+        # unaffected (no Volume column added, same as before).
+        v = np.asarray(volume, dtype=float)
+        if len(v) < len(closes):
+            v = np.concatenate([v, np.full(len(closes) - len(v), v[-1] if len(v) else np.nan)])
+        out["Volume"] = v[: len(closes)]
+    return pd.DataFrame(out, index=idx)
 
 
 def block_bootstrap(

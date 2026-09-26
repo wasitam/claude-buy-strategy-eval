@@ -1,0 +1,68 @@
+{
+  "impl_checks": {
+    "degenerate_enabled_false_equals_fixed_weight_dca": true,
+    "top_n_5_equals_equal_weight_rebalance_reference": true,
+    "top_n_5_differs_from_plain_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "no_lookahead": true,
+    "point_in_time_macro": true
+  },
+  "pre_grid_checks": {
+    "selection_freq": {
+      "SP500": 0.09025270758122744,
+      "GOLD": 0.16606498194945848,
+      "SILVER": 0.148014440433213,
+      "BTC": 0.5776173285198556,
+      "OIL": 0.07581227436823104
+    },
+    "turnover": 0.36231884057971014,
+    "max_offdiag_pctile_corr": 0.24054187581041608,
+    "non_degenerate": true,
+    "primary_config_in_grid": true,
+    "dev_calendar_end": "2019-12-31"
+  },
+  "n_seed": 196,
+  "n_new": 12,
+  "n_total_raw": 1305,
+  "n_eff": 130,
+  "dsr_neff": {
+    "dsr": 0.42282882038822317,
+    "sr": 0.12143326012323004,
+    "sr_annualized": 0.8756676918421249,
+    "sr0": 0.1331946680562468,
+    "n": 276,
+    "n_eff": 130,
+    "skew": 0.13424607609500444,
+    "kurtosis": 6.479306502862152
+  },
+  "dsr_rawn": {
+    "dsr": 0.41134051295032525,
+    "sr": 0.12143326012323004,
+    "sr_annualized": 0.8756676918421249,
+    "sr0": 0.13497318930983182,
+    "n": 276,
+    "n_eff": 1305,
+    "skew": 0.13424607609500444,
+    "kurtosis": 6.479306502862152
+  },
+  "check_4_1": {
+    "beats_dca_fee0.1pct": true,
+    "beats_dca_fee0.25pct": true,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_beat_dca": 0.08333333333333333,
+    "pass": false
+  },
+  "cscv_pbo": {
+    "pbo": 0.17142857142857143,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg07_lb252_n1_sm10",
+  "primary_trial_id": "new_043_cfg07_lb252_n1_sm10",
+  "shared_calendar_start": "2014-09-17",
+  "shared_calendar_end": "2019-12-31",
+  "n_calendar_days": 1332
+}
