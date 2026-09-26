@@ -1,0 +1,130 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.026310095633735774,
+      "std_multiplier": 0.509044983491553,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.11798679867986799,
+      "std_multiplier": 0.48096762036431684,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.1177319587628866,
+      "std_multiplier": 0.484437892599816,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.2924430641821946,
+      "std_multiplier": 0.44905243440248427,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.11756228124356599,
+      "std_multiplier": 0.4699837051835825,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "downside_deviation_check": {
+      "toy_window": [
+        0.02,
+        0.05,
+        0.1,
+        -0.03,
+        -0.01
+      ],
+      "downside_deviation": 0.01414213562373095,
+      "expected": 0.01414213562373095,
+      "matches_expected": true,
+      "invariant_to_positive_day_magnitude": true
+    },
+    "downside_deviation_correct": true,
+    "sortino_sharpe_divergence": {
+      "window": "1963-11-26..1964-02-20",
+      "mean_return": 0.0018152819562834055,
+      "std_symmetric": 0.005843779886612678,
+      "downside_deviation": 0.0014486597412131997,
+      "n_positive_days": 38,
+      "n_negative_days": 22,
+      "max_up_day": 0.039021736240163044,
+      "max_down_day": -0.006347529345641782,
+      "sharpe_ratio": 0.31063489582179077,
+      "sortino_ratio": 1.2530768300105952,
+      "ratio_sortino_over_sharpe": 4.033921645202017,
+      "divergence_confirmed": true
+    },
+    "divergence_confirmed": true,
+    "cash_reserve_check": {
+      "avg_cash_strategy": 123.82594616527724,
+      "avg_cash_dca_baseline": 103.87727725128738,
+      "reserve_builds_up_vs_dca": true,
+      "avg_cash_low_multiplier_weeks": 140.8705644877109,
+      "avg_cash_high_multiplier_weeks": 105.92889358841069,
+      "reserve_drawn_down_on_high_mult_weeks": true
+    },
+    "reserve_builds_up_vs_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_k_zero_grid_arm_equals_dca": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 1221,
+  "n_eff": 126,
+  "dsr_neff": {
+    "dsr": 4.335461369305768e-18,
+    "sr": 0.003693026632140613,
+    "sr_annualized": 0.026630793767674136,
+    "sr0": 0.12916173320953062,
+    "n": 4800,
+    "n_eff": 126,
+    "skew": -6.159583614038787,
+    "kurtosis": 299.55054736481924
+  },
+  "dsr_rawn": {
+    "dsr": 9.917856194793158e-20,
+    "sr": 0.003693026632140613,
+    "sr_annualized": 0.026630793767674136,
+    "sr0": 0.13535212049421508,
+    "n": 4800,
+    "n_eff": 1221,
+    "skew": -6.159583614038787,
+    "kurtosis": 299.55054736481924
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 4,
+    "beats_dca_count_fee0.25pct": 4,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.8333333333333334,
+    "pass": 1.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.35714285714285715,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg15_sw60_pl504_k1.0_mn0.5",
+  "primary_trial_id": "new_040_cfg15_sw60_pl504_k1.0_mn0.5"
+}
