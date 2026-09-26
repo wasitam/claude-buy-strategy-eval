@@ -1,0 +1,141 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.32541434073304776,
+      "std_multiplier": 0.45006547603608993,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.34467821782178215,
+      "std_multiplier": 0.4368439351070806,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.18639175257731957,
+      "std_multiplier": 0.39096687351296683,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.3530020703933747,
+      "std_multiplier": 0.42225525681199283,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.20012353304508956,
+      "std_multiplier": 0.40111807271535466,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "real_divergence_example": {
+      "episode_deep_but_brief_2018_2019": {
+        "peak_date": "2018-09-20",
+        "peak_close": 2930.75,
+        "trough_date": "2018-12-24",
+        "trough_close": 2351.10009765625,
+        "new_high_date": "2019-04-23",
+        "max_dd_magnitude": 0.19778210435681998,
+        "duration_to_new_high_trading_days": 146.0
+      },
+      "episode_shallow_but_long_2015_2016": {
+        "peak_date": "2015-05-21",
+        "peak_close": 2130.820068359375,
+        "trough_date": "2016-02-11",
+        "trough_close": 1829.0799560546875,
+        "new_high_date": "2016-07-11",
+        "max_dd_magnitude": 0.14160750444640424,
+        "duration_to_new_high_trading_days": 286.0
+      },
+      "magnitude_ranking_deep_brief_is_deeper": true,
+      "duration_ranking_deep_brief_is_shorter": true,
+      "rankings_disagree_as_predicted": true,
+      "dates_checked": [
+        "2018-09-20",
+        "2018-12-24",
+        "2019-04-23",
+        "2015-05-21",
+        "2016-02-11",
+        "2016-07-11"
+      ],
+      "dates_all_pre_holdout": true
+    },
+    "distinctiveness_from_family_014_proven": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_zero_grid_arm_equals_dca": true,
+    "cash_reserve_check": {
+      "reserve_arm_config": {
+        "ath_lookback_years": null,
+        "ladder": "moderate",
+        "near_high_mult": 0.75,
+        "max_lump_cap": 3.0
+      },
+      "avg_cash_strategy_reserve_arm": 112.30078157186628,
+      "avg_cash_dca_baseline": 103.87727725128738,
+      "reserve_builds_up_vs_dca": true,
+      "avg_cash_low_multiplier_weeks": 129.4093900966482,
+      "avg_cash_high_multiplier_weeks": 104.04773544277784,
+      "reserve_drawn_down_on_high_mult_weeks": true,
+      "avg_cash_primary_config": 103.87727725128738
+    },
+    "reserve_builds_up_vs_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 32,
+  "n_total_raw": 1137,
+  "n_eff": 123,
+  "dsr_neff": {
+    "dsr": 0.0,
+    "sr": 0.0,
+    "sr_annualized": 0.0,
+    "sr0": 0.13024577561017384,
+    "n": 4800,
+    "n_eff": 123,
+    "skew": NaN,
+    "kurtosis": NaN
+  },
+  "dsr_rawn": {
+    "dsr": 0.0,
+    "sr": 0.0,
+    "sr_annualized": 0.0,
+    "sr0": 0.1387390445475743,
+    "n": 4800,
+    "n_eff": 1137,
+    "skew": NaN,
+    "kurtosis": NaN
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 0,
+    "beats_dca_count_fee0.25pct": 0,
+    "pass": false
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.0,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.0,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg07_alnone_ladmoderate_nhm1.0_mlc3.0",
+  "primary_trial_id": "new_037_cfg07_alnone_ladmoderate_nhm1.0_mlc3.0"
+}

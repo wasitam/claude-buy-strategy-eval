@@ -800,5 +800,42 @@ the threshold before the next iteration takes #35.
 |---|---|---|---|
 | 41 | Rolling Sortino-ratio sizing: scale buy size up when an asset's own trailing mean daily log return divided by its trailing DOWNSIDE deviation (the semi-deviation computed only from negative daily returns, zero contribution from positive days) is elevated in its own trailing percentile, scale down when depressed -- an asymmetric risk-adjusted-return signal, mechanistically distinct from family 031 (Kelly-Sharpe sizing, `mean/std` using the FULL, symmetric variance of both up and down days) and family 003 (realized variance alone, also symmetric, no mean/return component): a Sortino-style downside deviation can differ substantially from a Sharpe-style full standard deviation even holding the trailing mean fixed, whenever the trailing window's upside and downside volatility are not equal (e.g. a period with several large up-day outliers but small, consistent down-day moves has high full variance but low downside deviation, giving a much higher Sortino ratio than Sharpe ratio for the identical return series) -- must state and verify this distinction explicitly and concretely in prereg.md, same discipline family 031 used to distinguish itself from families 003/005. Price-only signal (daily Close), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Sortino, F.A. and van der Meer, R. (1991), "Downside Risk," *Journal of Portfolio Management* 17(4), 27-31; Sortino, F.A. and Price, L.N. (1994), "Performance Measurement in a Downside Risk Framework," *Journal of Investing* 3(3), 59-64 |
 
+Idea #35 (drawdown-duration / time-underwater sizing) has been taken from
+the queue and used for family `037-drawdown-duration`; see
+`families/037-drawdown-duration/` (REJECTED -- primary config
+(`ath_lookback_years=None, ladder=moderate, near_high_mult=1.0,
+max_lump_cap=3.0`) is numerically IDENTICAL to plain DCA on all 5 core
+assets at both fee levels, 0/5, the same reserve-nullification mechanism
+family 014 and family 033 already documented: with `near_high_mult=1.0`
+no cash reserve is ever banked while the days-since-peak counter is
+short, so the engine's own no-leverage cash cap clips every
+above-1x-multiplier request straight back down to that week's own $500
+deposit. Sec 4.1 FAIL decisively. Grid: 0/32 (0.0%) configs reach the
+combined majority bar -- splits cleanly by `near_high_mult` alone (all 16
+`near_high_mult=1.0` configs are exactly DCA-equivalent; all 16
+`near_high_mult=0.75` configs, which do fund a real reserve, reach at
+most 2/5 on the combined criterion). CSCV PBO=0.0 (uninformative given
+sec 4.1's outright failure). DSR exactly 0. Sec 4.3 not run (sec 4.1
+already decisive fail). Rigorously distinguished in prereg.md from family
+014 (percentage-magnitude drawdown-from-high, this family's closest
+prior) via a real, programmatically-verified SP500 dev-period divergence
+example: the Sept 2018-Apr 2019 correction (deep, 19.78% max drawdown,
+resolved in 146 trading days) versus the May 2015-Jul 2016 sideways grind
+(shallower, 14.16% max drawdown, took 286 trading days to a new high) --
+the magnitude ranking and the duration ranking of the two real episodes
+disagree, exactly as the general mechanically-independent-statistics
+argument predicts. Design lesson reinforced for the queue (now confirmed
+independently across families 014/033/037): a ladder-based sizing
+family's PRIMARY configuration itself, not only some grid arm, must set
+its "otherwise"/near-high multiplier below 1.0, or the engine's correct
+no-leverage cash cap silently nullifies the entire mechanism. Holdout not
+opened.) 4 ideas (#37, #39, #40, #41) remained after taking #35, below
+the sec 8 step-2 threshold of 5 -- 1 replacement idea is added now to
+restore the threshold before the next iteration takes #37.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 42 | VIX futures term-structure carry (contango/backwardation) regime: bank deposits (or hold normal size) when the VIX term structure is inverted into backwardation (near-term implied vol, `^VIX`, trading ABOVE 3-month implied vol, `^VIX3M` -- a "fear spike" signal historically associated with continued near-term stress), deploy normally or with a capped catch-up lump when the curve is in its normal contango state (`VIX3M/VIX` ratio elevated in its own trailing percentile -- the typical calm-market state in which the volatility risk premium has historically been most reliably harvested by staying invested). A genuinely different signal from every prior VIX-based family in this loop: family 016's `vix_contrarian` uses the LEVEL of spot VIX alone (a single point on the curve, no term-structure/slope component at all), while this family uses the SLOPE/ratio between two points on the VIX futures-implied curve (a term-structure carry signal, the same economic object as bond-market term-structure carry, applied to the volatility market) -- an asset can have an elevated spot VIX level yet still sit in mild contango, or a middling spot VIX level yet sit in outright backwardation, so the two statistics are not interchangeable. Also distinct from family 025's `vrp_sizing` (realized-vs-implied volatility SPREAD at a single tenor, a cross-measure gap, not a curve-slope-between-two-implied-tenors signal at all). Applied as a shared macro/regime signal identically across all 5 core assets' own per-asset decisions, the same convention families 006/007/011/019/027/032 already use for a single shared external signal. Data: `^VIX` and `^VIX3M` daily closes, both free and already reachable via the same data path family 016/025 use (CBOE-sourced, no publication lag since both are same-day closing index levels, not survey/reported economic data). | Carry / term structure | Simon, D.P. and Campasano, J. (2014), "The VIX Futures Basis: Evidence and Trading Strategies," *Journal of Derivatives* 21(3); Cheng, I.-H. (2019), "The VIX Premium," *Review of Financial Studies* 32(1), 180-227 (documents the VIX futures term-structure's historical tendency toward contango and the return premium associated with it, and its inversion into backwardation during market stress) |
+
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
