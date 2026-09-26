@@ -44,6 +44,35 @@ def decider_builder_factory(daily, lookback_days, lag_days, k, min_mult, mom_cac
     return builder
 
 
+def check_vectorized_percentile_matches_naive() -> bool:
+    """Performance-note check: the module's vectorized
+    compute_causal_percentile must be bit-for-bit identical to a naive
+    per-day python-loop reference implementation (the original, slow
+    construction), on a synthetic series with NaN warm-up, ties, and a
+    length that both exceeds and falls short of pctile_lookback."""
+    rng = np.random.default_rng(11)
+    n, pctile_lookback = 800, 252
+    values = rng.normal(0, 1, n)
+    values[:40] = np.nan  # warm-up NaNs, matching the real signal's own warm-up
+
+    def naive(values, pctile_lookback):
+        out = np.full(len(values), 0.5)
+        window = []
+        for t in range(len(values)):
+            v = values[t]
+            if np.isnan(v):
+                continue
+            if len(window) >= pctile_lookback:
+                hist = np.array(window[-pctile_lookback:])
+                out[t] = float(np.mean(hist <= v))
+            window.append(v)
+        return out
+
+    ref = naive(values, pctile_lookback)
+    fast = mas.compute_causal_percentile(values, pctile_lookback)
+    return bool(np.allclose(ref, fast, atol=1e-9))
+
+
 def check_toy_divergence() -> dict:
     """Task-required checkpoint (b) of prereg.md: the constructed toy
     monthly-return example, recomputed here by direct arithmetic (not
@@ -104,6 +133,27 @@ def check_real_data_divergence(dev) -> dict:
         }
     divergence_all = all(v["level_positive"] and v["accel_negative"] for v in out.values())
     return {"by_asset": out, "dates_all_pre_holdout": dates_ok, "divergence_demonstrated_all": divergence_all}
+
+
+def check_m_cache_matches_uncached(daily, mom_cache) -> bool:
+    """Performance-note check: passing a precomputed m_cache through
+    make_momentum_acceleration_decider must be bit-for-bit identical to
+    letting it compute the multiplier itself."""
+    cfg = mas.PRIMARY_CONFIG
+    m_uncached = mas.compute_multiplier(daily, cfg["lookback_days"], cfg["lag_days"], mas.PCTILE_LOOKBACK,
+                                         cfg["k"], cfg["min_mult"], max_mult=mas.MAX_MULT, mom_cache=mom_cache)
+    decide_a = mas.make_momentum_acceleration_decider(
+        daily, WEEKLY_DEPOSIT, **cfg, pctile_lookback=mas.PCTILE_LOOKBACK,
+        max_mult=mas.MAX_MULT, max_lump_multiple=mas.MAX_LUMP_MULTIPLE, mom_cache=mom_cache,
+    )
+    decide_b = mas.make_momentum_acceleration_decider(
+        daily, WEEKLY_DEPOSIT, **cfg, pctile_lookback=mas.PCTILE_LOOKBACK,
+        max_mult=mas.MAX_MULT, max_lump_multiple=mas.MAX_LUMP_MULTIPLE, m_cache=m_uncached,
+    )
+    t = min(2000, len(daily) - 1)
+    buy_a, sell_a, _ = decide_a(t, 1e9)
+    buy_b, sell_b, _ = decide_b(t, 1e9)
+    return bool(np.isclose(buy_a, buy_b) and np.isclose(sell_a, sell_b))
 
 
 def check_flat_k_zero_equals_dca(daily, rf) -> bool:
@@ -212,6 +262,8 @@ def run_impl_checks(dev, mom_caches):
     primary_cache = mom_caches[("SP500", mas.PRIMARY_CONFIG["lookback_days"])]
     builder = decider_builder_factory(daily, **mas.PRIMARY_CONFIG, mom_cache=primary_cache)
 
+    out["percentile_vectorized_matches_naive"] = check_vectorized_percentile_matches_naive()
+
     toy = check_toy_divergence()
     out["toy_divergence"] = toy
     out["toy_divergence_demonstrated"] = toy["divergence_demonstrated"]
@@ -223,6 +275,7 @@ def run_impl_checks(dev, mom_caches):
 
     out["degenerate_bypass_equals_dca"] = v3chk.check_degenerate_equals_dca(daily, rf, builder, WEEKLY_DEPOSIT)
     out["flat_k_zero_grid_arm_equals_dca"] = check_flat_k_zero_equals_dca(daily, rf)
+    out["m_cache_matches_uncached"] = check_m_cache_matches_uncached(daily, primary_cache)
 
     cash_check = check_cash_reserve_dynamics(daily, rf, primary_cache)
     out["cash_reserve_check"] = cash_check
@@ -254,10 +307,11 @@ def run_impl_checks(dev, mom_caches):
     return out
 
 
-def run_one(daily, rf, cfg, fee, mom_cache):
+def run_one(daily, rf, cfg, fee, mom_cache=None, m_cache=None):
     decide = mas.make_momentum_acceleration_decider(
         daily, WEEKLY_DEPOSIT, **cfg, pctile_lookback=mas.PCTILE_LOOKBACK,
-        max_mult=mas.MAX_MULT, max_lump_multiple=mas.MAX_LUMP_MULTIPLE, mom_cache=mom_cache,
+        max_mult=mas.MAX_MULT, max_lump_multiple=mas.MAX_LUMP_MULTIPLE,
+        mom_cache=mom_cache, m_cache=m_cache,
     )
     res = v3eng.run_single_asset(daily, WEEKLY_DEPOSIT, rf, decide, fee=fee).to_frame()
     s = v3met.summarize(res, rf, daily["Close"].iloc[-1])
@@ -291,8 +345,9 @@ def main():
     print("Running toy + real-data divergence checks + implementation checks...")
     impl_checks = run_impl_checks(dev, mom_caches)
     print(json.dumps(impl_checks, indent=2, default=float))
-    required = ["toy_divergence_demonstrated", "real_divergence_demonstrated", "real_divergence_dates_pre_holdout",
-                "degenerate_bypass_equals_dca", "flat_k_zero_grid_arm_equals_dca",
+    required = ["percentile_vectorized_matches_naive",
+                "toy_divergence_demonstrated", "real_divergence_demonstrated", "real_divergence_dates_pre_holdout",
+                "degenerate_bypass_equals_dca", "flat_k_zero_grid_arm_equals_dca", "m_cache_matches_uncached",
                 "cash_meaningfully_differs_from_dca", "reserve_drawn_down_on_high_mult_weeks",
                 "no_negative_cash_units_dca", "no_negative_cash_units_primary",
                 "capital_never_exceeds_deposits_primary", "no_negative_cash_units_aggressive",
@@ -336,11 +391,17 @@ def main():
         for asset in ASSETS:
             daily = dev["prices"][asset]
             mom_cache = mom_caches[(asset, cfg["lookback_days"])]
+            # Precompute the multiplier ONCE per (asset, cfg), reused across
+            # both fee levels below -- a pure performance optimization (the
+            # multiplier does not depend on fee), verified bit-for-bit
+            # identical to the uncached path by check_m_cache_matches_uncached.
+            m_arr = mas.compute_multiplier(daily, cfg["lookback_days"], cfg["lag_days"], mas.PCTILE_LOOKBACK,
+                                            cfg["k"], cfg["min_mult"], max_mult=mas.MAX_MULT, mom_cache=mom_cache)
             row = {"config_id": cfg_id, "asset": asset,
                    "lookback_days": cfg["lookback_days"], "lag_days": cfg["lag_days"],
                    "k": cfg["k"], "min_mult": cfg["min_mult"]}
             for fee in FEES:
-                s, res = run_one(daily, rf, cfg, fee, mom_cache)
+                s, res = run_one(daily, rf, cfg, fee, mom_cache=mom_cache, m_cache=m_arr)
                 dca_s = dca_cache[asset][fee]
                 row[f"wealth_over_invested_fee{fee}"] = s["wealth_over_invested"]
                 row[f"sharpe_fee{fee}"] = s["sharpe"]

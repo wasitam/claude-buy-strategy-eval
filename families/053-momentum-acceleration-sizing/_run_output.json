@@ -1,0 +1,144 @@
+{
+  "sanity_check": [
+    {
+      "asset": "SP500",
+      "dev_days": 23109,
+      "frac_multiplier_exactly_1.0": 0.030940326279804406,
+      "std_multiplier": 0.5529925524488084,
+      "non_degenerate": true
+    },
+    {
+      "asset": "GOLD",
+      "dev_days": 4848,
+      "frac_multiplier_exactly_1.0": 0.13386963696369636,
+      "std_multiplier": 0.5295236165165774,
+      "non_degenerate": true
+    },
+    {
+      "asset": "SILVER",
+      "dev_days": 4850,
+      "frac_multiplier_exactly_1.0": 0.13257731958762886,
+      "std_multiplier": 0.535360252032536,
+      "non_degenerate": true
+    },
+    {
+      "asset": "BTC",
+      "dev_days": 1932,
+      "frac_multiplier_exactly_1.0": 0.32919254658385094,
+      "std_multiplier": 0.5011627503863256,
+      "non_degenerate": true
+    },
+    {
+      "asset": "OIL",
+      "dev_days": 4857,
+      "frac_multiplier_exactly_1.0": 0.13259213506279596,
+      "std_multiplier": 0.5281669846103971,
+      "non_degenerate": true
+    }
+  ],
+  "impl_checks": {
+    "percentile_vectorized_matches_naive": true,
+    "toy_divergence": {
+      "mom_now": 0.31422901631840006,
+      "mom_past": 1.3670752326533968,
+      "accel": -1.0528462163349968,
+      "level_positive": true,
+      "accel_negative": true,
+      "divergence_demonstrated": true
+    },
+    "toy_divergence_demonstrated": true,
+    "real_data_divergence": {
+      "by_asset": {
+        "SP500": {
+          "date": "2004-07-06",
+          "mom_now": 0.13240331451173515,
+          "mom_past": 0.21940963966410143,
+          "accel": -0.08700632515236628,
+          "level_positive": true,
+          "accel_negative": true
+        },
+        "GOLD": {
+          "date": "2007-02-09",
+          "mom_now": 0.2134157964450265,
+          "mom_past": 0.4605475191744035,
+          "accel": -0.247131722729377,
+          "level_positive": true,
+          "accel_negative": true
+        },
+        "BTC": {
+          "date": "2018-03-26",
+          "mom_now": 2.6839723006141725,
+          "mom_past": 5.656795372997067,
+          "accel": -2.9728230723828943,
+          "level_positive": true,
+          "accel_negative": true
+        }
+      },
+      "dates_all_pre_holdout": true,
+      "divergence_demonstrated_all": true
+    },
+    "real_divergence_demonstrated": true,
+    "real_divergence_dates_pre_holdout": true,
+    "degenerate_bypass_equals_dca": true,
+    "flat_k_zero_grid_arm_equals_dca": true,
+    "m_cache_matches_uncached": true,
+    "cash_reserve_check": {
+      "avg_cash_strategy": 123.74722056966941,
+      "avg_cash_dca_baseline": 103.87727725128738,
+      "cash_meaningfully_differs_from_dca": true,
+      "avg_cash_low_multiplier_weeks": 144.45339304278428,
+      "avg_cash_high_multiplier_weeks": 104.76559536503271,
+      "reserve_drawn_down_on_high_mult_weeks": true
+    },
+    "cash_meaningfully_differs_from_dca": true,
+    "reserve_drawn_down_on_high_mult_weeks": true,
+    "no_negative_cash_units_dca": true,
+    "no_negative_cash_units_primary": true,
+    "capital_never_exceeds_deposits_primary": true,
+    "no_negative_cash_units_aggressive": true,
+    "capital_never_exceeds_deposits_aggressive": true,
+    "no_lookahead": true,
+    "no_lookahead_late": true,
+    "point_in_time_macro": true
+  },
+  "n_seed": 196,
+  "n_new": 36,
+  "n_total_raw": 1591,
+  "n_eff": 135,
+  "dsr_neff": {
+    "dsr": 1.0963187632411423e-22,
+    "sr": -0.006013090357332876,
+    "sr_annualized": -0.043361011214723535,
+    "sr0": 0.13194248495475006,
+    "n": 4800,
+    "n_eff": 135,
+    "skew": -6.396219359062562,
+    "kurtosis": 299.91590317404507
+  },
+  "dsr_rawn": {
+    "dsr": 1.1361775898098958e-21,
+    "sr": -0.006013090357332876,
+    "sr_annualized": -0.043361011214723535,
+    "sr0": 0.12853040241570132,
+    "n": 4800,
+    "n_eff": 1591,
+    "skew": -6.396219359062562,
+    "kurtosis": 299.91590317404507
+  },
+  "check_4_1": {
+    "beats_dca_count_fee0.1pct": 3,
+    "beats_dca_count_fee0.25pct": 3,
+    "pass": true
+  },
+  "check_4_4_grid": {
+    "frac_grid_configs_majority_beat_dca": 0.3888888888888889,
+    "pass": 0.0
+  },
+  "cscv_pbo": {
+    "pbo": 0.5571428571428572,
+    "n_combos": 70,
+    "n_splits": 8
+  },
+  "primary_cfg_id": "cfg21_lb252_lag126_k1.0_mn0.5",
+  "primary_trial_id": "new_053_cfg21_lb252_lag126_k1.0_mn0.5"
+}

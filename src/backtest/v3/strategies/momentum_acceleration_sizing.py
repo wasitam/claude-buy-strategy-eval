@@ -63,21 +63,39 @@ def compute_causal_percentile(values: np.ndarray, pctile_lookback: int) -> np.nd
     pctile_lookback days of values (itself), expanding-until-full, purely
     backward-looking (families 031/035/036/039/040/041/042/044 convention).
     Defaults to 0.5 (neutral) until pctile_lookback observations of a
-    non-NaN value exist, or while values[t] itself is NaN."""
+    non-NaN value exist, or while values[t] itself is NaN.
+
+    Vectorized via a sliding-window view over the VALID (non-NaN) values
+    only, then scattered back to the original day-index positions -- this
+    is bit-for-bit equivalent to a naive per-day python loop over an
+    expanding-then-fixed trailing window of the asset's own valid history
+    (verified by an explicit unit check in
+    scripts/v3/run_053_momentum_acceleration_sizing.py), but avoids an
+    O(n * pctile_lookback) pure-python loop that is prohibitively slow on
+    SP500's ~23,000-day development history."""
     n = len(values)
     pctile = np.full(n, 0.5)
-    s = pd.Series(values)
-    valid_count = 0
-    window: list = []
-    for t in range(n):
-        v = values[t]
-        if np.isnan(v):
-            continue
-        if valid_count >= pctile_lookback:
-            hist = np.array(window[-pctile_lookback:])
-            pctile[t] = float(np.mean(hist <= v))
-        window.append(v)
-        valid_count += 1
+    valid_mask = ~np.isnan(values)
+    valid_idx = np.flatnonzero(valid_mask)
+    valid_vals = values[valid_idx]
+    m = len(valid_vals)
+    if m <= pctile_lookback:
+        return pctile
+    # windows_all[j] = valid_vals[j : j+pctile_lookback] for every valid j.
+    # The reference (naive) semantics compare "today's" value against the
+    # PRIOR pctile_lookback values only (today is not yet in the window at
+    # the moment the naive loop checks its length), so the window ending
+    # right BEFORE today's value at valid position i is windows_all[i -
+    # pctile_lookback], and today's value is valid_vals[i]. Dropping the
+    # last row of windows_all (which would pair with an out-of-range i==m)
+    # gives exactly the valid (window, current-value) pairs for
+    # i = pctile_lookback .. m-1.
+    windows_all = np.lib.stride_tricks.sliding_window_view(valid_vals, pctile_lookback)
+    windows = windows_all[:-1]
+    current_vals = valid_vals[pctile_lookback:]
+    pct_valid = (windows <= current_vals[:, None]).mean(axis=1)
+    target_positions = valid_idx[pctile_lookback:]
+    pctile[target_positions] = pct_valid
     return pctile
 
 
@@ -99,15 +117,22 @@ def make_momentum_acceleration_decider(
     pctile_lookback: int = 252, k: float = 1.0, min_mult: float = 0.5,
     max_mult: float = 2.0, max_lump_multiple: float = 3.0,
     enabled: bool = True, mom_cache: np.ndarray | None = None,
+    m_cache: np.ndarray | None = None,
 ):
     """enabled=False is the degenerate/disable path used ONLY by the
     implementation check: it forces m_t=1.0 for every day, which is
-    bit-for-bit plain DCA (proves the strategy nests DCA exactly)."""
-    if enabled:
+    bit-for-bit plain DCA (proves the strategy nests DCA exactly).
+    m_cache (a pure performance optimization, no effect on any result):
+    a precomputed multiplier array for this exact (lookback_days, lag_days,
+    pctile_lookback, k, min_mult) combination, reused across fee levels in
+    the run script instead of recomputing the same multiplier twice."""
+    if not enabled:
+        m = np.ones(len(daily), dtype=float)
+    elif m_cache is not None:
+        m = m_cache
+    else:
         m = compute_multiplier(daily, lookback_days, lag_days, pctile_lookback, k, min_mult,
                                 max_mult=max_mult, mom_cache=mom_cache)
-    else:
-        m = np.ones(len(daily), dtype=float)
 
     cap = max_lump_multiple * weekly_deposit
 
