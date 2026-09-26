@@ -609,3 +609,26 @@ exactly 1 replacement idea).
 
 When fewer than 5 ideas remain, the next iteration researches more and adds
 them here, each with a source, mechanism and category (plan sec 8 step 2).
+
+Idea #30 (short-term reversal / losing-streak contrarian sizing) has been
+taken from the queue and used for family `030-losing-streak-reversal`; see
+`families/030-losing-streak-reversal/`. Assessed as a single-asset family
+across all 5 core assets, category **Sizing / valuation**. Signal: a
+DISCRETE, magnitude-blind count of consecutive same-direction daily closes
+(a streak LENGTH), not a smoothed gain/loss ratio -- rigorously
+distinguished in prereg.md from family 017 (RSI2's continuous, bounded,
+magnitude-weighted oscillator, plus family 030's added decay/duration
+state-machine element that RSI2 has no analogue for), family 023
+(realized skewness, a magnitude-weighted, order-independent statistical
+moment) and family 003 (realized variance, direction-agnostic dispersion).
+3 ideas (#31-33) remained after taking #30, below the sec 8 step-2
+threshold of 5 -- 2 replacement ideas are added now to restore the
+threshold before the next iteration takes #31.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 34 | 52-week-low contrarian value tilt: increase buy size the closer an asset's current close sits to its own trailing 52-week LOW (a long-horizon value/contrarian anchor), reduce or hold normal size otherwise. The mirror-image reference point of family 020's 52-week-HIGH tilt, but an opposite economic bet: family 020 is trend-following (buy more near a fresh high, betting the trend continues); this family is long-horizon mean-reversion (buy more near a trailing-year low, betting the price has overshot to the downside and will partially recover over a multi-month-to-year horizon, not the few-day horizon family 030's streak signal targets). Must state this distinction explicitly in prereg.md, plus the distinction from family 014 (drawdown-from-ALL-TIME-high reserve deployment, a different and typically much longer reference window than a rolling 52-week low, and family 014's reference point never resets to a new low the way a rolling 52-week low continuously does). Price-only signal (daily Close, trailing rolling minimum), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | De Bondt, W.F.M. and Thaler, R. (1985), "Does the Stock Market Overreact?," *Journal of Finance* 40(3), 793-808 (long-horizon overreaction/reversal); George, T.J. and Hwang, C.-Y. (2004), "The 52-Week High and Momentum Investing," *Journal of Finance* 59(5), 2145-2176 (documents the 52-week-high anchor's role in trend continuation, the reference point this family mirrors from the low side) |
+| 35 | Drawdown-DURATION (time-underwater) sizing: increase buy size the longer an asset has gone, in trading days, since its last all-time (or trailing-N-year) high close -- a signal built on the LENGTH of time spent below a prior peak, not the MAGNITUDE of the shortfall from that peak. Explicitly distinct from family 014 (drawdown-from-high reserve deployment, whose signal is the percentage-magnitude shortfall from the reference high, reacting identically to a deep-but-brief drawdown and a shallow-but-long one) since a duration-only signal and a magnitude-only signal are mechanically independent statistics of the same underlying price path (a V-shaped crash-and-instant-recovery has near-zero duration despite large magnitude; a slow multi-year grind sideways below a peak has large duration despite modest magnitude) -- neither can be recovered from the other. Price-only signal (daily Close, running peak and days-since-peak counter), no external data dependency, testable identically on all 5 core assets. | Sizing / valuation | Practitioner "time-to-recovery" / underwater-duration literature underlying the Calmar and Sterling ratio families (which use max-drawdown MAGNITUDE, not duration); Ibbotson Associates and related work on the psychological and portfolio-rebalancing effects of extended underwater periods distinct from drawdown depth alone |
+
+When fewer than 5 ideas remain, the next iteration researches more and adds
+them here, each with a source, mechanism and category (plan sec 8 step 2).
