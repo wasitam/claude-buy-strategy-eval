@@ -722,7 +722,31 @@ to restore the threshold before the next iteration takes #34.
 
 | # | Idea | Category | Key source |
 |---|---|---|---|
-| 38 | Range-based (Parkinson) realized-volatility sizing: increase buy size when an asset's own trailing Parkinson range-based volatility estimator (built from daily High/Low, `sqrt((1/(4*ln(2))) * mean((ln(High/Low))^2))` over a trailing window) is LOW relative to its own trailing percentile, decrease when elevated -- the same inverse-vol-sizing economic logic as family 003, but built from an entirely different statistic: family 003's realized variance uses only daily CLOSE-to-close returns (a single number per day), while Parkinson's estimator uses each day's intraday High/Low RANGE, a materially more efficient volatility estimator under continuous-price assumptions (Parkinson 1980) and one that can diverge sharply from close-to-close variance on days with large intraday swings that closed flat (a pattern close-to-close variance cannot see at all, and vice versa for a gap-driven day with a narrow intraday range). Price-only signal (daily High/Low/Close, already in the existing cached OHLC data, no Volume dependency), no external data dependency, testable identically on all 5 core assets. | Volatility targeting | Parkinson, M. (1980), "The Extreme Value Method for Estimating the Variance of the Rate of Return," *Journal of Business* 53(1), 61-65; Garman, M.B. and Klass, M.J. (1980), "On the Estimation of Security Price Volatilities from Historical Data," *Journal of Business* 53(1), 67-78 (the broader range-based-volatility-estimator literature Parkinson's estimator belongs to) |
+Idea #38 (range-based Parkinson realized-volatility sizing) has been taken
+from the queue and used for family `035-parkinson-vol-sizing`; see
+`families/035-parkinson-vol-sizing/` (NEAR-MISS -- passes sec 4.1 narrowly
+at exactly 3/5 core assets at both fee levels; fails sec 4.2 decisively
+(DSR effectively zero, `dsr~3.2e-25`, driven by a slightly negative raw
+pooled excess-return Sharpe of -0.0048), and fails sec 4.3's rolling-window
+leg (pooled 51.7%/51.0% wealth/Sharpe, need >60%; SP500's own 3y/5y windows
+and BTC's 2y window are all well under 50%) and its placebo leg (real
+result at the 78th/58th percentile of 60 circular-shifted runs, need
+>=95th) -- only the grid diagnostic (sec 4.4, 100% of the 36-config grid
+clears the majority bar) and the bootstrap's detrended-wealth leg (65%)
+pass. Rigorously distinguished in prereg.md from family 003
+(vol-managed-sizing, also Volatility targeting): family 003's realized-vol
+estimator is close-to-close sample variance (Close-only input); this
+family's is the Parkinson (1980) high-low-range estimator (High/Low-only
+input, Close never used in the vol calculation) -- a different raw input,
+not a re-parameterization, backed by a concrete numeric example (SILVER
+2011-09-26: a 14.67% log high-low range against an essentially flat -0.41%
+close-to-close move gives a Parkinson single-day annualized-vol
+contribution of 139.8% vs. a close-to-close contribution of only 6.6%, a
+~21x divergence). Holdout not opened.
+
+| # | Idea | Category | Key source |
+|---|---|---|---|
+| 40 | Realized-kurtosis (fat-tail) sizing: reduce buy size when an asset's own trailing daily-return excess kurtosis (a rolling sample fourth standardized moment, over the same style of trailing window as family 023's realized-skewness family) is elevated in its own trailing percentile (a "fat-tailed / crash-prone" regime signal -- returns are drawing from a distribution more prone to extreme outliers than a normal reference, independent of whether those tails are one-sided), increase or hold normal size when kurtosis is depressed (a "thin-tailed / calmer" regime). A genuinely different statistic from every prior distributional-shape family in this loop: family 023's realized SKEWNESS (the third moment) measures the ASYMMETRY of the return distribution (are down-moves or up-moves more extreme), while kurtosis (the fourth moment) measures TAIL THICKNESS regardless of direction -- a symmetric fat-tailed distribution (heavy on both sides) has high kurtosis but zero skew, and a lopsided-but-thin-tailed distribution can have strong skew but ordinary kurtosis; neither moment can be recovered from the other, and this is also distinct from family 003 (the second moment, variance/vol, alone) and family 031 (a mean/variance ratio, no higher-moment component at all). Price-only signal (daily Close, trailing rolling sample excess kurtosis of log returns), no external data dependency, testable identically on all 5 core assets. | Volatility targeting | Bali, T.G., Cakici, N. and Whitelaw, R.F. (2011), "Maxing Out: Stocks as Lotteries and the Cross-Section of Expected Returns," *Journal of Financial Economics* 99(2), 427-446 (extreme-return/tail-risk pricing literature); Kraus, A. and Litzenberger, R.H. (1976), "Skewness Preference and the Valuation of Risk Assets," *Journal of Finance* 31(4), 1085-1100 (the co-moment-pricing literature kurtosis-aware sizing draws on) |
 
 Idea #34 (52-week-low proximity contrarian tilt) has been taken from the
 queue and used for family `034-52wk-low-tilt`; see
